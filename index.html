@@ -124,44 +124,6 @@
   }
   .hero-dates span{color:var(--gold-soft);}
 
-  /* ---------- VIDIPRINTER TICKER ---------- */
-  .vidiprinter{
-    margin-top:36px;
-    border:1px solid #0a1220;
-    background:#050a12;
-    border-radius:4px;
-    overflow:hidden;
-    box-shadow:inset 0 0 40px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.35);
-  }
-  .vidi-head{
-    display:flex;align-items:center;gap:10px;
-    padding:9px 14px;
-    background:#0a1220;
-    font-family:var(--font-mono);
-    font-size:0.68rem;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:#5fbf6e;
-    border-bottom:1px solid rgba(95,191,110,0.18);
-  }
-  .dot{width:7px;height:7px;border-radius:50%;background:#e0473c;box-shadow:0 0 6px #e0473c;animation:blink 1.4s infinite;}
-  @keyframes blink{0%,55%{opacity:1;}56%,100%{opacity:0.25;}}
-  .vidi-track-wrap{position:relative;padding:14px 0;overflow:hidden;white-space:nowrap;}
-  .vidi-track{
-    display:inline-block;
-    font-family:var(--font-mono);
-    font-size:0.92rem;
-    color:#6fe07f;
-    text-shadow:0 0 6px rgba(111,224,127,0.45);
-    padding-left:100%;
-    animation:scroll-left 42s linear infinite;
-  }
-  .vidi-track span.sep{color:#2c6b34;margin:0 22px;}
-  @keyframes scroll-left{from{transform:translateX(0);}to{transform:translateX(-100%);}}
-  @media (prefers-reduced-motion: reduce){
-    .vidi-track{animation:none;padding-left:0;}
-    .dot{animation:none;}
-  }
 
   /* ---------- SECTION HEADERS ---------- */
   section{padding:64px 0;}
@@ -611,13 +573,6 @@
     <h1 class="title">Zes niveaus,<br><em>één weekend</em></h1>
     <p class="hero-sub">Elke club uit de Londense regio, van de Emirates tot de National League South, uitgestippeld voor een weekend op de tribune.</p>
     <div class="hero-dates" id="heroDates"></div>
-
-    <div class="vidiprinter">
-      <div class="vidi-head"><span class="dot"></span> LIVE UITSLAGENDIENST — THUISWEDSTRIJDEN DIT WEEKEND</div>
-      <div class="vidi-track-wrap">
-        <div class="vidi-track" id="vidiTrack"></div>
-      </div>
-    </div>
   </header>
 
   <section id="prep">
@@ -910,7 +865,6 @@ const DEFAULT_PLACES = {
 const heroDates = document.getElementById('heroDates');
 const fixturesWrap = document.getElementById('fixturesWrap');
 const tbcWrap = document.getElementById('tbcWrap');
-const vidiTrack = document.getElementById('vidiTrack');
 
 function countHome(weekend){
   return weekend.fixtures.reduce((n,g)=>n+g.items.length,0);
@@ -958,16 +912,6 @@ function renderWeekend(key){
 
   // tbc note
   tbcWrap.innerHTML = w.tbc ? `<div class="tbc"><strong>Nog te bevestigen:</strong> ${w.tbc}</div>` : '';
-
-  // vidiprinter ticker
-  const tickerParts = [];
-  w.fixtures.forEach(group=>{
-    group.items.forEach(f=>{
-      tickerParts.push(`${f.home.toUpperCase()} v ${f.away.toUpperCase()} — ${f.time}`);
-    });
-  });
-  const tickerText = tickerParts.join('  <span class="sep">&bull;</span>  ');
-  vidiTrack.innerHTML = tickerText + '  <span class="sep">&bull;</span>  ' + tickerText;
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
