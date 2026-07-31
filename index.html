@@ -510,6 +510,8 @@
     font-size:0.95rem;
   }
   .info-list li::before{content:"⚠";flex-shrink:0;color:var(--gold-soft);}
+  .info-list a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:2px;}
+  .info-list a:hover{color:var(--parchment);}
 
 
   @media (max-width:640px){
@@ -812,7 +814,7 @@ const DEFAULT_PLACES = {
     ],
     info: [
       "Zorg dat je een geldig paspoort hebt",
-      "Vraag een ETA aan (£20)"
+      "Vraag een <a href=\"https://www.gov.uk/eta\" target=\"_blank\" rel=\"noopener noreferrer\">ETA</a> aan (£20)"
     ]
   }
 };
@@ -870,7 +872,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v13';
+const STORAGE_KEY = 'trip-data-v14';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
