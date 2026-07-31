@@ -787,8 +787,8 @@ const DEFAULT_PLACES = {
     {name:"Appartement in Groot-Londen", lat:51.5761904, lng:-0.2047865, note:"4,95★ — Golders Green Road, nieuwbouw, 8 bedden / 3 slaapkamers — €1.316 totaal (9–12 okt, 8 gasten)"},
     {name:"Ruime woning met 6 slaapkamers in Wembley", lat:51.5528, lng:-0.2818, note:"Geweldig voor gezinnen · bij Mayfields — €2.207 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1656463918881128190"},
     {name:"Verblijf voor grote groepen in Harrow", lat:51.5754, lng:-0.3611, note:"Bij Kingsfield Avenue — €2.290 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1450167767008510575"},
-    {name:"Modern Fitzrovia — 2 slaapkamers, 2 badkamers", lat:51.5195, lng:-0.1349, note:"Bij Scala Street — €1.738 totaal (let op: prijs voor 8–12 okt, 4 nachten — check de prijs voor 9–12 okt)", url:"https://www.airbnb.nl/rooms/1462328020551519248"},
-    {name:"Licht en charmant 4BD familiehaven in Kennington", lat:51.4931, lng:-0.1132, note:"Bij Lollard Street — €1.350 totaal (let op: prijs voor 8–12 okt, 4 nachten — check de prijs voor 9–12 okt)", url:"https://www.airbnb.nl/rooms/1350607108378665222"}
+    {name:"Modern Fitzrovia — 2 slaapkamers, 2 badkamers", lat:51.5195, lng:-0.1349, note:"Bij Scala Street — €1.738 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1462328020551519248"},
+    {name:"Licht en charmant 4BD familiehaven in Kennington", lat:51.4931, lng:-0.1132, note:"Bij Lollard Street — €1.350 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1350607108378665222"}
   ],
   landmarks: [
     {name:"Bermondsey Beer Mile", lat:51.4978, lng:-0.0723}
@@ -870,7 +870,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v12';
+const STORAGE_KEY = 'trip-data-v13';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
