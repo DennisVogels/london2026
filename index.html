@@ -503,50 +503,6 @@
   }
   .info-list li::before{content:"⚠";flex-shrink:0;color:var(--gold-soft);}
 
-  /* ---------- EDITOR ---------- */
-  .editor-block{padding:30px 0 0;border-top:1px solid var(--line);}
-  .editor-open{
-    font-family:var(--font-mono);
-    font-size:0.72rem;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    background:transparent;
-    color:var(--muted);
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:8px 16px;
-    cursor:pointer;
-  }
-  .editor-open:hover{color:var(--gold-soft);border-color:var(--line-strong);}
-  .editor-panel{display:none;margin-top:16px;}
-  .editor-hint{font-size:0.8rem;color:var(--muted);max-width:60ch;margin:0 0 10px;}
-  .editor-panel textarea{
-    width:100%;
-    height:220px;
-    background:#050a12;
-    color:#c9d6f0;
-    border:1px solid var(--line);
-    border-radius:8px;
-    font-family:var(--font-mono);
-    font-size:0.78rem;
-    padding:12px;
-    resize:vertical;
-  }
-  .editor-actions{display:flex;align-items:center;gap:10px;margin-top:10px;}
-  .editor-actions button{
-    font-family:var(--font-mono);
-    font-size:0.74rem;
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-    border-radius:20px;
-    padding:8px 16px;
-    cursor:pointer;
-    border:1px solid var(--line);
-    background:transparent;
-    color:var(--parchment);
-  }
-  #saveBtn{background:var(--gold);color:var(--parchment);border-color:var(--gold);font-weight:600;}
-  #editorStatus{font-size:0.76rem;color:var(--muted);}
 
   @media (max-width:640px){
     .tier-header{grid-template-columns:70px 1fr auto;gap:12px;}
@@ -641,19 +597,6 @@
     <p class="flight-note">West Ham-tickets voor de vrijdagavond-derby tegen QPR zouden nog beschikbaar moeten zijn — reken op zo'n <strong style="color:var(--parchment)">£35pp</strong>.</p>
     <div id="flightOptions"></div>
   </section>
-
-  <div class="editor-block">
-    <button type="button" id="editBtn" class="editor-open">✎ Gegevens bewerken</button>
-    <div class="editor-panel" id="editorPanel">
-      <p class="editor-hint">Deze pagina haalt wedstrijden, verblijven en bezienswaardigheden uit de gedeelde opslag van dit artifact — iedereen met de link ziet dezelfde gegevens. Plak hieronder bijgewerkte JSON (vraag Claude erom) en sla op; opnieuw publiceren is niet nodig.</p>
-      <textarea id="editorText" spellcheck="false"></textarea>
-      <div class="editor-actions">
-        <button type="button" id="saveBtn">Wijzigingen opslaan</button>
-        <button type="button" id="cancelBtn">Annuleren</button>
-        <span id="editorStatus"></span>
-      </div>
-    </div>
-  </div>
 
   <footer>
     Wedstrijden verzameld uit club- en bondsbronnen, juli 2026 &middot; clubkleuren zijn bij benadering, geen officiële logo's gebruikt &middot; verblijven uit je Airbnb-wenslijst screenshot, prijzen/beoordelingen kunnen inmiddels zijn gewijzigd &middot; check officiële kanalen van de club voor vertrek
@@ -1079,36 +1022,6 @@ function initScrollspy(){
   }, {rootMargin: '-40% 0px -55% 0px', threshold: 0});
   sections.forEach(sec => observer.observe(sec));
 }
-
-// ---- Lightweight in-page editor (writes to shared storage) ----
-const editBtn = document.getElementById('editBtn');
-const editorPanel = document.getElementById('editorPanel');
-const editorText = document.getElementById('editorText');
-const saveBtn = document.getElementById('saveBtn');
-const cancelBtn = document.getElementById('cancelBtn');
-const editorStatus = document.getElementById('editorStatus');
-
-editBtn.addEventListener('click', ()=>{
-  editorText.value = JSON.stringify(ACTIVE_DATA, null, 2);
-  editorStatus.textContent = '';
-  editorPanel.style.display = editorPanel.style.display === 'block' ? 'none' : 'block';
-});
-cancelBtn.addEventListener('click', ()=>{ editorPanel.style.display = 'none'; });
-saveBtn.addEventListener('click', async ()=>{
-  try{
-    const parsed = JSON.parse(editorText.value);
-    await window.storage.set(STORAGE_KEY, JSON.stringify(parsed), true);
-    ACTIVE_DATA = parsed;
-    renderWeekend(currentWeekend);
-    try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
-    renderStayCards();
-    renderFlightOptions();
-    renderPrep();
-    editorStatus.textContent = 'Opgeslagen — deze link toont nu de update voor iedereen.';
-  }catch(e){
-    editorStatus.textContent = 'Kon niet opslaan: ' + e.message;
-  }
-});
 
 init();
 </script>
