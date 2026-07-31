@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Six Tiers, One Weekend — London Football, Oct &amp; Nov 2026</title>
+<title>Zes niveaus, één weekend — Voetbal in Londen, okt &amp; nov 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   :root{
-    --ink:#0d1a30;
-    --ink-2:#132548;
-    --ink-3:#1a2f57;
+    --ink:#f5f0e3;
+    --ink-2:#ffffff;
+    --ink-3:#fbf7ec;
     --gold:#c9a227;
-    --gold-soft:#e6c665;
-    --parchment:#ede4d3;
-    --muted:#93a0c0;
+    --gold-soft:#8a6a15;
+    --parchment:#182338;
+    --muted:#5b6478;
     --pitch:#2f6b3c;
-    --line:rgba(237,228,211,0.14);
-    --line-strong:rgba(201,162,39,0.35);
+    --line:rgba(24,35,56,0.12);
+    --line-strong:rgba(184,134,11,0.4);
     --font-display:'Oswald',sans-serif;
     --font-body:'IBM Plex Sans',sans-serif;
     --font-mono:'IBM Plex Mono',monospace;
@@ -39,14 +39,14 @@
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit;}
-  ::selection{background:var(--gold);color:var(--ink);}
+  ::selection{background:var(--gold);color:var(--parchment);}
 
   .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
 
   /* ---------- TOP NAV ---------- */
   .topnav{
     position:sticky;top:0;z-index:100;
-    background:rgba(13,26,48,0.88);
+    background:rgba(255,255,255,0.85);
     backdrop-filter:blur(10px);
     -webkit-backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
@@ -81,7 +81,7 @@
     transition:color .15s ease, background .15s ease;
   }
   .navwrap a:hover{color:var(--parchment);}
-  .navwrap a.active{color:var(--ink);background:var(--gold-soft);}
+  .navwrap a.active{color:#ffffff;background:var(--gold-soft);}
 
   /* ---------- HERO ---------- */
   header.hero{padding:64px 0 40px;border-bottom:1px solid var(--line);}
@@ -277,7 +277,7 @@
   .fcard .ribbon{
     position:absolute;top:-10px;right:16px;
     background:var(--gold);
-    color:var(--ink);
+    color:var(--parchment);
     font-family:var(--font-mono);
     font-size:0.6rem;
     letter-spacing:0.1em;
@@ -371,7 +371,7 @@
     width:100%;height:480px;
     border-radius:12px;
     border:1px solid var(--line);
-    filter:saturate(0.35) brightness(0.92) contrast(1.05);
+    filter:saturate(0.55) brightness(1.03) contrast(0.96);
   }
   .leaflet-popup-content-wrapper{
     background:var(--ink-2);color:var(--parchment);
@@ -408,7 +408,7 @@
     display:inline-flex;align-items:center;gap:8px;
     margin-top:20px;
     background:var(--gold);
-    color:var(--ink);
+    color:var(--parchment);
     font-family:var(--font-mono);
     font-size:0.8rem;
     font-weight:600;
@@ -448,7 +448,7 @@
   .flight-card .ribbon{
     position:absolute;top:-10px;right:16px;
     background:var(--gold);
-    color:var(--ink);
+    color:var(--parchment);
     font-family:var(--font-mono);
     font-size:0.6rem;
     letter-spacing:0.1em;
@@ -484,6 +484,62 @@
   .flight-note{
     font-size:0.86rem;color:var(--muted);max-width:60ch;margin:0 0 24px;
   }
+
+  /* ---------- PREP: TO-DO + INFO ---------- */
+  .prep-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:20px;
+  }
+  @media (max-width:800px){
+    .prep-grid{grid-template-columns:1fr;}
+  }
+  .todo-box{
+    background:linear-gradient(160deg, var(--ink-3), var(--ink-2));
+    border:2px solid var(--line-strong);
+    border-radius:16px;
+    padding:26px 28px;
+  }
+  .todo-box .box-title{
+    font-family:var(--font-display);
+    text-transform:uppercase;
+    font-size:1.3rem;
+    letter-spacing:-0.01em;
+    margin:0 0 18px;
+  }
+  .todo-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .todo-item{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    cursor:pointer;
+    font-size:1rem;
+  }
+  .todo-item input{width:19px;height:19px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
+  .todo-item span{flex:1;}
+  .todo-item.done span{text-decoration:line-through;color:var(--muted);}
+  .info-box{
+    background:rgba(184,134,11,0.06);
+    border:1px dashed var(--line-strong);
+    border-radius:16px;
+    padding:26px 28px;
+  }
+  .info-box .box-title{
+    font-family:var(--font-display);
+    text-transform:uppercase;
+    font-size:1.3rem;
+    letter-spacing:-0.01em;
+    margin:0 0 18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .info-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .info-list li{
+    display:flex;align-items:flex-start;gap:10px;
+    font-size:0.95rem;
+  }
+  .info-list li::before{content:"⚠";flex-shrink:0;color:var(--gold-soft);}
 
   /* ---------- EDITOR ---------- */
   .editor-block{padding:30px 0 0;border-top:1px solid var(--line);}
@@ -527,7 +583,7 @@
     background:transparent;
     color:var(--parchment);
   }
-  #saveBtn{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:600;}
+  #saveBtn{background:var(--gold);color:var(--parchment);border-color:var(--gold);font-weight:600;}
   #editorStatus{font-size:0.76rem;color:var(--muted);}
 
   @media (max-width:640px){
@@ -540,43 +596,62 @@
 
 <nav class="topnav">
   <div class="wrap navwrap">
-    <span class="brand">London 2026</span>
-    <a href="#pyramid">Pyramid</a>
-    <a href="#fixtures">Fixtures</a>
-    <a href="#mapSection">Map &amp; stays</a>
-    <a href="#flights">Flights &amp; tickets</a>
+    <span class="brand">Londen 2026</span>
+    <a href="#prep">Voorbereiding</a>
+    <a href="#pyramid">Piramide</a>
+    <a href="#fixtures">Wedstrijden</a>
+    <a href="#mapSection">Kaart &amp; verblijf</a>
+    <a href="#flights">Vluchten &amp; tickets</a>
   </div>
 </nav>
 
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">Matchday guide · London &amp; the home counties</div>
-    <h1 class="title">Six tiers,<br><em>one weekend</em></h1>
-    <p class="hero-sub">Every London-area club from the Emirates down to the National League South, mapped out for the weekend on the ground.</p>
+    <div class="eyebrow">Wedstrijddaggids · Londen &amp; omstreken</div>
+    <h1 class="title">Zes niveaus,<br><em>één weekend</em></h1>
+    <p class="hero-sub">Elke club uit de Londense regio, van de Emirates tot de National League South, uitgestippeld voor een weekend op de tribune.</p>
     <div class="hero-dates" id="heroDates"></div>
 
     <div class="vidiprinter">
-      <div class="vidi-head"><span class="dot"></span> LIVE VIDIPRINTER — WEEKEND HOME FIXTURES</div>
+      <div class="vidi-head"><span class="dot"></span> LIVE UITSLAGENDIENST — THUISWEDSTRIJDEN DIT WEEKEND</div>
       <div class="vidi-track-wrap">
         <div class="vidi-track" id="vidiTrack"></div>
       </div>
     </div>
   </header>
 
+  <section id="prep">
+    <div class="sec-head">
+      <div class="eyebrow">Voordat je gaat</div>
+      <h2>Nog te regelen</h2>
+      <p>De belangrijkste stappen om de trip rond te krijgen, en wat je zeker moet checken voordat je instapt.</p>
+    </div>
+    <div class="prep-grid">
+      <div class="todo-box">
+        <div class="box-title">✅ Grote to-do lijst</div>
+        <ul class="todo-list" id="todoList"></ul>
+      </div>
+      <div class="info-box">
+        <div class="box-title">📋 Belangrijk om te weten</div>
+        <ul class="info-list" id="infoList"></ul>
+      </div>
+    </div>
+  </section>
+
   <section id="pyramid">
     <div class="sec-head">
-      <div class="eyebrow">The pyramid</div>
-      <h2>Tier 1 → Tier 6</h2>
-      <p>The English football pyramid, filtered down to the clubs playing in or near London this season.</p>
+      <div class="eyebrow">De piramide</div>
+      <h2>Niveau 1 → Niveau 6</h2>
+      <p>De Engelse voetbalpiramide, gefilterd op de clubs die dit seizoen in of rond Londen spelen.</p>
     </div>
     <div id="pyramidRows"></div>
   </section>
 
   <section id="fixtures">
     <div class="sec-head">
-      <div class="eyebrow">Kick-offs, Friday to Monday</div>
-      <h2>Home fixtures this weekend</h2>
-      <p>Every London-area club with a home game across the four days — including West Ham, already on your shortlist.</p>
+      <div class="eyebrow">Aftrap, vrijdag tot maandag</div>
+      <h2>Thuiswedstrijden dit weekend</h2>
+      <p>Elke club uit de Londense regio met een thuiswedstrijd over de vier dagen — inclusief West Ham, al op je shortlist.</p>
     </div>
     <div id="fixturesWrap"></div>
 
@@ -586,47 +661,47 @@
 
   <section id="mapSection">
     <div class="sec-head">
-      <div class="eyebrow">Grounds, stays &amp; sights</div>
-      <h2>The map</h2>
-      <p>All 20 grounds, your shortlisted places to stay, and any landmarks worth building a day around. Toggle layers, click a pin for details.</p>
+      <div class="eyebrow">Stadions, verblijf &amp; bezienswaardigheden</div>
+      <h2>De kaart</h2>
+      <p>Alle 20 stadions, je shortlist met verblijven en bezienswaardigheden om een dag rond te plannen. Zet lagen aan/uit, klik op een pin voor details.</p>
     </div>
 
     <div class="map-legend">
-      <label><input type="checkbox" id="lyrGrounds" checked> <span class="dot" style="background:var(--gold)"></span> Grounds</label>
-      <label><input type="checkbox" id="lyrStays" checked> <span class="dot" style="background:#5fbf6e"></span> Places to stay</label>
-      <label><input type="checkbox" id="lyrLandmarks" checked> <span class="dot" style="background:#6fa8dc"></span> Landmarks</label>
+      <label><input type="checkbox" id="lyrGrounds" checked> <span class="dot" style="background:var(--gold)"></span> Stadions</label>
+      <label><input type="checkbox" id="lyrStays" checked> <span class="dot" style="background:#5fbf6e"></span> Verblijf</label>
+      <label><input type="checkbox" id="lyrLandmarks" checked> <span class="dot" style="background:#6fa8dc"></span> Bezienswaardigheden</label>
     </div>
     <div id="map"></div>
 
     <div class="stay-grid" id="stayGrid"></div>
-    <a class="wishlist-cta" href="https://www.airbnb.nl/wishlists/invite/cc875b76-2e3a-404c-9b83-5ab8e730e272?s=67&amp;unique_share_id=59d5ce6e-787a-4f7f-b993-b5a67e21db74" target="_blank" rel="noopener noreferrer">View full Airbnb wishlist ↗</a>
+    <a class="wishlist-cta" href="https://www.airbnb.nl/wishlists/invite/cc875b76-2e3a-404c-9b83-5ab8e730e272?s=67&amp;unique_share_id=59d5ce6e-787a-4f7f-b993-b5a67e21db74" target="_blank" rel="noopener noreferrer">Bekijk volledige Airbnb-wenslijst ↗</a>
   </section>
 
   <section id="flights">
     <div class="sec-head">
-      <div class="eyebrow">Getting there</div>
-      <h2>Flights &amp; match tickets</h2>
-      <p>Ryanair direct, Eindhoven ↔ Stansted, priced for 8 passengers. Outbound Thursday evening beats Friday afternoon on price — pick your trade-off between an extra evening and the cheaper fare.</p>
+      <div class="eyebrow">Erheen reizen</div>
+      <h2>Vluchten &amp; wedstrijdtickets</h2>
+      <p>Ryanair direct, Eindhoven ↔ Stansted, geprijsd voor 8 passagiers. Donderdagavond vertrekken is goedkoper dan vrijdagmiddag — kies zelf de afweging tussen een avond extra en de goedkopere prijs.</p>
     </div>
-    <p class="flight-note">West Ham tickets for the Friday night derby vs QPR should still be available — budget around <strong style="color:var(--parchment)">£35pp</strong>.</p>
+    <p class="flight-note">West Ham-tickets voor de vrijdagavond-derby tegen QPR zouden nog beschikbaar moeten zijn — reken op zo'n <strong style="color:var(--parchment)">£35pp</strong>.</p>
     <div id="flightOptions"></div>
   </section>
 
   <div class="editor-block">
-    <button type="button" id="editBtn" class="editor-open">✎ Edit data</button>
+    <button type="button" id="editBtn" class="editor-open">✎ Gegevens bewerken</button>
     <div class="editor-panel" id="editorPanel">
-      <p class="editor-hint">This page reads its fixtures, stays and landmarks from the artifact's shared storage — anyone who opens this link sees the same data. Paste updated JSON below (ask Claude for it) and save; no republishing needed.</p>
+      <p class="editor-hint">Deze pagina haalt wedstrijden, verblijven en bezienswaardigheden uit de gedeelde opslag van dit artifact — iedereen met de link ziet dezelfde gegevens. Plak hieronder bijgewerkte JSON (vraag Claude erom) en sla op; opnieuw publiceren is niet nodig.</p>
       <textarea id="editorText" spellcheck="false"></textarea>
       <div class="editor-actions">
-        <button type="button" id="saveBtn">Save changes</button>
-        <button type="button" id="cancelBtn">Cancel</button>
+        <button type="button" id="saveBtn">Wijzigingen opslaan</button>
+        <button type="button" id="cancelBtn">Annuleren</button>
         <span id="editorStatus"></span>
       </div>
     </div>
   </div>
 
   <footer>
-    Fixtures gathered from club and league sources, July 2026 &middot; club colours are approximate, no official crests used &middot; stays from your Airbnb wishlist screenshot, prices/ratings may have changed since &middot; check official club channels before travelling
+    Wedstrijden verzameld uit club- en bondsbronnen, juli 2026 &middot; clubkleuren zijn bij benadering, geen officiële logo's gebruikt &middot; verblijven uit je Airbnb-wenslijst screenshot, prijzen/beoordelingen kunnen inmiddels zijn gewijzigd &middot; check officiële kanalen van de club voor vertrek
   </footer>
 </div>
 
@@ -737,13 +812,13 @@ function findClub(name){ return CLUBS.find(c=>c.name===name); }
 
 const DEFAULT_WEEKENDS = {
   oct: {
-    dates: ["FRI 9 —", "MON 12 OCT 2026"],
+    dates: ["VRIJ 9 —", "MAA 12 OKT 2026"],
     fixtures: [
-      {day:"Friday 9 October", items:[
+      {day:"Vrijdag 9 oktober", items:[
         {home:"Sutton United", away:"Boreham Wood", time:"19:45", tier:5, starred:false},
-        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"On your shortlist · London derby", tickets:"Available · ~£35pp"},
+        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"Op je shortlist · Londense derby", tickets:"Beschikbaar · ~£35pp"},
       ]},
-      {day:"Saturday 10 October", items:[
+      {day:"Zaterdag 10 oktober", items:[
         {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, starred:false},
         {home:"Arsenal", away:"Leeds United", time:"15:00", tier:1, starred:false},
         {home:"Chelsea", away:"AFC Bournemouth", time:"15:00", tier:1, starred:false},
@@ -751,46 +826,46 @@ const DEFAULT_WEEKENDS = {
         {home:"Watford", away:"Burnley", time:"15:00", tier:2, starred:false},
         {home:"Wealdstone", away:"Yeovil Town", time:"15:00", tier:5, starred:false},
         {home:"Hornchurch", away:"Eastleigh", time:"15:00", tier:5, starred:false},
-        {home:"Dagenham & Redbridge", away:"Hemel Hempstead Town", time:"15:00", tier:6, starred:true, ribbon:"Andy Carroll's on the pitch"},
+        {home:"Dagenham & Redbridge", away:"Hemel Hempstead Town", time:"15:00", tier:6, starred:true, ribbon:"Andy Carroll staat op het veld"},
         {home:"Hampton & Richmond Borough", away:"Ebbsfleet United", time:"15:00", tier:6, starred:false},
       ]}
     ],
     away: [
-      {who:"Tottenham Hotspur", where:"at Manchester United"},
-      {who:"Fulham", where:"at Ipswich Town"},
-      {who:"Brentford", where:"at Aston Villa"},
-      {who:"Millwall", where:"at Preston North End"},
-      {who:"Leyton Orient", where:"at Bradford City"},
-      {who:"Bromley", where:"at Mansfield Town"},
-      {who:"Barnet", where:"at Fleetwood Town"},
-      {who:"AFC Wimbledon", where:"at Plymouth Argyle"},
+      {who:"Tottenham Hotspur", where:"uit bij Manchester United"},
+      {who:"Fulham", where:"uit bij Ipswich Town"},
+      {who:"Brentford", where:"uit bij Aston Villa"},
+      {who:"Millwall", where:"uit bij Preston North End"},
+      {who:"Leyton Orient", where:"uit bij Bradford City"},
+      {who:"Bromley", where:"uit bij Mansfield Town"},
+      {who:"Barnet", where:"uit bij Fleetwood Town"},
+      {who:"AFC Wimbledon", where:"uit bij Plymouth Argyle"},
     ],
     tbc: null
   },
   nov: {
-    dates: ["FRI 20 —", "MON 23 NOV 2026"],
+    dates: ["VRIJ 20 —", "MAA 23 NOV 2026"],
     fixtures: [
-      {day:"Saturday 21 November", items:[
+      {day:"Zaterdag 21 november", items:[
         {home:"Chelsea", away:"Leeds United", time:"15:00", tier:1, starred:false},
         {home:"Tottenham Hotspur", away:"Ipswich Town", time:"15:00", tier:1, starred:false},
         {home:"Brentford", away:"Everton", time:"15:00", tier:1, starred:false},
-        {home:"West Ham United", away:"Preston North End", time:"15:00", tier:2, starred:true, ribbon:"On your shortlist"},
-        {home:"Millwall", away:"Queens Park Rangers", time:"15:00", tier:2, starred:true, ribbon:"London derby"},
-        {home:"Leyton Orient", away:"AFC Wimbledon", time:"15:00", tier:3, starred:true, ribbon:"London derby"},
+        {home:"West Ham United", away:"Preston North End", time:"15:00", tier:2, starred:true, ribbon:"Op je shortlist"},
+        {home:"Millwall", away:"Queens Park Rangers", time:"15:00", tier:2, starred:true, ribbon:"Londense derby"},
+        {home:"Leyton Orient", away:"AFC Wimbledon", time:"15:00", tier:3, starred:true, ribbon:"Londense derby"},
         {home:"Barnet", away:"Port Vale", time:"15:00", tier:4, starred:false},
         {home:"Sutton United", away:"Boston United", time:"15:00", tier:5, starred:false},
-        {home:"Wealdstone", away:"Hornchurch", time:"15:00", tier:5, starred:true, ribbon:"National League derby"},
+        {home:"Wealdstone", away:"Hornchurch", time:"15:00", tier:5, starred:true, ribbon:"National League-derby"},
       ]}
     ],
     away: [
-      {who:"Arsenal", where:"at Newcastle United"},
-      {who:"Crystal Palace", where:"at Coventry City"},
-      {who:"Fulham", where:"at Manchester City"},
-      {who:"Charlton Athletic", where:"at Wolverhampton Wanderers"},
-      {who:"Watford", where:"at Sheffield United"},
-      {who:"Bromley", where:"at Reading"},
-      {who:"Dagenham & Redbridge", where:"away"},
-      {who:"Hampton & Richmond Borough", where:"away"},
+      {who:"Arsenal", where:"uit bij Newcastle United"},
+      {who:"Crystal Palace", where:"uit bij Coventry City"},
+      {who:"Fulham", where:"uit bij Manchester City"},
+      {who:"Charlton Athletic", where:"uit bij Wolverhampton Wanderers"},
+      {who:"Watford", where:"uit bij Sheffield United"},
+      {who:"Bromley", where:"uit bij Reading"},
+      {who:"Dagenham & Redbridge", where:"uit"},
+      {who:"Hampton & Richmond Borough", where:"uit"},
     ],
     tbc: null
   }
@@ -798,9 +873,9 @@ const DEFAULT_WEEKENDS = {
 
 const DEFAULT_PLACES = {
   stays: [
-    {name:"Woning in Dulwich", lat:51.4478299, lng:-0.0637729, note:"4.95★ — Underhill Road, terraced house, huge garden, 6 beds / 5 bedrooms — €1,547 total (9–12 Oct, 8 guests)"},
-    {name:"Appartement in Notting Hill (Kensington & Chelsea)", lat:51.5141639, lng:-0.2127535, note:"4.92★ — near Dulford Street, 7 beds / 3 bedrooms — €2,152 total (9–12 Oct, 8 guests)"},
-    {name:"Appartement in Groot-Londen", lat:51.5761904, lng:-0.2047865, note:"4.95★ — Golders Green Road, new build, 8 beds / 3 bedrooms — €1,316 total (9–12 Oct, 8 guests)"}
+    {name:"Woning in Dulwich", lat:51.4478299, lng:-0.0637729, note:"4,95★ — Underhill Road, rijtjeshuis, grote tuin, 6 bedden / 5 slaapkamers — €1.547 totaal (9–12 okt, 8 gasten)"},
+    {name:"Appartement in Notting Hill (Kensington & Chelsea)", lat:51.5141639, lng:-0.2127535, note:"4,92★ — bij Dulford Street, 7 bedden / 3 slaapkamers — €2.152 totaal (9–12 okt, 8 gasten)"},
+    {name:"Appartement in Groot-Londen", lat:51.5761904, lng:-0.2047865, note:"4,95★ — Golders Green Road, nieuwbouw, 8 bedden / 3 slaapkamers — €1.316 totaal (9–12 okt, 8 gasten)"}
   ],
   landmarks: [
     {name:"Bermondsey Beer Mile", lat:51.4978, lng:-0.0723}
@@ -809,12 +884,22 @@ const DEFAULT_PLACES = {
     airline: "Ryanair",
     passengers: 8,
     combos: [
-      {day:"Thursday 8 October", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1h05"}, pricePerPerson:"€224", totalPrice:"€1,789"},
-      {day:"Thursday 8 October", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1h05"}, pricePerPerson:"€220", totalPrice:"€1,755"},
-      {day:"Friday 9 October", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1h05"}, pricePerPerson:"€92", totalPrice:"€735"},
-      {day:"Friday 9 October", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1h05"}, pricePerPerson:"€89", totalPrice:"€706"},
-      {day:"Friday 9 October", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1h05"}, pricePerPerson:"€86", totalPrice:"€683"},
-      {day:"Friday 9 October", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1h05"}, pricePerPerson:"€82", totalPrice:"€654"}
+      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€92", totalPrice:"€735"},
+      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€89", totalPrice:"€706"},
+      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€86", totalPrice:"€683"},
+      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€82", totalPrice:"€654"},
+      {day:"Vrijdag 9 oktober", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€224", totalPrice:"€1.789"},
+      {day:"Vrijdag 9 oktober", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€220", totalPrice:"€1.755"}
+    ]
+  },
+  prep: {
+    todos: [
+      {text:"Vlucht + datum kiezen", done:false},
+      {text:"Airbnb vinden", done:false}
+    ],
+    info: [
+      "Zorg dat je een geldig paspoort hebt",
+      "Vraag een ETA aan (£20)"
     ]
   }
 };
@@ -832,7 +917,7 @@ function renderWeekend(key){
   const w = ACTIVE_DATA.weekends[key];
 
   // hero stats
-  heroDates.innerHTML = `<span>${w.dates[0]}</span> <span>${w.dates[1]}</span> <span>${countHome(w)} CONFIRMED HOME</span> <span>6 TIERS</span>`;
+  heroDates.innerHTML = `<span>${w.dates[0]}</span> <span>${w.dates[1]}</span> <span>${countHome(w)} BEVESTIGDE THUISWEDSTRIJDEN</span> <span>6 NIVEAUS</span>`;
 
   // fixtures
   fixturesWrap.innerHTML = '';
@@ -859,7 +944,7 @@ function renderWeekend(key){
             <div class="away">v ${away.name || f.away}</div>
           </div>
         </div>
-        <div class="kickoff"><span>${f.time} kick-off</span><span class="ground">${home.ground}</span></div>
+        <div class="kickoff"><span>${f.time} aftrap</span><span class="ground">${home.ground}</span></div>
         ${f.tickets ? `<div class="tickets">🎟 ${f.tickets}</div>` : ''}
       `;
       grid.appendChild(card);
@@ -868,7 +953,7 @@ function renderWeekend(key){
   });
 
   // tbc note
-  tbcWrap.innerHTML = w.tbc ? `<div class="tbc"><strong>Still to confirm:</strong> ${w.tbc}</div>` : '';
+  tbcWrap.innerHTML = w.tbc ? `<div class="tbc"><strong>Nog te bevestigen:</strong> ${w.tbc}</div>` : '';
 
   // vidiprinter ticker
   const tickerParts = [];
@@ -882,7 +967,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v7';
+const STORAGE_KEY = 'trip-data-v8';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
@@ -974,17 +1059,43 @@ function renderFlightOptions(){
           const isCheapest = parseFloat(c.pricePerPerson.replace(/[^\d.]/g,'')) === cheapestPrice;
           return `
             <div class="flight-card${isCheapest ? ' cheapest' : ''}">
-              ${isCheapest ? '<div class="ribbon">Cheapest</div>' : ''}
+              ${isCheapest ? '<div class="ribbon">Goedkoopste</div>' : ''}
               <div class="flight-title">${f.airline} · direct</div>
               ${leg(c.outbound)}
               ${leg(c.inbound)}
-              <div class="flight-price"><span>${f.passengers} passengers</span><span><b>${c.pricePerPerson}</b> pp · ${c.totalPrice} total</span></div>
+              <div class="flight-price"><span>${f.passengers} passagiers</span><span><b>${c.pricePerPerson}</b> pp · ${c.totalPrice} totaal</span></div>
             </div>
           `;
         }).join('')}
       </div>
     `;
   }).join('');
+}
+
+function renderPrep(){
+  const prep = ACTIVE_DATA.places.prep;
+  const todoList = document.getElementById('todoList');
+  const infoList = document.getElementById('infoList');
+  if(!prep){ todoList.innerHTML = ''; infoList.innerHTML = ''; return; }
+
+  todoList.innerHTML = (prep.todos||[]).map((t,i)=>`
+    <li class="todo-item${t.done ? ' done' : ''}" data-index="${i}">
+      <input type="checkbox" ${t.done ? 'checked' : ''}>
+      <span>${t.text}</span>
+    </li>
+  `).join('');
+
+  infoList.innerHTML = (prep.info||[]).map(text=>`<li>${text}</li>`).join('');
+
+  todoList.querySelectorAll('.todo-item').forEach(item=>{
+    item.addEventListener('click', async ()=>{
+      const i = Number(item.dataset.index);
+      prep.todos[i].done = !prep.todos[i].done;
+      item.classList.toggle('done', prep.todos[i].done);
+      item.querySelector('input').checked = prep.todos[i].done;
+      try{ await window.storage.set(STORAGE_KEY, JSON.stringify(ACTIVE_DATA), true); }catch(e){ /* best effort */ }
+    });
+  });
 }
 
 ['lyrGrounds','lyrStays','lyrLandmarks'].forEach(id=>{
@@ -1001,6 +1112,7 @@ async function init(){
   try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
   renderStayCards();
   renderFlightOptions();
+  renderPrep();
   initScrollspy();
 }
 
@@ -1043,9 +1155,10 @@ saveBtn.addEventListener('click', async ()=>{
     try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
     renderStayCards();
     renderFlightOptions();
-    editorStatus.textContent = 'Saved — this link now shows the update for everyone.';
+    renderPrep();
+    editorStatus.textContent = 'Opgeslagen — deze link toont nu de update voor iedereen.';
   }catch(e){
-    editorStatus.textContent = 'Could not save: ' + e.message;
+    editorStatus.textContent = 'Kon niet opslaan: ' + e.message;
   }
 });
 
