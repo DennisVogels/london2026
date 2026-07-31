@@ -279,6 +279,8 @@
     font-size:0.72rem;
     color:var(--gold-soft);
   }
+  .fcard .tickets a{text-decoration:underline;text-underline-offset:2px;}
+  .fcard .tickets a:hover{color:var(--parchment);}
 
   /* ---------- AWAY LIST ---------- */
   .away-list{
@@ -729,12 +731,12 @@ const DEFAULT_WEEKENDS = {
       {day:"Zaterdag 10 oktober", items:[
         {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, starred:false},
         {home:"Arsenal", away:"Leeds United", time:"15:00", tier:1, starred:false},
-        {home:"Chelsea", away:"AFC Bournemouth", time:"15:00", tier:1, starred:false},
-        {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, starred:false},
-        {home:"Watford", away:"Burnley", time:"15:00", tier:2, starred:false},
+        {home:"Chelsea", away:"AFC Bournemouth", time:"15:00", tier:1, starred:false, tickets:"£200+"},
+        {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, starred:false, tickets:"£100–130 · <a href=\"https://www.stubhub.ie/crystal-palace-fc-vs-nottingham-forest-fc-tickets-selhurst-park-stadium-10-10-2026/event/107320089/\" target=\"_blank\" rel=\"noopener noreferrer\">StubHub ↗</a>"},
+        {home:"Watford", away:"Burnley", time:"15:00", tier:2, starred:false, tickets:"£35"},
         {home:"Wealdstone", away:"Yeovil Town", time:"15:00", tier:5, starred:false},
         {home:"Hornchurch", away:"Eastleigh", time:"15:00", tier:5, starred:false},
-        {home:"Dagenham & Redbridge", away:"Hemel Hempstead Town", time:"15:00", tier:6, starred:true, ribbon:"Andy Carroll staat op het veld"},
+        {home:"Dagenham & Redbridge", away:"Hemel Hempstead Town", time:"15:00", tier:6, starred:true, ribbon:"Andy Carroll staat op het veld", tickets:"£20"},
         {home:"Hampton & Richmond Borough", away:"Ebbsfleet United", time:"15:00", tier:6, starred:false},
       ]},
       {day:"Zondag 11 oktober", items:[
@@ -872,7 +874,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v14';
+const STORAGE_KEY = 'trip-data-v15';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
