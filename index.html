@@ -828,6 +828,9 @@ const DEFAULT_WEEKENDS = {
         {home:"Hornchurch", away:"Eastleigh", time:"15:00", tier:5, starred:false},
         {home:"Dagenham & Redbridge", away:"Hemel Hempstead Town", time:"15:00", tier:6, starred:true, ribbon:"Andy Carroll staat op het veld"},
         {home:"Hampton & Richmond Borough", away:"Ebbsfleet United", time:"15:00", tier:6, starred:false},
+      ]},
+      {day:"Zondag 11 oktober", items:[
+        {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour"},
       ]}
     ],
     away: [
@@ -946,6 +949,7 @@ function renderWeekend(key){
         </div>
         <div class="kickoff"><span>${f.time} aftrap</span><span class="ground">${home.ground}</span></div>
         ${f.tickets ? `<div class="tickets">🎟 ${f.tickets}</div>` : ''}
+        ${f.travel ? `<div class="tickets">${f.travel}</div>` : ''}
       `;
       grid.appendChild(card);
     });
@@ -967,7 +971,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v8';
+const STORAGE_KEY = 'trip-data-v9';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
