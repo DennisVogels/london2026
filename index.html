@@ -43,6 +43,46 @@
 
   .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
 
+  /* ---------- TOP NAV ---------- */
+  .topnav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(13,26,48,0.88);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .navwrap{
+    display:flex;align-items:center;gap:4px;
+    padding:14px 24px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .navwrap::-webkit-scrollbar{display:none;}
+  .navwrap .brand{
+    font-family:var(--font-display);
+    font-weight:600;
+    text-transform:uppercase;
+    font-size:0.82rem;
+    letter-spacing:0.02em;
+    color:var(--gold-soft);
+    margin-right:18px;
+    white-space:nowrap;
+  }
+  .navwrap a{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--muted);
+    padding:8px 14px;
+    border-radius:20px;
+    white-space:nowrap;
+    transition:color .15s ease, background .15s ease;
+  }
+  .navwrap a:hover{color:var(--parchment);}
+  .navwrap a.active{color:var(--ink);background:var(--gold-soft);}
+
   /* ---------- HERO ---------- */
   header.hero{padding:64px 0 40px;border-bottom:1px solid var(--line);}
   .eyebrow{
@@ -270,6 +310,13 @@
     padding-top:10px;
   }
   .kickoff .ground{color:var(--muted);}
+  .fcard .tickets{
+    display:flex;align-items:center;gap:6px;
+    margin-top:10px;
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    color:var(--gold-soft);
+  }
 
   /* ---------- AWAY LIST ---------- */
   .away-list{
@@ -374,38 +421,69 @@
   }
   .wishlist-cta:hover{background:var(--gold-soft);transform:translateY(-1px);}
 
+  .flight-day-label{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin:30px 0 14px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .flight-day-label:first-child{margin-top:0;}
+  .flight-day-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .flight-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:16px;
+  }
   .flight-card{
+    position:relative;
     background:var(--ink-2);
     border:1px solid var(--line);
     border-radius:12px;
-    padding:20px 22px;
-    margin-bottom:20px;
+    padding:18px 20px;
+  }
+  .flight-card.cheapest{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
+  .flight-card .ribbon{
+    position:absolute;top:-10px;right:16px;
+    background:var(--gold);
+    color:var(--ink);
+    font-family:var(--font-mono);
+    font-size:0.6rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:20px;
+    font-weight:600;
   }
   .flight-card .flight-title{
     font-family:var(--font-mono);
-    font-size:0.7rem;
-    letter-spacing:0.14em;
+    font-size:0.68rem;
+    letter-spacing:0.1em;
     text-transform:uppercase;
-    color:var(--gold-soft);
-    margin-bottom:14px;
+    color:var(--muted);
+    margin-bottom:12px;
   }
   .flight-leg{
-    display:flex;align-items:center;gap:16px;
-    padding:10px 0;
+    display:flex;align-items:center;gap:14px;
+    padding:8px 0;
     border-top:1px dashed var(--line);
   }
   .flight-leg:first-of-type{border-top:none;}
-  .flight-leg .route{font-family:var(--font-display);font-size:1.1rem;font-weight:600;min-width:100px;}
-  .flight-leg .times{font-family:var(--font-mono);font-size:0.86rem;color:var(--parchment);flex:1;}
-  .flight-leg .times .arrow{color:var(--muted);margin:0 8px;}
-  .flight-leg .date{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);text-transform:uppercase;}
+  .flight-leg .route{font-family:var(--font-display);font-size:1rem;font-weight:600;min-width:88px;}
+  .flight-leg .times{font-family:var(--font-mono);font-size:0.82rem;color:var(--parchment);flex:1;}
+  .flight-leg .times .arrow{color:var(--muted);margin:0 6px;}
   .flight-price{
-    margin-top:14px;padding-top:14px;
+    margin-top:12px;padding-top:12px;
     border-top:1px solid var(--line);
     display:flex;justify-content:space-between;align-items:baseline;
-    font-family:var(--font-mono);font-size:0.82rem;color:var(--muted);
+    font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);
   }
-  .flight-price b{color:var(--gold-soft);font-size:1.15rem;}
+  .flight-price b{color:var(--gold-soft);font-size:1.2rem;}
+  .flight-note{
+    font-size:0.86rem;color:var(--muted);max-width:60ch;margin:0 0 24px;
+  }
 
   /* ---------- EDITOR ---------- */
   .editor-block{padding:30px 0 0;border-top:1px solid var(--line);}
@@ -460,6 +538,16 @@
 </head>
 <body>
 
+<nav class="topnav">
+  <div class="wrap navwrap">
+    <span class="brand">London 2026</span>
+    <a href="#pyramid">Pyramid</a>
+    <a href="#fixtures">Fixtures</a>
+    <a href="#mapSection">Map &amp; stays</a>
+    <a href="#flights">Flights &amp; tickets</a>
+  </div>
+</nav>
+
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Matchday guide · London &amp; the home counties</div>
@@ -510,10 +598,18 @@
     </div>
     <div id="map"></div>
 
-    <div id="flightCard"></div>
-
     <div class="stay-grid" id="stayGrid"></div>
     <a class="wishlist-cta" href="https://www.airbnb.nl/wishlists/invite/cc875b76-2e3a-404c-9b83-5ab8e730e272?s=67&amp;unique_share_id=59d5ce6e-787a-4f7f-b993-b5a67e21db74" target="_blank" rel="noopener noreferrer">View full Airbnb wishlist ↗</a>
+  </section>
+
+  <section id="flights">
+    <div class="sec-head">
+      <div class="eyebrow">Getting there</div>
+      <h2>Flights &amp; match tickets</h2>
+      <p>Ryanair direct, Eindhoven ↔ Stansted, priced for 8 passengers. Outbound Thursday evening beats Friday afternoon on price — pick your trade-off between an extra evening and the cheaper fare.</p>
+    </div>
+    <p class="flight-note">West Ham tickets for the Friday night derby vs QPR should still be available — budget around <strong style="color:var(--parchment)">£35pp</strong>.</p>
+    <div id="flightOptions"></div>
   </section>
 
   <div class="editor-block">
@@ -645,7 +741,7 @@ const DEFAULT_WEEKENDS = {
     fixtures: [
       {day:"Friday 9 October", items:[
         {home:"Sutton United", away:"Boreham Wood", time:"19:45", tier:5, starred:false},
-        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"On your shortlist · London derby"},
+        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"On your shortlist · London derby", tickets:"Available · ~£35pp"},
       ]},
       {day:"Saturday 10 October", items:[
         {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, starred:false},
@@ -711,11 +807,15 @@ const DEFAULT_PLACES = {
   ],
   flights: {
     airline: "Ryanair",
-    outbound: {from:"EIN", to:"STN", depart:"13:45", arrive:"13:50", duration:"1h05", date:"Fri 9 Oct"},
-    inbound: {from:"STN", to:"EIN", depart:"12:00", arrive:"14:05", duration:"1h05", date:"Mon 12 Oct"},
-    pricePerPerson: "€213",
-    totalPrice: "€1,698",
-    passengers: 8
+    passengers: 8,
+    combos: [
+      {day:"Thursday 8 October", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1h05"}, pricePerPerson:"€224", totalPrice:"€1,789"},
+      {day:"Thursday 8 October", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1h05"}, pricePerPerson:"€220", totalPrice:"€1,755"},
+      {day:"Friday 9 October", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1h05"}, pricePerPerson:"€92", totalPrice:"€735"},
+      {day:"Friday 9 October", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1h05"}, pricePerPerson:"€89", totalPrice:"€706"},
+      {day:"Friday 9 October", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1h05"}, pricePerPerson:"€86", totalPrice:"€683"},
+      {day:"Friday 9 October", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1h05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1h05"}, pricePerPerson:"€82", totalPrice:"€654"}
+    ]
   }
 };
 
@@ -760,6 +860,7 @@ function renderWeekend(key){
           </div>
         </div>
         <div class="kickoff"><span>${f.time} kick-off</span><span class="ground">${home.ground}</span></div>
+        ${f.tickets ? `<div class="tickets">🎟 ${f.tickets}</div>` : ''}
       `;
       grid.appendChild(card);
     });
@@ -781,7 +882,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v6';
+const STORAGE_KEY = 'trip-data-v7';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
@@ -850,24 +951,40 @@ function renderStayCards(){
   });
 }
 
-function renderFlightCard(){
+function renderFlightOptions(){
   const f = ACTIVE_DATA.places.flights;
-  const el = document.getElementById('flightCard');
-  if(!f){ el.innerHTML = ''; return; }
+  const el = document.getElementById('flightOptions');
+  if(!f || !f.combos || !f.combos.length){ el.innerHTML = ''; return; }
+
   const leg = (l) => `
     <div class="flight-leg">
       <div class="route">${l.from} → ${l.to}</div>
       <div class="times">${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(${l.duration}, direct)</span></div>
-      <div class="date">${l.date}</div>
     </div>`;
-  el.innerHTML = `
-    <div class="flight-card">
-      <div class="flight-title">Flights · ${f.airline}</div>
-      ${leg(f.outbound)}
-      ${leg(f.inbound)}
-      <div class="flight-price"><span>${f.passengers} passengers</span><span><b>${f.pricePerPerson}</b> pp · ${f.totalPrice} total</span></div>
-    </div>
-  `;
+
+  const cheapestPrice = Math.min(...f.combos.map(c=>parseFloat(c.pricePerPerson.replace(/[^\d.]/g,''))));
+
+  const days = [...new Set(f.combos.map(c=>c.day))];
+  el.innerHTML = days.map(day=>{
+    const combos = f.combos.filter(c=>c.day===day);
+    return `
+      <div class="flight-day-label">${day}</div>
+      <div class="flight-grid">
+        ${combos.map(c=>{
+          const isCheapest = parseFloat(c.pricePerPerson.replace(/[^\d.]/g,'')) === cheapestPrice;
+          return `
+            <div class="flight-card${isCheapest ? ' cheapest' : ''}">
+              ${isCheapest ? '<div class="ribbon">Cheapest</div>' : ''}
+              <div class="flight-title">${f.airline} · direct</div>
+              ${leg(c.outbound)}
+              ${leg(c.inbound)}
+              <div class="flight-price"><span>${f.passengers} passengers</span><span><b>${c.pricePerPerson}</b> pp · ${c.totalPrice} total</span></div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }).join('');
 }
 
 ['lyrGrounds','lyrStays','lyrLandmarks'].forEach(id=>{
@@ -881,9 +998,26 @@ async function init(){
     ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
   }
   renderWeekend('oct');
-  renderMap();
+  try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
   renderStayCards();
-  renderFlightCard();
+  renderFlightOptions();
+  initScrollspy();
+}
+
+// ---- Nav scrollspy ----
+function initScrollspy(){
+  const navLinks = [...document.querySelectorAll('.navwrap a')];
+  const sections = navLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+  const setActive = (id) => {
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+  };
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter(e => e.isIntersecting);
+    if(visible.length) setActive(visible[0].target.id);
+  }, {rootMargin: '-40% 0px -55% 0px', threshold: 0});
+  sections.forEach(sec => observer.observe(sec));
 }
 
 // ---- Lightweight in-page editor (writes to shared storage) ----
@@ -906,9 +1040,9 @@ saveBtn.addEventListener('click', async ()=>{
     await window.storage.set(STORAGE_KEY, JSON.stringify(parsed), true);
     ACTIVE_DATA = parsed;
     renderWeekend(currentWeekend);
-    renderMap();
+    try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
     renderStayCards();
-    renderFlightCard();
+    renderFlightOptions();
     editorStatus.textContent = 'Saved — this link now shows the update for everyone.';
   }catch(e){
     editorStatus.textContent = 'Could not save: ' + e.message;
