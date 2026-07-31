@@ -728,7 +728,7 @@ const DEFAULT_WEEKENDS = {
         {home:"Hampton & Richmond Borough", away:"Ebbsfleet United", time:"15:00", tier:6, starred:false},
       ]},
       {day:"Zondag 11 oktober", items:[
-        {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour"},
+        {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}},
       ]}
     ],
     away: [
@@ -830,8 +830,8 @@ function renderWeekend(key){
     const grid = document.createElement('div');
     grid.className = 'fixture-grid';
     group.items.forEach(f=>{
-      const home = findClub(f.home) || {name:f.home, ground:f.ground||'', abbr:f.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
-      const away = findClub(f.away) || {abbr:f.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
+      const home = findClub(f.home) || Object.assign({name:f.home, ground:f.ground||'', abbr:f.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.homeBadge||{});
+      const away = findClub(f.away) || Object.assign({abbr:f.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.awayBadge||{});
       const card = document.createElement('div');
       card.className = 'fcard' + (f.starred ? ' starred' : '');
       card.innerHTML = `
@@ -858,7 +858,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v9';
+const STORAGE_KEY = 'trip-data-v10';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
