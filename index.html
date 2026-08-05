@@ -310,22 +310,6 @@
   .vote-extra .price{color:var(--gold-soft);}
   .vote-extra a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:2px;}
   .vote-extra a:hover{color:var(--parchment);}
-  .vote-cta{
-    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-    margin-top:28px;
-  }
-  .copy-btn{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--gold);color:var(--parchment);
-    font-family:var(--font-mono);font-size:0.8rem;font-weight:600;
-    letter-spacing:0.04em;text-transform:uppercase;
-    border:none;cursor:pointer;
-    padding:12px 22px;border-radius:30px;
-    transition:background .15s ease, transform .15s ease;
-  }
-  .copy-btn:hover{background:var(--gold-soft);transform:translateY(-1px);}
-  .copy-btn.copied{background:var(--pitch);}
-  .vote-note{font-size:0.86rem;color:var(--muted);max-width:64ch;margin:0;}
 
   /* ---------- TBC NOTE ---------- */
   .tbc{
@@ -629,13 +613,9 @@
     <div class="sec-head">
       <div class="eyebrow">Zaterdag 10 oktober</div>
       <h2>Welke wedstrijd kijken we?</h2>
-      <p>Negen opties, allemaal aftrap rond het middaguur. Reistijd is vanaf de geboekte Airbnb (SE16 7UX, Rotherhithe), met het OV — reken op ±10 minuten afwijking en check Citymapper vlak voor vertrek. De stem zelf doen we via een WhatsApp-poll, niet hier op de site.</p>
+      <p>Nog drie in de running. Reistijd is vanaf de geboekte Airbnb (SE16 7UX, Rotherhithe), met het OV — reken op ±10 minuten afwijking en check Citymapper vlak voor vertrek. De stem doen we via een WhatsApp-poll, dit is puur ter info.</p>
     </div>
     <div id="voteGrid" class="fixture-grid"></div>
-    <div class="vote-cta">
-      <button type="button" class="copy-btn" id="copyVoteBtn">📋 Kopieer opties voor WhatsApp-poll</button>
-      <p class="vote-note">Plakt de negen opties met reistijd en prijs als losse regels — zet ze direct in een WhatsApp-poll.</p>
-    </div>
   </section>
 
   <section id="mapSection">
@@ -842,14 +822,8 @@ const DEFAULT_WEEKENDS = {
 
 const SATURDAY_VOTE_OPTIONS = [
   {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"~30 min", tickets:"±£30 (schat, check clubwebsite)", wiki:"https://en.wikipedia.org/wiki/Charlton_Athletic_F.C."},
-  {home:"Arsenal", away:"Leeds United", time:"15:00", tier:1, travel:"~40 min", tickets:"Alleen leden · £35–120+, vaak schaars", wiki:"https://en.wikipedia.org/wiki/Arsenal_F.C."},
-  {home:"Chelsea", away:"AFC Bournemouth", time:"15:00", tier:1, travel:"~30 min", tickets:"£200+ (resale)", wiki:"https://en.wikipedia.org/wiki/Chelsea_F.C."},
   {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, travel:"~30 min", tickets:"£100–130 (resale)", wiki:"https://en.wikipedia.org/wiki/Crystal_Palace_F.C."},
   {home:"Watford", away:"Burnley", time:"15:00", tier:2, travel:"~60 min", tickets:"£35", wiki:"https://en.wikipedia.org/wiki/Watford_F.C."},
-  {home:"Wealdstone", away:"Yeovil Town", time:"15:00", tier:5, travel:"~70 min", tickets:"±£20", wiki:"https://en.wikipedia.org/wiki/Wealdstone_F.C."},
-  {home:"Hornchurch", away:"Eastleigh", time:"15:00", tier:5, travel:"~55 min", tickets:"£15", wiki:"https://en.wikipedia.org/wiki/A.F.C._Hornchurch"},
-  {home:"Dagenham & Redbridge", away:"Hemel Hempstead Town", time:"15:00", tier:6, travel:"~50 min", tickets:"£20", wiki:"https://en.wikipedia.org/wiki/Dagenham_%26_Redbridge_F.C.", note:"Andy Carroll staat op het veld"},
-  {home:"Hampton & Richmond Borough", away:"Ebbsfleet United", time:"15:00", tier:6, travel:"~90 min", tickets:"±£15 (schat)", wiki:"https://en.wikipedia.org/wiki/Hampton_%26_Richmond_Borough_F.C."},
 ];
 
 const DEFAULT_PLACES = {
@@ -1012,10 +986,6 @@ function renderStayCards(){
   });
 }
 
-function voteOptionText(v){
-  return `${v.home} v ${v.away} (${v.time}) — ${v.travel} vanaf de Airbnb — ${v.tickets}`;
-}
-
 function renderVoteOptions(){
   const grid = document.getElementById('voteGrid');
   if(!grid) return;
@@ -1123,26 +1093,6 @@ async function init(){
   renderFlightOptions();
   renderPrep();
   initScrollspy();
-  initCopyVoteButton();
-}
-
-// ---- Copy Saturday vote options for WhatsApp poll ----
-function initCopyVoteButton(){
-  const btn = document.getElementById('copyVoteBtn');
-  if(!btn) return;
-  btn.addEventListener('click', async ()=>{
-    const text = SATURDAY_VOTE_OPTIONS.map(voteOptionText).join('\n');
-    try{
-      await navigator.clipboard.writeText(text);
-    }catch(e){
-      window.prompt('Kopieer handmatig:', text);
-      return;
-    }
-    btn.classList.add('copied');
-    const original = btn.textContent;
-    btn.textContent = '✅ Gekopieerd';
-    setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent = original; }, 2000);
-  });
 }
 
 // ---- Nav scrollspy ----
