@@ -359,10 +359,24 @@
     margin-top:24px;
   }
   .stay-card{
+    position:relative;
     background:var(--ink-2);
     border:1px solid var(--line);
     border-radius:12px;
     padding:16px 18px;
+  }
+  .stay-card.confirmed{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
+  .stay-card .ribbon{
+    position:absolute;top:-10px;right:16px;
+    background:var(--gold);
+    color:var(--parchment);
+    font-family:var(--font-mono);
+    font-size:0.6rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:20px;
+    font-weight:600;
   }
   .stay-card .stay-name{font-weight:600;font-size:0.94rem;margin-bottom:4px;}
   .stay-card .stay-meta{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;}
@@ -786,6 +800,7 @@ const DEFAULT_WEEKENDS = {
 
 const DEFAULT_PLACES = {
   stays: [
+    {name:"Geboekte Airbnb — Rotherhithe", confirmed:true, lat:51.4975, lng:-0.0505, note:"✅ Geboekt — SE16 7UX, Groot-Londen", url:"https://www.airbnb.com/l/cS7x6vcq"},
     {name:"Woning in Dulwich", lat:51.4478299, lng:-0.0637729, note:"4,95★ — Underhill Road, rijtjeshuis, grote tuin, 6 bedden / 5 slaapkamers — €1.547 totaal (9–12 okt, 8 gasten)"},
     {name:"Appartement in Notting Hill (Kensington & Chelsea)", lat:51.5141639, lng:-0.2127535, note:"4,92★ — bij Dulford Street, 7 bedden / 3 slaapkamers — €2.152 totaal (9–12 okt, 8 gasten)"},
     {name:"Appartement in Groot-Londen", lat:51.5761904, lng:-0.2047865, note:"4,95★ — Golders Green Road, nieuwbouw, 8 bedden / 3 slaapkamers — €1.316 totaal (9–12 okt, 8 gasten)"},
@@ -804,15 +819,15 @@ const DEFAULT_PLACES = {
       {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€92", totalPrice:"€735"},
       {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€89", totalPrice:"€706"},
       {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€86", totalPrice:"€683"},
-      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€82", totalPrice:"€654"},
+      {day:"Donderdag 8 oktober", confirmed:true, outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05",flightNo:"FR5682"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05",flightNo:"FR2534"}, pricePerPerson:"€82", totalPrice:"€654"},
       {day:"Vrijdag 9 oktober", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€224", totalPrice:"€1.789"},
       {day:"Vrijdag 9 oktober", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€220", totalPrice:"€1.755"}
     ]
   },
   prep: {
     todos: [
-      {text:"Vlucht + datum kiezen", done:false},
-      {text:"Airbnb vinden", done:false}
+      {text:"Vlucht + datum kiezen", done:true},
+      {text:"Airbnb vinden", done:true}
     ],
     info: [
       "Zorg dat je een geldig paspoort hebt",
@@ -874,7 +889,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v15';
+const STORAGE_KEY = 'trip-data-v16';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
@@ -937,8 +952,8 @@ function renderStayCards(){
   grid.innerHTML = '';
   (ACTIVE_DATA.places.stays||[]).forEach(s=>{
     const el = document.createElement('div');
-    el.className = 'stay-card';
-    el.innerHTML = `<div class="stay-name">${s.name}</div><div class="stay-note">${s.note||''}</div>${s.url ? `<a class="stay-link" href="${s.url}" target="_blank" rel="noopener noreferrer">Bekijk op Airbnb ↗</a>` : ''}`;
+    el.className = 'stay-card' + (s.confirmed ? ' confirmed' : '');
+    el.innerHTML = `${s.confirmed ? '<div class="ribbon">Geboekt ✅</div>' : ''}<div class="stay-name">${s.name}</div><div class="stay-note">${s.note||''}</div>${s.url ? `<a class="stay-link" href="${s.url}" target="_blank" rel="noopener noreferrer">Bekijk op Airbnb ↗</a>` : ''}`;
     grid.appendChild(el);
   });
 }
@@ -951,7 +966,7 @@ function renderFlightOptions(){
   const leg = (l) => `
     <div class="flight-leg">
       <div class="route">${l.from} → ${l.to}</div>
-      <div class="times">${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(${l.duration}, direct)</span></div>
+      <div class="times">${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(${l.duration}, direct${l.flightNo ? ' · ' + l.flightNo : ''})</span></div>
     </div>`;
 
   const cheapestPrice = Math.min(...f.combos.map(c=>parseFloat(c.pricePerPerson.replace(/[^\d.]/g,''))));
@@ -965,8 +980,8 @@ function renderFlightOptions(){
         ${combos.map(c=>{
           const isCheapest = parseFloat(c.pricePerPerson.replace(/[^\d.]/g,'')) === cheapestPrice;
           return `
-            <div class="flight-card${isCheapest ? ' cheapest' : ''}">
-              ${isCheapest ? '<div class="ribbon">Goedkoopste</div>' : ''}
+            <div class="flight-card${(isCheapest || c.confirmed) ? ' cheapest' : ''}">
+              ${c.confirmed ? '<div class="ribbon">Geboekt ✅</div>' : (isCheapest ? '<div class="ribbon">Goedkoopste</div>' : '')}
               <div class="flight-title">${f.airline} · direct</div>
               ${leg(c.outbound)}
               ${leg(c.inbound)}
