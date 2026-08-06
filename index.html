@@ -773,7 +773,7 @@ const DEFAULT_WEEKENDS = {
       ]},
       {day:"Zondag 11 oktober", items:[
         {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}, groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/southampton/st-marys-stadium/"},
-        {type:"alt", emoji:"🥪", title:"Passyunk Avenue (Waterloo)", subtitle:"Philly cheesesteaks & American dive bar", info:"22 Leake St, SE1 7NN — vlak bij Waterloo station, batting cages, NFL op groot scherm", tickets:"££ (lower mid-range)", groundInfo:"https://passyunkavenue.com/waterloo/"},
+        {type:"alt", emoji:"🥪", title:"Passyunk Avenue (Waterloo)", subtitle:"Philly cheesesteaks & American dive bar", info:"22 Leake St, SE1 7NN — vlak bij Waterloo station, batting cages, NFL op groot scherm", note:"🎟 Tickets nodig — nu uitverkocht, meer volgt", tickets:"£20,00* pp — garandeert een zitplek voor het volledige venster 14:00–19:00 (hele wedstrijd + meer)", perks:"🍺 Inclusief een gratis huisdrankje", groundInfo:"https://passyunkavenue.com/waterloo/"},
       ]}
     ],
     away: [
@@ -880,8 +880,9 @@ function renderWeekend(key){
       const card = document.createElement('div');
 
       if(f.type === 'alt'){
-        card.className = 'fcard';
+        card.className = 'fcard' + (f.note ? ' starred' : '');
         card.innerHTML = `
+          ${f.note ? `<div class="ribbon">${f.note}</div>` : ''}
           <div class="meta"><span class="tier-tag">Alternatief</span><span>${group.day.split(' ')[0]}</span></div>
           <div class="matchup">
             <div class="badge" style="width:44px;height:50px;font-size:1.1rem;background:linear-gradient(160deg, #7a263a, #4a1522);color:#fff;border:1.5px solid rgba(0,0,0,0.25);">${f.emoji||'📍'}</div>
@@ -892,6 +893,7 @@ function renderWeekend(key){
           </div>
           <div class="kickoff"><span>${f.info||''}</span></div>
           ${f.tickets ? `<div class="tickets">💵 ${f.tickets}</div>` : ''}
+          ${f.perks ? `<div class="tickets">${f.perks}</div>` : ''}
           ${f.groundInfo ? `<div class="tickets"><a href="${f.groundInfo}" target="_blank" rel="noopener noreferrer">Meer info ↗</a></div>` : ''}
         `;
         grid.appendChild(card);
