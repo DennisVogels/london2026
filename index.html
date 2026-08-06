@@ -777,6 +777,7 @@ const DEFAULT_WEEKENDS = {
       ]},
       {day:"Zondag 11 oktober", items:[
         {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}, groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/southampton/st-marys-stadium/"},
+        {type:"alt", emoji:"🥪", title:"Passyunk Avenue (Waterloo)", subtitle:"Philly cheesesteaks & American dive bar", info:"22 Leake St, SE1 7NN — vlak bij Waterloo station, batting cages, NFL op groot scherm", tickets:"££ (lower mid-range)", groundInfo:"https://passyunkavenue.com/waterloo/"},
       ]}
     ],
     away: [
@@ -880,9 +881,29 @@ function renderWeekend(key){
     const grid = document.createElement('div');
     grid.className = 'fixture-grid';
     group.items.forEach(f=>{
+      const card = document.createElement('div');
+
+      if(f.type === 'alt'){
+        card.className = 'fcard';
+        card.innerHTML = `
+          <div class="meta"><span class="tier-tag">Alternatief</span><span>${group.day.split(' ')[0]}</span></div>
+          <div class="matchup">
+            <div class="badge" style="width:44px;height:50px;font-size:1.1rem;background:linear-gradient(160deg, #7a263a, #4a1522);color:#fff;border:1.5px solid rgba(0,0,0,0.25);">${f.emoji||'📍'}</div>
+            <div class="vs-names">
+              <div class="home">${f.title}</div>
+              <div class="away">${f.subtitle||''}</div>
+            </div>
+          </div>
+          <div class="kickoff"><span>${f.info||''}</span></div>
+          ${f.tickets ? `<div class="tickets">💵 ${f.tickets}</div>` : ''}
+          ${f.groundInfo ? `<div class="tickets"><a href="${f.groundInfo}" target="_blank" rel="noopener noreferrer">Meer info ↗</a></div>` : ''}
+        `;
+        grid.appendChild(card);
+        return;
+      }
+
       const home = findClub(f.home) || Object.assign({name:f.home, ground:f.ground||'', abbr:f.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.homeBadge||{});
       const away = findClub(f.away) || Object.assign({abbr:f.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.awayBadge||{});
-      const card = document.createElement('div');
       card.className = 'fcard' + (f.starred ? ' starred' : '');
       card.innerHTML = `
         ${f.starred ? `<div class="ribbon">${f.ribbon}</div>` : ''}
