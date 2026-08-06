@@ -554,11 +554,11 @@
   <div class="wrap navwrap">
     <span class="brand">Londen 2026</span>
     <a href="#prep">Voorbereiding</a>
-    <a href="#pyramid">Piramide</a>
     <a href="#fixtures">Wedstrijden</a>
     <a href="#vote">Zaterdag stemmen</a>
     <a href="#mapSection">Kaart &amp; verblijf</a>
     <a href="#flights">Vluchten &amp; tickets</a>
+    <a href="#pyramid">Piramide</a>
   </div>
 </nav>
 
@@ -586,15 +586,6 @@
         <ul class="info-list" id="infoList"></ul>
       </div>
     </div>
-  </section>
-
-  <section id="pyramid">
-    <div class="sec-head">
-      <div class="eyebrow">De piramide</div>
-      <h2>Niveau 1 → Niveau 6</h2>
-      <p>De Engelse voetbalpiramide, gefilterd op de clubs die dit seizoen in of rond Londen spelen.</p>
-    </div>
-    <div id="pyramidRows"></div>
   </section>
 
   <section id="fixtures">
@@ -644,6 +635,15 @@
     </div>
     <p class="flight-note">West Ham-tickets voor de vrijdagavond-derby tegen QPR zouden nog beschikbaar moeten zijn — reken op zo'n <strong style="color:var(--parchment)">£35pp</strong>.</p>
     <div id="flightOptions"></div>
+  </section>
+
+  <section id="pyramid">
+    <div class="sec-head">
+      <div class="eyebrow">De piramide</div>
+      <h2>Niveau 1 → Niveau 6</h2>
+      <p>De Engelse voetbalpiramide, gefilterd op de clubs die dit seizoen in of rond Londen spelen.</p>
+    </div>
+    <div id="pyramidRows"></div>
   </section>
 
   <footer>
@@ -821,21 +821,14 @@ const DEFAULT_WEEKENDS = {
 };
 
 const SATURDAY_VOTE_OPTIONS = [
-  {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"~30 min", tickets:"±£30 (schat, check clubwebsite)", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/the-valley/"},
-  {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, travel:"~30 min", tickets:"£100–130 (resale)", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
-  {home:"Watford", away:"Burnley", time:"15:00", tier:2, travel:"~60 min", tickets:"£35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/watford/vicarage-road/"},
+  {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"45 min", tickets:"£30–35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/the-valley/", note:"Combi met Dagenham mogelijk, met haast"},
+  {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, travel:"55 min", tickets:"£100–130 (resale)", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
+  {home:"Watford", away:"Burnley", time:"15:00", tier:2, travel:"1u45", tickets:"£35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/watford/vicarage-road/"},
 ];
 
 const DEFAULT_PLACES = {
   stays: [
-    {name:"Geboekte Airbnb — Rotherhithe", confirmed:true, lat:51.4975, lng:-0.0505, note:"✅ Geboekt — SE16 7UX, Groot-Londen", url:"https://www.airbnb.com/l/cS7x6vcq"},
-    {name:"Woning in Dulwich", lat:51.4478299, lng:-0.0637729, note:"4,95★ — Underhill Road, rijtjeshuis, grote tuin, 6 bedden / 5 slaapkamers — €1.547 totaal (9–12 okt, 8 gasten)"},
-    {name:"Appartement in Notting Hill (Kensington & Chelsea)", lat:51.5141639, lng:-0.2127535, note:"4,92★ — bij Dulford Street, 7 bedden / 3 slaapkamers — €2.152 totaal (9–12 okt, 8 gasten)"},
-    {name:"Appartement in Groot-Londen", lat:51.5761904, lng:-0.2047865, note:"4,95★ — Golders Green Road, nieuwbouw, 8 bedden / 3 slaapkamers — €1.316 totaal (9–12 okt, 8 gasten)"},
-    {name:"Ruime woning met 6 slaapkamers in Wembley", lat:51.5528, lng:-0.2818, note:"Geweldig voor gezinnen · bij Mayfields — €2.207 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1656463918881128190"},
-    {name:"Verblijf voor grote groepen in Harrow", lat:51.5754, lng:-0.3611, note:"Bij Kingsfield Avenue — €2.290 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1450167767008510575"},
-    {name:"Modern Fitzrovia — 2 slaapkamers, 2 badkamers", lat:51.5195, lng:-0.1349, note:"Bij Scala Street — €1.738 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1462328020551519248"},
-    {name:"Licht en charmant 4BD familiehaven in Kennington", lat:51.4931, lng:-0.1132, note:"Bij Lollard Street — €1.350 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1350607108378665222"}
+    {name:"Geboekte Airbnb — Rotherhithe", confirmed:true, lat:51.4975, lng:-0.0505, note:"✅ Geboekt — SE16 7UX, Groot-Londen", url:"https://www.airbnb.com/l/cS7x6vcq"}
   ],
   landmarks: [
     {name:"Bermondsey Beer Mile", lat:51.4978, lng:-0.0723}
@@ -844,18 +837,16 @@ const DEFAULT_PLACES = {
     airline: "Ryanair",
     passengers: 8,
     combos: [
-      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€92", totalPrice:"€735"},
-      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€89", totalPrice:"€706"},
-      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€86", totalPrice:"€683"},
-      {day:"Donderdag 8 oktober", confirmed:true, outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05",flightNo:"FR5682"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05",flightNo:"FR2534"}, pricePerPerson:"€82", totalPrice:"€654"},
-      {day:"Vrijdag 9 oktober", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€224", totalPrice:"€1.789"},
-      {day:"Vrijdag 9 oktober", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€220", totalPrice:"€1.755"}
+      {day:"Donderdag 8 oktober", confirmed:true, outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05",flightNo:"FR5682"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05",flightNo:"FR2534"}, pricePerPerson:"€82", totalPrice:"€654"}
     ]
   },
   prep: {
     todos: [
       {text:"Vlucht + datum kiezen", done:true},
-      {text:"Airbnb vinden", done:true}
+      {text:"Airbnb vinden", done:true},
+      {text:"Zaterdagprogramma kiezen", done:false},
+      {text:"Tickets kopen", done:false},
+      {text:"Restaurant scouten", done:false}
     ],
     info: [
       "Zorg dat je een geldig paspoort hebt",
@@ -918,7 +909,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v16';
+const STORAGE_KEY = 'trip-data-v17';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
