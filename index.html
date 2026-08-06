@@ -479,9 +479,6 @@
     font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);
   }
   .flight-price b{color:var(--gold-soft);font-size:1.2rem;}
-  .flight-note{
-    font-size:0.86rem;color:var(--muted);max-width:60ch;margin:0 0 24px;
-  }
 
   /* ---------- PREP: TO-DO + INFO ---------- */
   .prep-grid{
@@ -630,10 +627,9 @@
   <section id="flights">
     <div class="sec-head">
       <div class="eyebrow">Erheen reizen</div>
-      <h2>Vluchten &amp; wedstrijdtickets</h2>
-      <p>Ryanair direct, Eindhoven ↔ Stansted, geprijsd voor 8 passagiers. Donderdagavond vertrekken is goedkoper dan vrijdagmiddag — kies zelf de afweging tussen een avond extra en de goedkopere prijs.</p>
+      <h2>Vlucht</h2>
+      <p>Ryanair direct, Eindhoven ↔ Stansted, geprijsd voor 8 passagiers.</p>
     </div>
-    <p class="flight-note">West Ham-tickets voor de vrijdagavond-derby tegen QPR zouden nog beschikbaar moeten zijn — reken op zo'n <strong style="color:var(--parchment)">£35pp</strong>.</p>
     <div id="flightOptions"></div>
   </section>
 
@@ -829,7 +825,7 @@ const SATURDAY_VOTE_OPTIONS = [
 
 const DEFAULT_PLACES = {
   stays: [
-    {name:"Geboekte Airbnb — Rotherhithe", confirmed:true, lat:51.4975, lng:-0.0505, note:"✅ Geboekt — SE16 7UX, Groot-Londen", url:"https://www.airbnb.com/l/cS7x6vcq"}
+    {name:"Geboekte Airbnb — Rotherhithe", confirmed:true, lat:51.4934, lng:-0.0341, note:"✅ Geboekt — SE16 7UX, bij Windsock Close/Plough Way, Greenland Dock", url:"https://www.airbnb.com/l/cS7x6vcq"}
   ],
   landmarks: [
     {name:"Bermondsey Beer Mile", lat:51.4978, lng:-0.0723}
@@ -838,7 +834,7 @@ const DEFAULT_PLACES = {
     airline: "Ryanair",
     passengers: 8,
     combos: [
-      {day:"Donderdag 8 oktober", confirmed:true, outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05",flightNo:"FR5682"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05",flightNo:"FR2534"}, pricePerPerson:"€82", totalPrice:"€654"}
+      {day:"Donderdag 8 oktober", returnDay:"Maandag 12 oktober", confirmed:true, outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05",flightNo:"FR5682"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05",flightNo:"FR2534"}, pricePerPerson:"€97,21", totalPrice:"€777,67"}
     ]
   },
   prep: {
@@ -1032,10 +1028,10 @@ function renderFlightOptions(){
   const el = document.getElementById('flightOptions');
   if(!f || !f.combos || !f.combos.length){ el.innerHTML = ''; return; }
 
-  const leg = (l) => `
+  const leg = (l, dayLabel) => `
     <div class="flight-leg">
       <div class="route">${l.from} → ${l.to}</div>
-      <div class="times">${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(${l.duration}, direct${l.flightNo ? ' · ' + l.flightNo : ''})</span></div>
+      <div class="times">${dayLabel ? `<span style="color:var(--gold-soft);font-weight:600;">${dayLabel}</span> · ` : ''}${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(${l.duration}, direct${l.flightNo ? ' · ' + l.flightNo : ''})</span></div>
     </div>`;
 
   const cheapestPrice = Math.min(...f.combos.map(c=>parseFloat(c.pricePerPerson.replace(/[^\d.]/g,''))));
@@ -1052,8 +1048,8 @@ function renderFlightOptions(){
             <div class="flight-card${(isCheapest || c.confirmed) ? ' cheapest' : ''}">
               ${c.confirmed ? '<div class="ribbon">Geboekt ✅</div>' : (isCheapest ? '<div class="ribbon">Goedkoopste</div>' : '')}
               <div class="flight-title">${f.airline} · direct</div>
-              ${leg(c.outbound)}
-              ${leg(c.inbound)}
+              ${leg(c.outbound, 'Heen · ' + day)}
+              ${leg(c.inbound, 'Terug · ' + (c.returnDay || day))}
               <div class="flight-price"><span>${f.passengers} passagiers</span><span><b>${c.pricePerPerson}</b> pp · ${c.totalPrice} totaal</span></div>
             </div>
           `;
