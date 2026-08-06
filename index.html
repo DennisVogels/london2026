@@ -762,7 +762,7 @@ const DEFAULT_WEEKENDS = {
     fixtures: [
       {day:"Vrijdag 9 oktober", items:[
         {home:"Sutton United", away:"Boreham Wood", time:"19:45", tier:5, starred:false},
-        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"Op je shortlist · Londense derby", tickets:"Beschikbaar · ~£35pp"},
+        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"Op je shortlist · Londense derby", tickets:"Beschikbaar · ~£35pp", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/london-stadium/"},
       ]},
       {day:"Zaterdag 10 oktober", items:[
         {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, starred:false},
@@ -776,7 +776,7 @@ const DEFAULT_WEEKENDS = {
         {home:"Hampton & Richmond Borough", away:"Ebbsfleet United", time:"15:00", tier:6, starred:false},
       ]},
       {day:"Zondag 11 oktober", items:[
-        {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}},
+        {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}, groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/southampton/st-marys-stadium/"},
       ]}
     ],
     away: [
@@ -821,9 +821,9 @@ const DEFAULT_WEEKENDS = {
 };
 
 const SATURDAY_VOTE_OPTIONS = [
-  {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"~30 min", tickets:"±£30 (schat, check clubwebsite)", wiki:"https://en.wikipedia.org/wiki/Charlton_Athletic_F.C."},
-  {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, travel:"~30 min", tickets:"£100–130 (resale)", wiki:"https://en.wikipedia.org/wiki/Crystal_Palace_F.C."},
-  {home:"Watford", away:"Burnley", time:"15:00", tier:2, travel:"~60 min", tickets:"£35", wiki:"https://en.wikipedia.org/wiki/Watford_F.C."},
+  {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"~30 min", tickets:"±£30 (schat, check clubwebsite)", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/the-valley/"},
+  {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, travel:"~30 min", tickets:"£100–130 (resale)", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
+  {home:"Watford", away:"Burnley", time:"15:00", tier:2, travel:"~60 min", tickets:"£35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/watford/vicarage-road/"},
 ];
 
 const DEFAULT_PLACES = {
@@ -906,6 +906,7 @@ function renderWeekend(key){
         <div class="kickoff"><span>${f.time} aftrap</span><span class="ground">${home.ground}</span></div>
         ${f.tickets ? `<div class="tickets">🎟 ${f.tickets}</div>` : ''}
         ${f.travel ? `<div class="tickets">${f.travel}</div>` : ''}
+        ${f.groundInfo ? `<div class="tickets"><a href="${f.groundInfo}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a></div>` : ''}
       `;
       grid.appendChild(card);
     });
@@ -1007,7 +1008,7 @@ function renderVoteOptions(){
         <div class="vote-extra">
           <span>🚇 ${v.travel} vanaf de Airbnb</span>
           <span class="price">🎟 ${v.tickets}</span>
-          <a href="${v.wiki}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a>
+          <a href="${v.groundInfo}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a>
         </div>
       </div>
     `;
