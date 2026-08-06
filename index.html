@@ -299,6 +299,18 @@
   .away-item .who{font-weight:600;}
   .away-item .where{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);text-align:right;}
 
+  /* ---------- SATURDAY VOTE ---------- */
+  .vote-extra{
+    margin-top:10px;padding-top:10px;
+    border-top:1px dashed var(--line);
+    display:flex;flex-direction:column;gap:6px;
+    font-family:var(--font-mono);font-size:0.72rem;
+    color:var(--muted);
+  }
+  .vote-extra .price{color:var(--gold-soft);}
+  .vote-extra a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:2px;}
+  .vote-extra a:hover{color:var(--parchment);}
+
   /* ---------- TBC NOTE ---------- */
   .tbc{
     border:1px dashed var(--line-strong);
@@ -359,10 +371,24 @@
     margin-top:24px;
   }
   .stay-card{
+    position:relative;
     background:var(--ink-2);
     border:1px solid var(--line);
     border-radius:12px;
     padding:16px 18px;
+  }
+  .stay-card.confirmed{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
+  .stay-card .ribbon{
+    position:absolute;top:-10px;right:16px;
+    background:var(--gold);
+    color:var(--parchment);
+    font-family:var(--font-mono);
+    font-size:0.6rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:20px;
+    font-weight:600;
   }
   .stay-card .stay-name{font-weight:600;font-size:0.94rem;margin-bottom:4px;}
   .stay-card .stay-meta{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;}
@@ -453,9 +479,6 @@
     font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);
   }
   .flight-price b{color:var(--gold-soft);font-size:1.2rem;}
-  .flight-note{
-    font-size:0.86rem;color:var(--muted);max-width:60ch;margin:0 0 24px;
-  }
 
   /* ---------- PREP: TO-DO + INFO ---------- */
   .prep-grid{
@@ -528,10 +551,11 @@
   <div class="wrap navwrap">
     <span class="brand">Londen 2026</span>
     <a href="#prep">Voorbereiding</a>
-    <a href="#pyramid">Piramide</a>
     <a href="#fixtures">Wedstrijden</a>
+    <a href="#vote">Zaterdag stemmen</a>
     <a href="#mapSection">Kaart &amp; verblijf</a>
     <a href="#flights">Vluchten &amp; tickets</a>
+    <a href="#pyramid">Piramide</a>
   </div>
 </nav>
 
@@ -561,15 +585,6 @@
     </div>
   </section>
 
-  <section id="pyramid">
-    <div class="sec-head">
-      <div class="eyebrow">De piramide</div>
-      <h2>Niveau 1 → Niveau 6</h2>
-      <p>De Engelse voetbalpiramide, gefilterd op de clubs die dit seizoen in of rond Londen spelen.</p>
-    </div>
-    <div id="pyramidRows"></div>
-  </section>
-
   <section id="fixtures">
     <div class="sec-head">
       <div class="eyebrow">Aftrap, vrijdag tot maandag</div>
@@ -580,6 +595,15 @@
 
     <div id="tbcWrap" style="margin-top:30px;"></div>
 
+  </section>
+
+  <section id="vote">
+    <div class="sec-head">
+      <div class="eyebrow">Zaterdag 10 oktober</div>
+      <h2>Welke wedstrijd kijken we?</h2>
+      <p>Nog drie in de running. Reistijd is vanaf de geboekte Airbnb (SE16 7UX, Rotherhithe), met het OV — reken op ±10 minuten afwijking en check Citymapper vlak voor vertrek. De stem doen we via een WhatsApp-poll, dit is puur ter info.</p>
+    </div>
+    <div id="voteGrid" class="fixture-grid"></div>
   </section>
 
   <section id="mapSection">
@@ -603,11 +627,19 @@
   <section id="flights">
     <div class="sec-head">
       <div class="eyebrow">Erheen reizen</div>
-      <h2>Vluchten &amp; wedstrijdtickets</h2>
-      <p>Ryanair direct, Eindhoven ↔ Stansted, geprijsd voor 8 passagiers. Donderdagavond vertrekken is goedkoper dan vrijdagmiddag — kies zelf de afweging tussen een avond extra en de goedkopere prijs.</p>
+      <h2>Vlucht</h2>
+      <p>Ryanair direct, Eindhoven ↔ Stansted, geprijsd voor 8 passagiers.</p>
     </div>
-    <p class="flight-note">West Ham-tickets voor de vrijdagavond-derby tegen QPR zouden nog beschikbaar moeten zijn — reken op zo'n <strong style="color:var(--parchment)">£35pp</strong>.</p>
     <div id="flightOptions"></div>
+  </section>
+
+  <section id="pyramid">
+    <div class="sec-head">
+      <div class="eyebrow">De piramide</div>
+      <h2>Niveau 1 → Niveau 6</h2>
+      <p>De Engelse voetbalpiramide, gefilterd op de clubs die dit seizoen in of rond Londen spelen.</p>
+    </div>
+    <div id="pyramidRows"></div>
   </section>
 
   <footer>
@@ -726,7 +758,7 @@ const DEFAULT_WEEKENDS = {
     fixtures: [
       {day:"Vrijdag 9 oktober", items:[
         {home:"Sutton United", away:"Boreham Wood", time:"19:45", tier:5, starred:false},
-        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"Op je shortlist · Londense derby", tickets:"Beschikbaar · ~£35pp"},
+        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"Op je shortlist · Londense derby", tickets:"Beschikbaar · ~£35pp", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/london-stadium/"},
       ]},
       {day:"Zaterdag 10 oktober", items:[
         {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, starred:false},
@@ -740,7 +772,8 @@ const DEFAULT_WEEKENDS = {
         {home:"Hampton & Richmond Borough", away:"Ebbsfleet United", time:"15:00", tier:6, starred:false},
       ]},
       {day:"Zondag 11 oktober", items:[
-        {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}},
+        {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}, groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/southampton/st-marys-stadium/"},
+        {type:"alt", emoji:"🥪", title:"Passyunk Avenue (Waterloo)", subtitle:"Philly cheesesteaks & American dive bar", info:"22 Leake St, SE1 7NN — vlak bij Waterloo station, batting cages, NFL op groot scherm", note:"🎟 Tickets nodig — nu uitverkocht, meer volgt", tickets:"£20,00* pp — garandeert een zitplek voor het volledige venster 14:00–19:00 (hele wedstrijd + meer)", perks:"🍺 Inclusief een gratis huisdrankje", groundInfo:"https://passyunkavenue.com/waterloo/"},
       ]}
     ],
     away: [
@@ -784,15 +817,15 @@ const DEFAULT_WEEKENDS = {
   }
 };
 
+const SATURDAY_VOTE_OPTIONS = [
+  {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"45 min", tickets:"£30–35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/the-valley/", note:"Combi met Dagenham mogelijk, met haast"},
+  {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, travel:"55 min", tickets:"£100–130 (resale)", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
+  {home:"Watford", away:"Burnley", time:"15:00", tier:2, travel:"1u45", tickets:"£35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/watford/vicarage-road/"},
+];
+
 const DEFAULT_PLACES = {
   stays: [
-    {name:"Woning in Dulwich", lat:51.4478299, lng:-0.0637729, note:"4,95★ — Underhill Road, rijtjeshuis, grote tuin, 6 bedden / 5 slaapkamers — €1.547 totaal (9–12 okt, 8 gasten)"},
-    {name:"Appartement in Notting Hill (Kensington & Chelsea)", lat:51.5141639, lng:-0.2127535, note:"4,92★ — bij Dulford Street, 7 bedden / 3 slaapkamers — €2.152 totaal (9–12 okt, 8 gasten)"},
-    {name:"Appartement in Groot-Londen", lat:51.5761904, lng:-0.2047865, note:"4,95★ — Golders Green Road, nieuwbouw, 8 bedden / 3 slaapkamers — €1.316 totaal (9–12 okt, 8 gasten)"},
-    {name:"Ruime woning met 6 slaapkamers in Wembley", lat:51.5528, lng:-0.2818, note:"Geweldig voor gezinnen · bij Mayfields — €2.207 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1656463918881128190"},
-    {name:"Verblijf voor grote groepen in Harrow", lat:51.5754, lng:-0.3611, note:"Bij Kingsfield Avenue — €2.290 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1450167767008510575"},
-    {name:"Modern Fitzrovia — 2 slaapkamers, 2 badkamers", lat:51.5195, lng:-0.1349, note:"Bij Scala Street — €1.738 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1462328020551519248"},
-    {name:"Licht en charmant 4BD familiehaven in Kennington", lat:51.4931, lng:-0.1132, note:"Bij Lollard Street — €1.350 totaal (9–12 okt, 8 gasten)", url:"https://www.airbnb.nl/rooms/1350607108378665222"}
+    {name:"Geboekte Airbnb — Rotherhithe", confirmed:true, lat:51.4934, lng:-0.0341, note:"✅ Geboekt — SE16 7UX, bij Windsock Close/Plough Way, Greenland Dock", url:"https://www.airbnb.com/l/cS7x6vcq"}
   ],
   landmarks: [
     {name:"Bermondsey Beer Mile", lat:51.4978, lng:-0.0723}
@@ -801,18 +834,16 @@ const DEFAULT_PLACES = {
     airline: "Ryanair",
     passengers: 8,
     combos: [
-      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€92", totalPrice:"€735"},
-      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"18:10",arrive:"18:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€89", totalPrice:"€706"},
-      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€86", totalPrice:"€683"},
-      {day:"Donderdag 8 oktober", outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€82", totalPrice:"€654"},
-      {day:"Vrijdag 9 oktober", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"15:00",arrive:"17:05",duration:"1u05"}, pricePerPerson:"€224", totalPrice:"€1.789"},
-      {day:"Vrijdag 9 oktober", outbound:{from:"EIN",to:"STN",depart:"13:45",arrive:"13:50",duration:"1u05"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05"}, pricePerPerson:"€220", totalPrice:"€1.755"}
+      {day:"Donderdag 8 oktober", returnDay:"Maandag 12 oktober", confirmed:true, outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05",flightNo:"FR5682"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05",flightNo:"FR2534"}, pricePerPerson:"€97,21", totalPrice:"€777,67"}
     ]
   },
   prep: {
     todos: [
-      {text:"Vlucht + datum kiezen", done:false},
-      {text:"Airbnb vinden", done:false}
+      {text:"Vlucht + datum kiezen", done:true},
+      {text:"Airbnb vinden", done:true},
+      {text:"Zaterdagprogramma kiezen", done:false},
+      {text:"Tickets kopen", done:false},
+      {text:"Restaurant scouten", done:false}
     ],
     info: [
       "Zorg dat je een geldig paspoort hebt",
@@ -846,9 +877,31 @@ function renderWeekend(key){
     const grid = document.createElement('div');
     grid.className = 'fixture-grid';
     group.items.forEach(f=>{
+      const card = document.createElement('div');
+
+      if(f.type === 'alt'){
+        card.className = 'fcard' + (f.note ? ' starred' : '');
+        card.innerHTML = `
+          ${f.note ? `<div class="ribbon">${f.note}</div>` : ''}
+          <div class="meta"><span class="tier-tag">Alternatief</span><span>${group.day.split(' ')[0]}</span></div>
+          <div class="matchup">
+            <div class="badge" style="width:44px;height:50px;font-size:1.1rem;background:linear-gradient(160deg, #7a263a, #4a1522);color:#fff;border:1.5px solid rgba(0,0,0,0.25);">${f.emoji||'📍'}</div>
+            <div class="vs-names">
+              <div class="home">${f.title}</div>
+              <div class="away">${f.subtitle||''}</div>
+            </div>
+          </div>
+          <div class="kickoff"><span>${f.info||''}</span></div>
+          ${f.tickets ? `<div class="tickets">💵 ${f.tickets}</div>` : ''}
+          ${f.perks ? `<div class="tickets">${f.perks}</div>` : ''}
+          ${f.groundInfo ? `<div class="tickets"><a href="${f.groundInfo}" target="_blank" rel="noopener noreferrer">Meer info ↗</a></div>` : ''}
+        `;
+        grid.appendChild(card);
+        return;
+      }
+
       const home = findClub(f.home) || Object.assign({name:f.home, ground:f.ground||'', abbr:f.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.homeBadge||{});
       const away = findClub(f.away) || Object.assign({abbr:f.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.awayBadge||{});
-      const card = document.createElement('div');
       card.className = 'fcard' + (f.starred ? ' starred' : '');
       card.innerHTML = `
         ${f.starred ? `<div class="ribbon">${f.ribbon}</div>` : ''}
@@ -863,6 +916,7 @@ function renderWeekend(key){
         <div class="kickoff"><span>${f.time} aftrap</span><span class="ground">${home.ground}</span></div>
         ${f.tickets ? `<div class="tickets">🎟 ${f.tickets}</div>` : ''}
         ${f.travel ? `<div class="tickets">${f.travel}</div>` : ''}
+        ${f.groundInfo ? `<div class="tickets"><a href="${f.groundInfo}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a></div>` : ''}
       `;
       grid.appendChild(card);
     });
@@ -874,7 +928,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v15';
+const STORAGE_KEY = 'trip-data-v17';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
@@ -937,10 +991,38 @@ function renderStayCards(){
   grid.innerHTML = '';
   (ACTIVE_DATA.places.stays||[]).forEach(s=>{
     const el = document.createElement('div');
-    el.className = 'stay-card';
-    el.innerHTML = `<div class="stay-name">${s.name}</div><div class="stay-note">${s.note||''}</div>${s.url ? `<a class="stay-link" href="${s.url}" target="_blank" rel="noopener noreferrer">Bekijk op Airbnb ↗</a>` : ''}`;
+    el.className = 'stay-card' + (s.confirmed ? ' confirmed' : '');
+    el.innerHTML = `${s.confirmed ? '<div class="ribbon">Geboekt ✅</div>' : ''}<div class="stay-name">${s.name}</div><div class="stay-note">${s.note||''}</div>${s.url ? `<a class="stay-link" href="${s.url}" target="_blank" rel="noopener noreferrer">Bekijk op Airbnb ↗</a>` : ''}`;
     grid.appendChild(el);
   });
+}
+
+function renderVoteOptions(){
+  const grid = document.getElementById('voteGrid');
+  if(!grid) return;
+  grid.innerHTML = SATURDAY_VOTE_OPTIONS.map(v=>{
+    const home = findClub(v.home) || {name:v.home, ground:'', abbr:v.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
+    const away = findClub(v.away) || {abbr:v.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
+    return `
+      <div class="fcard${v.note ? ' starred' : ''}">
+        ${v.note ? `<div class="ribbon">${v.note}</div>` : ''}
+        <div class="meta"><span class="tier-tag">${TIER_LABELS[v.tier]}</span><span>Zaterdag</span></div>
+        <div class="matchup">
+          ${badgeHTML(home,'lg')}
+          <div class="vs-names">
+            <div class="home">${home.name}</div>
+            <div class="away">v ${away.name || v.away}</div>
+          </div>
+        </div>
+        <div class="kickoff"><span>${v.time} aftrap</span><span class="ground">${home.ground}</span></div>
+        <div class="vote-extra">
+          <span>🚇 ${v.travel} vanaf de Airbnb</span>
+          <span class="price">🎟 ${v.tickets}</span>
+          <a href="${v.groundInfo}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 function renderFlightOptions(){
@@ -948,10 +1030,10 @@ function renderFlightOptions(){
   const el = document.getElementById('flightOptions');
   if(!f || !f.combos || !f.combos.length){ el.innerHTML = ''; return; }
 
-  const leg = (l) => `
+  const leg = (l, dayLabel) => `
     <div class="flight-leg">
       <div class="route">${l.from} → ${l.to}</div>
-      <div class="times">${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(${l.duration}, direct)</span></div>
+      <div class="times">${dayLabel ? `<span style="color:var(--gold-soft);font-weight:600;">${dayLabel}</span> · ` : ''}${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(${l.duration}, direct${l.flightNo ? ' · ' + l.flightNo : ''})</span></div>
     </div>`;
 
   const cheapestPrice = Math.min(...f.combos.map(c=>parseFloat(c.pricePerPerson.replace(/[^\d.]/g,''))));
@@ -959,17 +1041,19 @@ function renderFlightOptions(){
   const days = [...new Set(f.combos.map(c=>c.day))];
   el.innerHTML = days.map(day=>{
     const combos = f.combos.filter(c=>c.day===day);
+    const returnDay = combos[0] && combos[0].returnDay;
+    const label = returnDay ? `${day} → ${returnDay}` : day;
     return `
-      <div class="flight-day-label">${day}</div>
+      <div class="flight-day-label">${label}</div>
       <div class="flight-grid">
         ${combos.map(c=>{
           const isCheapest = parseFloat(c.pricePerPerson.replace(/[^\d.]/g,'')) === cheapestPrice;
           return `
-            <div class="flight-card${isCheapest ? ' cheapest' : ''}">
-              ${isCheapest ? '<div class="ribbon">Goedkoopste</div>' : ''}
+            <div class="flight-card${(isCheapest || c.confirmed) ? ' cheapest' : ''}">
+              ${c.confirmed ? '<div class="ribbon">Geboekt ✅</div>' : (isCheapest ? '<div class="ribbon">Goedkoopste</div>' : '')}
               <div class="flight-title">${f.airline} · direct</div>
-              ${leg(c.outbound)}
-              ${leg(c.inbound)}
+              ${leg(c.outbound, 'Heen · ' + day)}
+              ${leg(c.inbound, 'Terug · ' + (c.returnDay || day))}
               <div class="flight-price"><span>${f.passengers} passagiers</span><span><b>${c.pricePerPerson}</b> pp · ${c.totalPrice} totaal</span></div>
             </div>
           `;
@@ -1018,6 +1102,7 @@ async function init(){
   renderWeekend('oct');
   try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
   renderStayCards();
+  renderVoteOptions();
   renderFlightOptions();
   renderPrep();
   initScrollspy();
