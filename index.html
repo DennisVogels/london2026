@@ -1039,8 +1039,10 @@ function renderFlightOptions(){
   const days = [...new Set(f.combos.map(c=>c.day))];
   el.innerHTML = days.map(day=>{
     const combos = f.combos.filter(c=>c.day===day);
+    const returnDay = combos[0] && combos[0].returnDay;
+    const label = returnDay ? `${day} → ${returnDay}` : day;
     return `
-      <div class="flight-day-label">${day}</div>
+      <div class="flight-day-label">${label}</div>
       <div class="flight-grid">
         ${combos.map(c=>{
           const isCheapest = parseFloat(c.pricePerPerson.replace(/[^\d.]/g,'')) === cheapestPrice;
