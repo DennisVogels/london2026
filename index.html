@@ -774,7 +774,7 @@ const DEFAULT_WEEKENDS = {
       ]},
       {day:"Zondag 11 oktober", items:[
         {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}, groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/southampton/st-marys-stadium/"},
-        {home:"Crystal Palace", away:"Nottingham Forest", time:"14:00", tier:1, starred:false, tickets:"£100–130 · <a href=\"https://www.stubhub.ie/crystal-palace-fc-vs-nottingham-forest-fc-tickets-selhurst-park-stadium-10-10-2026/event/107320089/\" target=\"_blank\" rel=\"noopener noreferrer\">StubHub ↗</a>", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
+        {home:"Crystal Palace", away:"Nottingham Forest", time:"14:00", tier:1, starred:false, tickets:"£100–130 · <a href=\"https://www.stubhub.ie/crystal-palace-fc-vs-nottingham-forest-fc-tickets-selhurst-park-stadium-10-10-2026/event/107320089/\" target=\"_blank\" rel=\"noopener noreferrer\">StubHub ↗</a> · <a href=\"https://groundhopticket.com/premier-league/crystal-palace-nottingham-forest\" target=\"_blank\" rel=\"noopener noreferrer\">Groundhop Ticket ↗</a>", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
         {type:"alt", emoji:"🥪", title:"Passyunk Avenue (Waterloo)", subtitle:"Philly cheesesteaks & American dive bar", info:"22 Leake St, SE1 7NN — vlak bij Waterloo station, batting cages, NFL op groot scherm", note:"🎟 Tickets nodig — nu uitverkocht, meer volgt", tickets:"£20,00* pp — garandeert een zitplek voor het volledige venster 14:00–19:00 (hele wedstrijd + meer)", perks:"🍺 Inclusief een gratis huisdrankje", groundInfo:"https://passyunkavenue.com/waterloo/"},
       ]}
     ],
@@ -929,7 +929,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v18';
+const STORAGE_KEY = 'trip-data-v19';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
