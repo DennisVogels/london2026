@@ -236,6 +236,8 @@
     padding:18px 18px 16px;
   }
   .fcard.starred{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
+  .fcard.pick{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,162,39,0.34), 0 14px 36px rgba(201,162,39,0.14);}
+  .fcard.pick .ribbon{background:var(--pitch);color:#ffffff;}
   .fcard .ribbon{
     position:absolute;top:-10px;right:16px;
     background:var(--gold);
@@ -552,7 +554,7 @@
     <span class="brand">Londen 2026</span>
     <a href="#prep">Voorbereiding</a>
     <a href="#fixtures">Wedstrijden</a>
-    <a href="#vote">Zaterdag stemmen</a>
+    <a href="#vote">Zaterdag keuze</a>
     <a href="#mapSection">Kaart &amp; verblijf</a>
     <a href="#flights">Vluchten &amp; tickets</a>
     <a href="#pyramid">Piramide</a>
@@ -601,7 +603,7 @@
     <div class="sec-head">
       <div class="eyebrow">Zaterdag 10 oktober</div>
       <h2>Welke wedstrijd kijken we?</h2>
-      <p>Nog drie in de running. Reistijd is vanaf de geboekte Airbnb (SE16 7UX, Rotherhithe), met het OV — reken op ±10 minuten afwijking en check Citymapper vlak voor vertrek. De stem doen we via een WhatsApp-poll, dit is puur ter info.</p>
+      <p>Watford – Burnley is de keuze voor zaterdag. Crystal Palace is verplaatst naar zondag 14:00 en valt dus af; Charlton blijft als alternatief staan. Reistijd is vanaf de geboekte Airbnb (SE16 7UX, Rotherhithe), met het OV — reken op ±10 minuten afwijking en check Citymapper vlak voor vertrek.</p>
     </div>
     <div id="voteGrid" class="fixture-grid"></div>
   </section>
@@ -758,14 +760,13 @@ const DEFAULT_WEEKENDS = {
     fixtures: [
       {day:"Vrijdag 9 oktober", items:[
         {home:"Sutton United", away:"Boreham Wood", time:"19:45", tier:5, starred:false},
-        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, ribbon:"Op je shortlist · Londense derby", tickets:"Beschikbaar · ~£35pp", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/london-stadium/"},
+        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, pick:true, ribbon:"✅ Onze keuze vrijdag · Londense derby", tickets:"Beschikbaar · ~£35pp", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/london-stadium/"},
       ]},
       {day:"Zaterdag 10 oktober", items:[
         {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, starred:false},
         {home:"Arsenal", away:"Leeds United", time:"15:00", tier:1, starred:false},
         {home:"Chelsea", away:"AFC Bournemouth", time:"15:00", tier:1, starred:false, tickets:"£200+"},
-        {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, starred:false, tickets:"£100–130 · <a href=\"https://www.stubhub.ie/crystal-palace-fc-vs-nottingham-forest-fc-tickets-selhurst-park-stadium-10-10-2026/event/107320089/\" target=\"_blank\" rel=\"noopener noreferrer\">StubHub ↗</a>"},
-        {home:"Watford", away:"Burnley", time:"15:00", tier:2, starred:false, tickets:"£35"},
+        {home:"Watford", away:"Burnley", time:"15:00", tier:2, starred:true, pick:true, ribbon:"✅ Onze keuze zaterdag", tickets:"£35"},
         {home:"Wealdstone", away:"Yeovil Town", time:"15:00", tier:5, starred:false},
         {home:"Hornchurch", away:"Eastleigh", time:"15:00", tier:5, starred:false},
         {home:"Dagenham & Redbridge", away:"Hemel Hempstead Town", time:"15:00", tier:6, starred:true, ribbon:"Andy Carroll staat op het veld", tickets:"£20"},
@@ -773,6 +774,7 @@ const DEFAULT_WEEKENDS = {
       ]},
       {day:"Zondag 11 oktober", items:[
         {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}, groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/southampton/st-marys-stadium/"},
+        {home:"Crystal Palace", away:"Nottingham Forest", time:"14:00", tier:1, starred:false, tickets:"£100–130 · <a href=\"https://www.stubhub.ie/crystal-palace-fc-vs-nottingham-forest-fc-tickets-selhurst-park-stadium-10-10-2026/event/107320089/\" target=\"_blank\" rel=\"noopener noreferrer\">StubHub ↗</a>", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
         {type:"alt", emoji:"🥪", title:"Passyunk Avenue (Waterloo)", subtitle:"Philly cheesesteaks & American dive bar", info:"22 Leake St, SE1 7NN — vlak bij Waterloo station, batting cages, NFL op groot scherm", note:"🎟 Tickets nodig — nu uitverkocht, meer volgt", tickets:"£20,00* pp — garandeert een zitplek voor het volledige venster 14:00–19:00 (hele wedstrijd + meer)", perks:"🍺 Inclusief een gratis huisdrankje", groundInfo:"https://passyunkavenue.com/waterloo/"},
       ]}
     ],
@@ -819,8 +821,7 @@ const DEFAULT_WEEKENDS = {
 
 const SATURDAY_VOTE_OPTIONS = [
   {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"45 min", tickets:"£30–35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/the-valley/", note:"Combi met Dagenham mogelijk, met haast"},
-  {home:"Crystal Palace", away:"Nottingham Forest", time:"15:00", tier:1, travel:"55 min", tickets:"£100–130 (resale)", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
-  {home:"Watford", away:"Burnley", time:"15:00", tier:2, travel:"1u45", tickets:"£35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/watford/vicarage-road/"},
+  {home:"Watford", away:"Burnley", time:"15:00", tier:2, pick:true, travel:"1u45", tickets:"£35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/watford/vicarage-road/"},
 ];
 
 const DEFAULT_PLACES = {
@@ -902,7 +903,7 @@ function renderWeekend(key){
 
       const home = findClub(f.home) || Object.assign({name:f.home, ground:f.ground||'', abbr:f.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.homeBadge||{});
       const away = findClub(f.away) || Object.assign({abbr:f.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.awayBadge||{});
-      card.className = 'fcard' + (f.starred ? ' starred' : '');
+      card.className = 'fcard' + (f.starred ? ' starred' : '') + (f.pick ? ' pick' : '');
       card.innerHTML = `
         ${f.starred ? `<div class="ribbon">${f.ribbon}</div>` : ''}
         <div class="meta"><span class="tier-tag">${TIER_LABELS[f.tier]}</span><span>${group.day.split(' ')[0]}</span></div>
@@ -928,7 +929,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v17';
+const STORAGE_KEY = 'trip-data-v18';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
@@ -1003,9 +1004,10 @@ function renderVoteOptions(){
   grid.innerHTML = SATURDAY_VOTE_OPTIONS.map(v=>{
     const home = findClub(v.home) || {name:v.home, ground:'', abbr:v.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
     const away = findClub(v.away) || {abbr:v.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
+    const ribbon = [v.pick ? '✅ Onze keuze' : '', v.note || ''].filter(Boolean).join(' · ');
     return `
-      <div class="fcard${v.note ? ' starred' : ''}">
-        ${v.note ? `<div class="ribbon">${v.note}</div>` : ''}
+      <div class="fcard${ribbon ? ' starred' : ''}${v.pick ? ' pick' : ''}">
+        ${ribbon ? `<div class="ribbon">${ribbon}</div>` : ''}
         <div class="meta"><span class="tier-tag">${TIER_LABELS[v.tier]}</span><span>Zaterdag</span></div>
         <div class="matchup">
           ${badgeHTML(home,'lg')}
