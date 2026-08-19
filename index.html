@@ -466,10 +466,12 @@
     display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;
   }
   .food-card .food-note{font-size:0.86rem;color:var(--parchment);opacity:0.88;flex:1;}
+  .food-card .food-foot{
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
+    margin-top:12px;
+  }
   .food-card .food-score{
     display:inline-flex;align-items:center;gap:6px;
-    margin-top:12px;
-    align-self:flex-start;
     font-family:var(--font-mono);
     font-size:0.68rem;
     letter-spacing:0.06em;
@@ -479,6 +481,16 @@
     border-radius:20px;
     padding:4px 10px;
   }
+  .food-card .food-map{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+  }
+  .food-card .food-map:hover{color:var(--parchment);}
 
   .flight-day-label{
     font-family:var(--font-mono);
@@ -1042,6 +1054,7 @@ const RESTAURANTS = [
   {
     group:"Bie os um de hook",
     name:"Tower Tandoori",
+    map:"https://maps.app.goo.gl/CWZkATF6qgGh2aMy6",
     tags:["Indiaas-Engelse fusion", "Ietsje wiejer weg"],
     note:"Veur de beste Indiaas-engelse fusions, Butter Checken en Tikka. Om de hook van de Anytime fitness veur es er sportievelinge in de groep zitte. Ietsje verder van ozze sloapplek, mer vas op de route urges hear of bie trugkomst.",
     score:"4,8/5"
@@ -1049,6 +1062,7 @@ const RESTAURANTS = [
   {
     group:"Bie os um de hook",
     name:"Canada Water Cafe",
+    map:"https://maps.app.goo.gl/JhHnQHLkwyB2tbzJ7",
     tags:["Ontbijt tot diner", "Kwarteerke te voot"],
     note:"Van \u2019s murges vreug tot soaves laat. Alles hobbe ze, van ontbijt tot diner! Italiaans diner, full english breakfast, gebak, brunch! Ough veur de blome-vreaters onger os. Te voot ein kwarteerke van os verblief.",
     score:"4,3/5"
@@ -1056,6 +1070,7 @@ const RESTAURANTS = [
   {
     group:"Bie os um de hook",
     name:"The Pear Tree",
+    map:"https://maps.app.goo.gl/ncB3RSRhAD3ytKpJA",
     tags:["Australian-inspired", "Um de hook"],
     note:"Dennis zien suggestie. Ough hie kent de ganse daag gegeate weare. Ze numme zichzelf ein \u201cAustralian-inspired restaurant\u201d. Op de foto zeen ich ein gigantisch menu mit Sunday roast, burgers, nasi, spaghetti en Korean Fried Chicken. Missjien ein kleine ideniteitscrisis?? Om de hook van os accommodatie.",
     score:"4,5/5"
@@ -1063,6 +1078,7 @@ const RESTAURANTS = [
   {
     group:"Bie os um de hook",
     name:"Mama Pho",
+    map:"https://maps.app.goo.gl/e22j1NjfrACo6RGD6",
     tags:["Vietnamees", "Sjappelijke prieze"],
     note:"Toch ein bietje bie de mam op vakantie! Lunch en oavendeate vietnamesche stijl. Buns, Pho\u2019s en ries stuit hie op \u2019t menu. Zuut er prima oet en heel sjappelijke prieze. Ough dit kense hoas vanoet ozze sloapkamer zeen ligge!",
     score:"4,1/5"
@@ -1070,6 +1086,7 @@ const RESTAURANTS = [
   {
     group:"Bie os um de hook",
     name:"La Chingada",
+    map:"https://maps.app.goo.gl/TjnwWeQ2xRGQ37a37",
     tags:["Mexicaans", "Vlakbie \u2019t huuske"],
     note:"Dit liek hoas ein weareldreis? Noe zeen we in Mexico belandj. Qua gerechte zal det gein introductie neudig hubbe. Lekker dichtbie os huuske, dus es emes las krig van de bonen is det binne ein paar minuut trug!",
     score:"4,5/5"
@@ -1077,6 +1094,7 @@ const RESTAURANTS = [
   {
     group:"Favorietjes van veurige tripjes",
     name:"Bone Daddies",
+    map:"https://maps.app.goo.gl/dvoYhfR8yHbL86qCA",
     tags:["Ramen", "Bermondsey Beer Mile"],
     note:"Noodle(soep) maar den ech good! In alle soarte en moate. Toppings ohne ende. Ein klein tentje in ein heukske van ein industrieterrein dat zo het decor kos zeen van ein gang shooting. Alsof er ein stukske hemel in de hel zou zeen! 2x trug geweas! Bie de Bermondsey Beer Mile in de buurt. Oneindig veul (micro-) brouwerieje in ein strook van 2 km.",
     ribbon:"2x trug geweas"
@@ -1084,9 +1102,10 @@ const RESTAURANTS = [
   {
     group:"Favorietjes van veurige tripjes",
     name:"Maltby Street Market",
-    tags:["Streetfood", "Allein zoaterdig &amp; zondig"],
-    note:"Ein soart weakelijks foodtruck festival in ein kleine steeg. Eerst moeilijk te vinje, mer esse einmoal wets wose mos zeen\u2026 kleine mertkreumkes mit eate oet alle windjstreke. Allemoal eave lekker en good te deile. Officieel het begin van de Bermondsey Beer Mile. Allein te bezeuke op zoaterdig en zondig.",
-    ribbon:"Zoa &amp; zo"
+    map:"https://maps.app.goo.gl/DesdAar5HtoVJLmT9",
+    tags:["Streetfood", "Allein vriedigaovend, zoaterdig &amp; zondig"],
+    note:"Ein soart weakelijks foodtruck festival in ein kleine steeg. Eerst moeilijk te vinje, mer esse einmoal wets wose mos zeen\u2026 kleine mertkreumkes mit eate oet alle windjstreke. Allemoal eave lekker en good te deile. Officieel het begin van de Bermondsey Beer Mile. Allein te bezeuke op vriedigaovend, zoaterdig of zondig.",
+    ribbon:"Vri, zoa &amp; zo"
   }
 ];
 
@@ -1106,7 +1125,10 @@ function renderRestaurants(){
             <div class="food-name">${r.name}</div>
             ${(r.tags && r.tags.length) ? `<div class="food-meta">${r.tags.map(t=>`<span>${t}</span>`).join('<span>\u00b7</span>')}</div>` : ''}
             <div class="food-note">${r.note}</div>
-            ${r.score ? `<div class="food-score">\u2605 Tripadvisor ${r.score}</div>` : ''}
+            <div class="food-foot">
+              ${r.score ? `<span class="food-score">\u2605 Tripadvisor ${r.score}</span>` : ''}
+              ${r.map ? `<a class="food-map" href="${r.map}" target="_blank" rel="noopener noreferrer">\u{1F4CD} Google Maps \u2197</a>` : ''}
+            </div>
           </div>
         `).join('')}
       </div>
