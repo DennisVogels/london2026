@@ -894,9 +894,6 @@ const DEFAULT_PLACES = {
   },
   prep: {
     todos: [
-      {text:"Vlucht + datum kiezen", done:true},
-      {text:"Airbnb vinden", done:true},
-      {text:"Zaterdagprogramma kiezen", done:false},
       {text:"Tickets kopen", done:false},
       {text:"Restaurant scouten", done:false}
     ],
@@ -983,7 +980,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v19';
+const STORAGE_KEY = 'trip-data-v20';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
