@@ -301,18 +301,6 @@
   .away-item .who{font-weight:600;}
   .away-item .where{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);text-align:right;}
 
-  /* ---------- SATURDAY VOTE ---------- */
-  .vote-extra{
-    margin-top:10px;padding-top:10px;
-    border-top:1px dashed var(--line);
-    display:flex;flex-direction:column;gap:6px;
-    font-family:var(--font-mono);font-size:0.72rem;
-    color:var(--muted);
-  }
-  .vote-extra .price{color:var(--gold-soft);}
-  .vote-extra a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:2px;}
-  .vote-extra a:hover{color:var(--parchment);}
-
   /* ---------- TBC NOTE ---------- */
   .tbc{
     border:1px dashed var(--line-strong);
@@ -625,7 +613,6 @@
     <span class="brand">Londen 2026</span>
     <a href="#prep">Voorbereiding</a>
     <a href="#fixtures">Wedstrijden</a>
-    <a href="#vote">Zaterdag keuze</a>
     <a href="#mapSection">Kaart &amp; verblijf</a>
     <a href="#food">Eten &amp; drinken</a>
     <a href="#flights">Vluchten &amp; tickets</a>
@@ -669,15 +656,6 @@
 
     <div id="tbcWrap" style="margin-top:30px;"></div>
 
-  </section>
-
-  <section id="vote">
-    <div class="sec-head">
-      <div class="eyebrow">Zaterdag 10 oktober</div>
-      <h2>Welke wedstrijd kijken we?</h2>
-      <p>Watford – Burnley is de keuze voor zaterdag. Crystal Palace is verplaatst naar zondag 14:00 en valt dus af; Charlton blijft als alternatief staan. Reistijd is vanaf de geboekte Airbnb (SE16 7UX, Rotherhithe), met het OV — reken op ±10 minuten afwijking en check Citymapper vlak voor vertrek.</p>
-    </div>
-    <div id="voteGrid" class="fixture-grid"></div>
   </section>
 
   <section id="mapSection">
@@ -899,11 +877,6 @@ const DEFAULT_WEEKENDS = {
     tbc: null
   }
 };
-
-const SATURDAY_VOTE_OPTIONS = [
-  {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"45 min", tickets:"£30–35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/the-valley/", note:"Combi met Dagenham mogelijk, met haast"},
-  {home:"Watford", away:"Burnley", time:"15:00", tier:2, pick:true, travel:"1u45", tickets:"£35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/watford/vicarage-road/"},
-];
 
 const DEFAULT_PLACES = {
   stays: [
@@ -1155,35 +1128,6 @@ function renderStayCards(){
   });
 }
 
-function renderVoteOptions(){
-  const grid = document.getElementById('voteGrid');
-  if(!grid) return;
-  grid.innerHTML = SATURDAY_VOTE_OPTIONS.map(v=>{
-    const home = findClub(v.home) || {name:v.home, ground:'', abbr:v.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
-    const away = findClub(v.away) || {abbr:v.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
-    const ribbon = [v.pick ? '✅ Onze keuze' : '', v.note || ''].filter(Boolean).join(' · ');
-    return `
-      <div class="fcard${ribbon ? ' starred' : ''}${v.pick ? ' pick' : ''}">
-        ${ribbon ? `<div class="ribbon">${ribbon}</div>` : ''}
-        <div class="meta"><span class="tier-tag">${TIER_LABELS[v.tier]}</span><span>Zaterdag</span></div>
-        <div class="matchup">
-          ${badgeHTML(home,'lg')}
-          <div class="vs-names">
-            <div class="home">${home.name}</div>
-            <div class="away">v ${away.name || v.away}</div>
-          </div>
-        </div>
-        <div class="kickoff"><span>${v.time} aftrap</span><span class="ground">${home.ground}</span></div>
-        <div class="vote-extra">
-          <span>🚇 ${v.travel} vanaf de Airbnb</span>
-          <span class="price">🎟 ${v.tickets}</span>
-          <a href="${v.groundInfo}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
 function renderFlightOptions(){
   const f = ACTIVE_DATA.places.flights;
   const el = document.getElementById('flightOptions');
@@ -1262,7 +1206,6 @@ async function init(){
   try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
   renderStayCards();
   renderRestaurants();
-  renderVoteOptions();
   renderFlightOptions();
   renderPrep();
   initScrollspy();
