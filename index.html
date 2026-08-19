@@ -421,6 +421,77 @@
   }
   .wishlist-cta:hover{background:var(--gold-soft);transform:translateY(-1px);}
 
+  /* ---------- RESTAURANTS ---------- */
+  .food-group-label{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin:34px 0 14px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .food-group-label:first-child{margin-top:0;}
+  .food-group-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .food-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:16px;
+  }
+  .food-card{
+    position:relative;
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+    display:flex;flex-direction:column;
+  }
+  .food-card.favourite{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
+  .food-card .ribbon{
+    position:absolute;top:-10px;right:16px;
+    background:var(--gold);
+    color:var(--parchment);
+    font-family:var(--font-mono);
+    font-size:0.6rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:20px;
+    font-weight:600;
+  }
+  .food-card .food-name{
+    font-family:var(--font-display);
+    font-weight:600;
+    text-transform:uppercase;
+    font-size:1.05rem;
+    letter-spacing:0.01em;
+    margin-bottom:6px;
+    padding-right:70px;
+  }
+  .food-card .food-meta{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin-bottom:10px;
+    display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;
+  }
+  .food-card .food-note{font-size:0.86rem;color:var(--parchment);opacity:0.88;flex:1;}
+  .food-card .food-score{
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:12px;
+    align-self:flex-start;
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    border:1px solid var(--line-strong);
+    border-radius:20px;
+    padding:4px 10px;
+  }
+
   .flight-day-label{
     font-family:var(--font-mono);
     font-size:0.72rem;
@@ -556,6 +627,7 @@
     <a href="#fixtures">Wedstrijden</a>
     <a href="#vote">Zaterdag keuze</a>
     <a href="#mapSection">Kaart &amp; verblijf</a>
+    <a href="#food">Eten &amp; drinken</a>
     <a href="#flights">Vluchten &amp; tickets</a>
     <a href="#pyramid">Piramide</a>
   </div>
@@ -624,6 +696,15 @@
 
     <div class="stay-grid" id="stayGrid"></div>
     <a class="wishlist-cta" href="https://www.airbnb.nl/wishlists/invite/cc875b76-2e3a-404c-9b83-5ab8e730e272?s=67&amp;unique_share_id=59d5ce6e-787a-4f7f-b993-b5a67e21db74" target="_blank" rel="noopener noreferrer">Bekijk volledige Airbnb-wenslijst ↗</a>
+  </section>
+
+  <section id="food">
+    <div class="sec-head">
+      <div class="eyebrow">Eate en drinke</div>
+      <h2>Restaurantopties</h2>
+      <p>Wo hobbe we ozze bordjes vol? Ierst de tentjes op loopafstandj van 't verblief in Rotherhithe, doanoa de favorietjes van veurige tripjes. Tripadvisor-score sjtuit d'r bie wo bekindj.</p>
+    </div>
+    <div id="foodOptions"></div>
   </section>
 
   <section id="flights">
@@ -987,6 +1068,82 @@ function renderMap(){
   setTimeout(()=>leafletMap.invalidateSize(), 150);
 }
 
+const RESTAURANTS = [
+  {
+    group:"Bie os um de hook",
+    name:"Tower Tandoori",
+    tags:["Indiaas-Engelse fusion", "Ietsje wiejer weg"],
+    note:"Veur de beste Indiaas-engelse fusions, Butter Checken en Tikka. Om de hook van de Anytime fitness veur es er sportievelinge in de groep zitte. Ietsje verder van ozze sloapplek, mer vas op de route urges hear of bie trugkomst.",
+    score:"4,8/5"
+  },
+  {
+    group:"Bie os um de hook",
+    name:"Canada Water Cafe",
+    tags:["Ontbijt tot diner", "Kwarteerke te voot"],
+    note:"Van \u2019s murges vreug tot soaves laat. Alles hobbe ze, van ontbijt tot diner! Italiaans diner, full english breakfast, gebak, brunch! Ough veur de blome-vreaters onger os. Te voot ein kwarteerke van os verblief.",
+    score:"4,3/5"
+  },
+  {
+    group:"Bie os um de hook",
+    name:"The Pear Tree",
+    tags:["Australian-inspired", "Um de hook"],
+    note:"Dennis zien suggestie. Ough hie kent de ganse daag gegeate weare. Ze numme zichzelf ein \u201cAustralian-inspired restaurant\u201d. Op de foto zeen ich ein gigantisch menu mit Sunday roast, burgers, nasi, spaghetti en Korean Fried Chicken. Missjien ein kleine ideniteitscrisis?? Om de hook van os accommodatie.",
+    score:"4,5/5"
+  },
+  {
+    group:"Bie os um de hook",
+    name:"Mama Pho",
+    tags:["Vietnamees", "Sjappelijke prieze"],
+    note:"Toch ein bietje bie de mam op vakantie! Lunch en oavendeate vietnamesche stijl. Buns, Pho\u2019s en ries stuit hie op \u2019t menu. Zuut er prima oet en heel sjappelijke prieze. Ough dit kense hoas vanoet ozze sloapkamer zeen ligge!",
+    score:"4,1/5"
+  },
+  {
+    group:"Bie os um de hook",
+    name:"La Chingada",
+    tags:["Mexicaans", "Vlakbie \u2019t huuske"],
+    note:"Dit liek hoas ein weareldreis? Noe zeen we in Mexico belandj. Qua gerechte zal det gein introductie neudig hubbe. Lekker dichtbie os huuske, dus es emes las krig van de bonen is det binne ein paar minuut trug!",
+    score:"4,5/5"
+  },
+  {
+    group:"Favorietjes van veurige tripjes",
+    name:"Bone Daddies",
+    tags:["Ramen", "Bermondsey Beer Mile"],
+    note:"Noodle(soep) maar den ech good! In alle soarte en moate. Toppings ohne ende. Ein klein tentje in ein heukske van ein industrieterrein dat zo het decor kos zeen van ein gang shooting. Alsof er ein stukske hemel in de hel zou zeen! 2x trug geweas! Bie de Bermondsey Beer Mile in de buurt. Oneindig veul (micro-) brouwerieje in ein strook van 2 km.",
+    ribbon:"2x trug geweas"
+  },
+  {
+    group:"Favorietjes van veurige tripjes",
+    name:"Maltby Street Market",
+    tags:["Streetfood", "Allein zoaterdig &amp; zondig"],
+    note:"Ein soart weakelijks foodtruck festival in ein kleine steeg. Eerst moeilijk te vinje, mer esse einmoal wets wose mos zeen\u2026 kleine mertkreumkes mit eate oet alle windjstreke. Allemoal eave lekker en good te deile. Officieel het begin van de Bermondsey Beer Mile. Allein te bezeuke op zoaterdig en zondig.",
+    ribbon:"Zoa &amp; zo"
+  }
+];
+
+function renderRestaurants(){
+  const el = document.getElementById('foodOptions');
+  if(!el) return;
+  const groups = [...new Set(RESTAURANTS.map(r=>r.group))];
+  el.innerHTML = groups.map(g=>{
+    const items = RESTAURANTS.filter(r=>r.group===g);
+    const favourite = g.toLowerCase().indexOf('favoriet') === 0;
+    return `
+      <div class="food-group-label">${g}</div>
+      <div class="food-grid">
+        ${items.map(r=>`
+          <div class="food-card${favourite ? ' favourite' : ''}">
+            ${r.ribbon ? `<div class="ribbon">${r.ribbon}</div>` : ''}
+            <div class="food-name">${r.name}</div>
+            ${(r.tags && r.tags.length) ? `<div class="food-meta">${r.tags.map(t=>`<span>${t}</span>`).join('<span>\u00b7</span>')}</div>` : ''}
+            <div class="food-note">${r.note}</div>
+            ${r.score ? `<div class="food-score">\u2605 Tripadvisor ${r.score}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
 function renderStayCards(){
   const grid = document.getElementById('stayGrid');
   grid.innerHTML = '';
@@ -1104,6 +1261,7 @@ async function init(){
   renderWeekend('oct');
   try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
   renderStayCards();
+  renderRestaurants();
   renderVoteOptions();
   renderFlightOptions();
   renderPrep();
