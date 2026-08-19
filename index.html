@@ -301,18 +301,6 @@
   .away-item .who{font-weight:600;}
   .away-item .where{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);text-align:right;}
 
-  /* ---------- SATURDAY VOTE ---------- */
-  .vote-extra{
-    margin-top:10px;padding-top:10px;
-    border-top:1px dashed var(--line);
-    display:flex;flex-direction:column;gap:6px;
-    font-family:var(--font-mono);font-size:0.72rem;
-    color:var(--muted);
-  }
-  .vote-extra .price{color:var(--gold-soft);}
-  .vote-extra a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:2px;}
-  .vote-extra a:hover{color:var(--parchment);}
-
   /* ---------- TBC NOTE ---------- */
   .tbc{
     border:1px dashed var(--line-strong);
@@ -420,6 +408,89 @@
     transition:background .15s ease, transform .15s ease;
   }
   .wishlist-cta:hover{background:var(--gold-soft);transform:translateY(-1px);}
+
+  /* ---------- RESTAURANTS ---------- */
+  .food-group-label{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin:34px 0 14px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .food-group-label:first-child{margin-top:0;}
+  .food-group-label::after{content:"";flex:1;height:1px;background:var(--line);}
+  .food-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:16px;
+  }
+  .food-card{
+    position:relative;
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+    display:flex;flex-direction:column;
+  }
+  .food-card.favourite{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
+  .food-card .ribbon{
+    position:absolute;top:-10px;right:16px;
+    background:var(--gold);
+    color:var(--parchment);
+    font-family:var(--font-mono);
+    font-size:0.6rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:20px;
+    font-weight:600;
+  }
+  .food-card .food-name{
+    font-family:var(--font-display);
+    font-weight:600;
+    text-transform:uppercase;
+    font-size:1.05rem;
+    letter-spacing:0.01em;
+    margin-bottom:6px;
+    padding-right:70px;
+  }
+  .food-card .food-meta{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin-bottom:10px;
+    display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;
+  }
+  .food-card .food-note{font-size:0.86rem;color:var(--parchment);opacity:0.88;flex:1;}
+  .food-card .food-foot{
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
+    margin-top:12px;
+  }
+  .food-card .food-score{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    border:1px solid var(--line-strong);
+    border-radius:20px;
+    padding:4px 10px;
+  }
+  .food-card .food-map{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+  }
+  .food-card .food-map:hover{color:var(--parchment);}
 
   .flight-day-label{
     font-family:var(--font-mono);
@@ -554,8 +625,8 @@
     <span class="brand">Londen 2026</span>
     <a href="#prep">Voorbereiding</a>
     <a href="#fixtures">Wedstrijden</a>
-    <a href="#vote">Zaterdag keuze</a>
     <a href="#mapSection">Kaart &amp; verblijf</a>
+    <a href="#food">Eten &amp; drinken</a>
     <a href="#flights">Vluchten &amp; tickets</a>
     <a href="#pyramid">Piramide</a>
   </div>
@@ -599,15 +670,6 @@
 
   </section>
 
-  <section id="vote">
-    <div class="sec-head">
-      <div class="eyebrow">Zaterdag 10 oktober</div>
-      <h2>Welke wedstrijd kijken we?</h2>
-      <p>Watford – Burnley is de keuze voor zaterdag. Crystal Palace is verplaatst naar zondag 14:00 en valt dus af; Charlton blijft als alternatief staan. Reistijd is vanaf de geboekte Airbnb (SE16 7UX, Rotherhithe), met het OV — reken op ±10 minuten afwijking en check Citymapper vlak voor vertrek.</p>
-    </div>
-    <div id="voteGrid" class="fixture-grid"></div>
-  </section>
-
   <section id="mapSection">
     <div class="sec-head">
       <div class="eyebrow">Stadions, verblijf &amp; bezienswaardigheden</div>
@@ -624,6 +686,15 @@
 
     <div class="stay-grid" id="stayGrid"></div>
     <a class="wishlist-cta" href="https://www.airbnb.nl/wishlists/invite/cc875b76-2e3a-404c-9b83-5ab8e730e272?s=67&amp;unique_share_id=59d5ce6e-787a-4f7f-b993-b5a67e21db74" target="_blank" rel="noopener noreferrer">Bekijk volledige Airbnb-wenslijst ↗</a>
+  </section>
+
+  <section id="food">
+    <div class="sec-head">
+      <div class="eyebrow">Eate en drinke</div>
+      <h2>Restaurantopties</h2>
+      <p>Wo hobbe we ozze bordjes vol? Ierst de tentjes op loopafstandj van 't verblief in Rotherhithe, doanoa de favorietjes van veurige tripjes. Tripadvisor-score sjtuit d'r bie wo bekindj.</p>
+    </div>
+    <div id="foodOptions"></div>
   </section>
 
   <section id="flights">
@@ -819,11 +890,6 @@ const DEFAULT_WEEKENDS = {
   }
 };
 
-const SATURDAY_VOTE_OPTIONS = [
-  {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, travel:"45 min", tickets:"£30–35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/the-valley/", note:"Combi met Dagenham mogelijk, met haast"},
-  {home:"Watford", away:"Burnley", time:"15:00", tier:2, pick:true, travel:"1u45", tickets:"£35", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/watford/vicarage-road/"},
-];
-
 const DEFAULT_PLACES = {
   stays: [
     {name:"Geboekte Airbnb — Rotherhithe", confirmed:true, lat:51.4934, lng:-0.0341, note:"✅ Geboekt — SE16 7UX, bij Windsock Close/Plough Way, Greenland Dock", url:"https://www.airbnb.com/l/cS7x6vcq"}
@@ -840,9 +906,6 @@ const DEFAULT_PLACES = {
   },
   prep: {
     todos: [
-      {text:"Vlucht + datum kiezen", done:true},
-      {text:"Airbnb vinden", done:true},
-      {text:"Zaterdagprogramma kiezen", done:false},
       {text:"Tickets kopen", done:false},
       {text:"Restaurant scouten", done:false}
     ],
@@ -929,7 +992,7 @@ function renderWeekend(key){
 }
 
 // ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v19';
+const STORAGE_KEY = 'trip-data-v20';
 let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
 let currentWeekend = 'oct';
 let leafletMap = null;
@@ -987,6 +1050,92 @@ function renderMap(){
   setTimeout(()=>leafletMap.invalidateSize(), 150);
 }
 
+const RESTAURANTS = [
+  {
+    group:"Bie os um de hook",
+    name:"Tower Tandoori",
+    map:"https://maps.app.goo.gl/CWZkATF6qgGh2aMy6",
+    tags:["Indiaas-Engelse fusion", "Ietsje wiejer weg"],
+    note:"Veur de beste Indiaas-engelse fusions, Butter Checken en Tikka. Om de hook van de Anytime fitness veur es er sportievelinge in de groep zitte. Ietsje verder van ozze sloapplek, mer vas op de route urges hear of bie trugkomst.",
+    score:"4,8/5"
+  },
+  {
+    group:"Bie os um de hook",
+    name:"Canada Water Cafe",
+    map:"https://maps.app.goo.gl/JhHnQHLkwyB2tbzJ7",
+    tags:["Ontbijt tot diner", "Kwarteerke te voot"],
+    note:"Van \u2019s murges vreug tot soaves laat. Alles hobbe ze, van ontbijt tot diner! Italiaans diner, full english breakfast, gebak, brunch! Ough veur de blome-vreaters onger os. Te voot ein kwarteerke van os verblief.",
+    score:"4,3/5"
+  },
+  {
+    group:"Bie os um de hook",
+    name:"The Pear Tree",
+    map:"https://maps.app.goo.gl/ncB3RSRhAD3ytKpJA",
+    tags:["Australian-inspired", "Um de hook"],
+    note:"Dennis zien suggestie. Ough hie kent de ganse daag gegeate weare. Ze numme zichzelf ein \u201cAustralian-inspired restaurant\u201d. Op de foto zeen ich ein gigantisch menu mit Sunday roast, burgers, nasi, spaghetti en Korean Fried Chicken. Missjien ein kleine ideniteitscrisis?? Om de hook van os accommodatie.",
+    score:"4,5/5"
+  },
+  {
+    group:"Bie os um de hook",
+    name:"Mama Pho",
+    map:"https://maps.app.goo.gl/e22j1NjfrACo6RGD6",
+    tags:["Vietnamees", "Sjappelijke prieze"],
+    note:"Toch ein bietje bie de mam op vakantie! Lunch en oavendeate vietnamesche stijl. Buns, Pho\u2019s en ries stuit hie op \u2019t menu. Zuut er prima oet en heel sjappelijke prieze. Ough dit kense hoas vanoet ozze sloapkamer zeen ligge!",
+    score:"4,1/5"
+  },
+  {
+    group:"Bie os um de hook",
+    name:"La Chingada",
+    map:"https://maps.app.goo.gl/TjnwWeQ2xRGQ37a37",
+    tags:["Mexicaans", "Vlakbie \u2019t huuske"],
+    note:"Dit liek hoas ein weareldreis? Noe zeen we in Mexico belandj. Qua gerechte zal det gein introductie neudig hubbe. Lekker dichtbie os huuske, dus es emes las krig van de bonen is det binne ein paar minuut trug!",
+    score:"4,5/5"
+  },
+  {
+    group:"Favorietjes van veurige tripjes",
+    name:"Bone Daddies",
+    map:"https://maps.app.goo.gl/dvoYhfR8yHbL86qCA",
+    tags:["Ramen", "Bermondsey Beer Mile"],
+    note:"Noodle(soep) maar den ech good! In alle soarte en moate. Toppings ohne ende. Ein klein tentje in ein heukske van ein industrieterrein dat zo het decor kos zeen van ein gang shooting. Alsof er ein stukske hemel in de hel zou zeen! 2x trug geweas! Bie de Bermondsey Beer Mile in de buurt. Oneindig veul (micro-) brouwerieje in ein strook van 2 km.",
+    ribbon:"2x trug geweas"
+  },
+  {
+    group:"Favorietjes van veurige tripjes",
+    name:"Maltby Street Market",
+    map:"https://maps.app.goo.gl/DesdAar5HtoVJLmT9",
+    tags:["Streetfood", "Allein vriedigaovend, zoaterdig &amp; zondig"],
+    note:"Ein soart weakelijks foodtruck festival in ein kleine steeg. Eerst moeilijk te vinje, mer esse einmoal wets wose mos zeen\u2026 kleine mertkreumkes mit eate oet alle windjstreke. Allemoal eave lekker en good te deile. Officieel het begin van de Bermondsey Beer Mile. Allein te bezeuke op vriedigaovend, zoaterdig of zondig.",
+    ribbon:"Vri, zoa &amp; zo"
+  }
+];
+
+function renderRestaurants(){
+  const el = document.getElementById('foodOptions');
+  if(!el) return;
+  const groups = [...new Set(RESTAURANTS.map(r=>r.group))];
+  el.innerHTML = groups.map(g=>{
+    const items = RESTAURANTS.filter(r=>r.group===g);
+    const favourite = g.toLowerCase().indexOf('favoriet') === 0;
+    return `
+      <div class="food-group-label">${g}</div>
+      <div class="food-grid">
+        ${items.map(r=>`
+          <div class="food-card${favourite ? ' favourite' : ''}">
+            ${r.ribbon ? `<div class="ribbon">${r.ribbon}</div>` : ''}
+            <div class="food-name">${r.name}</div>
+            ${(r.tags && r.tags.length) ? `<div class="food-meta">${r.tags.map(t=>`<span>${t}</span>`).join('<span>\u00b7</span>')}</div>` : ''}
+            <div class="food-note">${r.note}</div>
+            <div class="food-foot">
+              ${r.score ? `<span class="food-score">\u2605 Tripadvisor ${r.score}</span>` : ''}
+              ${r.map ? `<a class="food-map" href="${r.map}" target="_blank" rel="noopener noreferrer">\u{1F4CD} Google Maps \u2197</a>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
 function renderStayCards(){
   const grid = document.getElementById('stayGrid');
   grid.innerHTML = '';
@@ -996,35 +1145,6 @@ function renderStayCards(){
     el.innerHTML = `${s.confirmed ? '<div class="ribbon">Geboekt ✅</div>' : ''}<div class="stay-name">${s.name}</div><div class="stay-note">${s.note||''}</div>${s.url ? `<a class="stay-link" href="${s.url}" target="_blank" rel="noopener noreferrer">Bekijk op Airbnb ↗</a>` : ''}`;
     grid.appendChild(el);
   });
-}
-
-function renderVoteOptions(){
-  const grid = document.getElementById('voteGrid');
-  if(!grid) return;
-  grid.innerHTML = SATURDAY_VOTE_OPTIONS.map(v=>{
-    const home = findClub(v.home) || {name:v.home, ground:'', abbr:v.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
-    const away = findClub(v.away) || {abbr:v.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"};
-    const ribbon = [v.pick ? '✅ Onze keuze' : '', v.note || ''].filter(Boolean).join(' · ');
-    return `
-      <div class="fcard${ribbon ? ' starred' : ''}${v.pick ? ' pick' : ''}">
-        ${ribbon ? `<div class="ribbon">${ribbon}</div>` : ''}
-        <div class="meta"><span class="tier-tag">${TIER_LABELS[v.tier]}</span><span>Zaterdag</span></div>
-        <div class="matchup">
-          ${badgeHTML(home,'lg')}
-          <div class="vs-names">
-            <div class="home">${home.name}</div>
-            <div class="away">v ${away.name || v.away}</div>
-          </div>
-        </div>
-        <div class="kickoff"><span>${v.time} aftrap</span><span class="ground">${home.ground}</span></div>
-        <div class="vote-extra">
-          <span>🚇 ${v.travel} vanaf de Airbnb</span>
-          <span class="price">🎟 ${v.tickets}</span>
-          <a href="${v.groundInfo}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a>
-        </div>
-      </div>
-    `;
-  }).join('');
 }
 
 function renderFlightOptions(){
@@ -1104,7 +1224,7 @@ async function init(){
   renderWeekend('oct');
   try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
   renderStayCards();
-  renderVoteOptions();
+  renderRestaurants();
   renderFlightOptions();
   renderPrep();
   initScrollspy();
