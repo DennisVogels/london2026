@@ -3,23 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zes niveaus, één weekend — Voetbal in Londen, okt &amp; nov 2026</title>
+<meta name="theme-color" content="#182338">
+<title>Londen 2026 — Drie stadions, één weekend</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   :root{
-    --ink:#f5f0e3;
-    --ink-2:#ffffff;
-    --ink-3:#fbf7ec;
-    --gold:#c9a227;
-    --gold-soft:#8a6a15;
-    --parchment:#182338;
+    --bg:#f5f0e3;
+    --surface:#ffffff;
+    --surface-2:#fbf7ec;
+    --navy:#182338;
+    --text:#182338;
     --muted:#5b6478;
+    --gold:#c9a227;
+    --gold-deep:#8a6a15;
     --pitch:#2f6b3c;
+    --food:#c8553d;
+    --drink:#3f7cac;
     --line:rgba(24,35,56,0.12);
     --line-strong:rgba(184,134,11,0.4);
+    --on-navy:#f5f0e3;
+    --on-navy-muted:rgba(245,240,227,0.72);
+    --on-navy-line:rgba(245,240,227,0.16);
     --font-display:'Oswald',sans-serif;
     --font-body:'IBM Plex Sans',sans-serif;
     --font-mono:'IBM Plex Mono',monospace;
@@ -30,30 +37,30 @@
   body{
     margin:0;
     background:
-      radial-gradient(1200px 600px at 15% -10%, rgba(201,162,39,0.10), transparent 60%),
-      radial-gradient(900px 500px at 100% 0%, rgba(47,107,60,0.14), transparent 55%),
-      var(--ink);
-    color:var(--parchment);
+      radial-gradient(1200px 600px at 15% 30%, rgba(201,162,39,0.08), transparent 60%),
+      radial-gradient(900px 500px at 100% 40%, rgba(47,107,60,0.10), transparent 55%),
+      var(--bg);
+    color:var(--text);
     font-family:var(--font-body);
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit;}
-  ::selection{background:var(--gold);color:var(--parchment);}
+  ::selection{background:var(--gold);color:var(--navy);}
 
-  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
 
   /* ---------- TOP NAV ---------- */
   .topnav{
-    position:sticky;top:0;z-index:100;
-    background:rgba(255,255,255,0.85);
+    position:sticky;top:0;z-index:1000;
+    background:rgba(255,255,255,0.9);
     backdrop-filter:blur(10px);
     -webkit-backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   .navwrap{
     display:flex;align-items:center;gap:4px;
-    padding:14px 24px;
+    padding-top:12px;padding-bottom:12px;
     overflow-x:auto;
     scrollbar-width:none;
   }
@@ -64,8 +71,8 @@
     text-transform:uppercase;
     font-size:0.82rem;
     letter-spacing:0.02em;
-    color:var(--gold-soft);
-    margin-right:18px;
+    color:var(--gold-deep);
+    margin-right:14px;
     white-space:nowrap;
   }
   .navwrap a{
@@ -75,126 +82,37 @@
     text-transform:uppercase;
     text-decoration:none;
     color:var(--muted);
-    padding:8px 14px;
+    padding:8px 13px;
     border-radius:20px;
     white-space:nowrap;
     transition:color .15s ease, background .15s ease;
   }
-  .navwrap a:hover{color:var(--parchment);}
-  .navwrap a.active{color:#ffffff;background:var(--gold-soft);}
+  .navwrap a:hover{color:var(--text);}
+  .navwrap a.active{color:#ffffff;background:var(--gold-deep);}
 
-  /* ---------- HERO ---------- */
-  header.hero{padding:64px 0 40px;border-bottom:1px solid var(--line);}
+  /* ---------- SHARED ---------- */
   .eyebrow{
     font-family:var(--font-mono);
     font-size:0.72rem;
     letter-spacing:0.22em;
     text-transform:uppercase;
-    color:var(--gold-soft);
+    color:var(--gold-deep);
     display:flex;align-items:center;gap:10px;
-    margin-bottom:18px;
+    margin-bottom:14px;
   }
   .eyebrow::before{content:"";width:22px;height:1px;background:var(--gold);display:inline-block;}
-  h1.title{
-    font-family:var(--font-display);
-    font-weight:700;
-    text-transform:uppercase;
-    font-size:clamp(2.4rem,6.2vw,4.6rem);
-    line-height:0.98;
-    letter-spacing:-0.01em;
-    margin:0 0 20px;
-    max-width:14ch;
-  }
-  h1.title em{
-    font-style:normal;
-    color:var(--gold);
-  }
-  .hero-sub{
-    font-size:1.05rem;
-    color:var(--muted);
-    max-width:52ch;
-    margin:0 0 8px;
-  }
-  .hero-dates{
+  .ribbon{
+    position:absolute;top:-10px;right:16px;
+    background:var(--gold);
+    color:var(--navy);
     font-family:var(--font-mono);
-    font-size:0.85rem;
-    color:var(--parchment);
-    margin-top:18px;
-    display:flex;gap:22px;flex-wrap:wrap;
-  }
-  .hero-dates span{color:var(--gold-soft);}
-
-
-  /* ---------- SECTION HEADERS ---------- */
-  section{padding:64px 0;}
-  .sec-head{margin-bottom:36px;}
-  .sec-head h2{
-    font-family:var(--font-display);
+    font-size:0.6rem;
+    letter-spacing:0.1em;
     text-transform:uppercase;
-    font-size:clamp(1.6rem,3.4vw,2.4rem);
-    margin:6px 0 10px;
-    letter-spacing:-0.01em;
-  }
-  .sec-head p{color:var(--muted);max-width:56ch;margin:0;font-size:0.96rem;}
-
-  /* ---------- PYRAMID (accordion) ---------- */
-  .tier-row{
-    border-top:1px solid var(--line);
-  }
-  .tier-row:last-child{border-bottom:1px solid var(--line);}
-  .tier-header{
-    width:100%;
-    display:grid;
-    grid-template-columns:120px 1fr auto;
-    gap:26px;
-    align-items:center;
-    padding:20px 0;
-    background:none;border:none;cursor:pointer;
-    font-family:inherit;color:inherit;text-align:left;
-  }
-  .tier-num{
-    font-family:var(--font-display);
-    font-weight:700;
-    font-size:3.1rem;
-    line-height:1;
-    color:var(--tier-color);
-    display:flex;flex-direction:column;gap:4px;
-  }
-  .tier-num small{
-    font-family:var(--font-mono);
-    font-size:0.62rem;
-    font-weight:500;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--muted);
-  }
-  .tier-count{
-    font-family:var(--font-mono);
-    font-size:0.74rem;
-    color:var(--muted);
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-  }
-  .tier-chevron{
-    font-size:1.1rem;
-    color:var(--gold-soft);
-    transition:transform .2s ease;
-  }
-  .tier-row.open .tier-chevron{transform:rotate(180deg);}
-  .tier-panel{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .25s ease, padding .25s ease;
-  }
-  .tier-row.open .tier-panel{max-height:600px; padding-bottom:22px;}
-  .club-row{display:flex;flex-wrap:wrap;gap:14px;}
-  .club-chip{
-    display:flex;align-items:center;gap:11px;
-    background:var(--ink-2);
-    border:1px solid var(--line);
-    border-radius:9px;
-    padding:8px 14px 8px 8px;
-    min-width:190px;
+    padding:4px 9px;
+    border-radius:20px;
+    font-weight:600;
+    white-space:nowrap;
   }
   .badge{
     width:38px;height:44px;
@@ -205,218 +123,439 @@
     font-size:0.68rem;
     letter-spacing:0.01em;
     flex-shrink:0;
-    box-shadow:0 2px 4px rgba(0,0,0,0.35);
   }
-  .club-info .name{font-weight:600;font-size:0.86rem;}
-  .club-info .ground{font-family:var(--font-mono);font-size:0.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.03em;}
-
-  /* ---------- FIXTURES ---------- */
-  .day-label{
+  .badges{display:flex;flex-shrink:0;}
+  .badges .badge + .badge{margin-left:-7px;}
+  .text-link{
     font-family:var(--font-mono);
-    font-size:0.72rem;
-    letter-spacing:0.18em;
+    font-size:0.68rem;
+    letter-spacing:0.06em;
     text-transform:uppercase;
-    color:var(--gold-soft);
-    margin:34px 0 14px;
-    display:flex;align-items:center;gap:12px;
+    color:var(--gold-deep);
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+    white-space:nowrap;
   }
-  .day-label::after{content:"";flex:1;height:1px;background:var(--line);}
-  .day-label:first-of-type{margin-top:0;}
+  .text-link:hover{color:var(--text);}
 
-  .fixture-grid{
+  /* ---------- HERO ---------- */
+  header.hero{
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0 72px, transparent 72px 144px),
+      radial-gradient(800px 400px at 85% 0%, rgba(201,162,39,0.16), transparent 60%),
+      var(--navy);
+    color:var(--on-navy);
+    padding:56px 0 52px;
+  }
+  .hero-inner{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-    gap:16px;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+    gap:44px;
+    align-items:center;
   }
-  .fcard{
-    position:relative;
-    background:linear-gradient(160deg, var(--ink-3), var(--ink-2));
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:18px 18px 16px;
+  .hero .eyebrow{color:var(--gold);}
+  h1.title{
+    font-family:var(--font-display);
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:clamp(2.5rem,6.4vw,4.7rem);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    margin:0 0 18px;
+    color:#ffffff;
   }
-  .fcard.starred{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
-  .fcard.pick{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,162,39,0.34), 0 14px 36px rgba(201,162,39,0.14);}
-  .fcard.pick .ribbon{background:var(--pitch);color:#ffffff;}
-  .fcard .ribbon{
-    position:absolute;top:-10px;right:16px;
-    background:var(--gold);
-    color:var(--parchment);
+  h1.title em{font-style:normal;color:var(--gold);}
+  .hero-sub{
+    font-size:1.05rem;
+    color:var(--on-navy-muted);
+    max-width:44ch;
+    margin:0;
+  }
+  .hero-side{display:flex;flex-direction:column;gap:12px;}
+  .status{
+    border:1px solid rgba(201,162,39,0.5);
+    background:rgba(201,162,39,0.08);
+    border-radius:14px;
+    padding:16px 20px 18px;
+  }
+  .status-label{
     font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .status-value{
+    font-family:var(--font-display);
+    font-weight:600;
+    text-transform:uppercase;
+    font-size:clamp(1.6rem,3.4vw,2.2rem);
+    line-height:1.08;
+    color:#ffffff;
+    margin:4px 0 6px;
+  }
+  .status-sub{font-size:0.9rem;color:var(--on-navy-muted);}
+  .status-sub a{color:var(--gold);text-underline-offset:2px;}
+  .stub{
+    display:grid;
+    grid-template-columns:64px minmax(0,1fr);
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--on-navy-line);
+    border-radius:12px;
+    text-decoration:none;
+    color:inherit;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .stub:hover{background:rgba(255,255,255,0.09);border-color:rgba(201,162,39,0.5);}
+  .stub-when{
+    border-right:1px dashed var(--on-navy-line);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:10px 6px;
+    font-family:var(--font-mono);
+  }
+  .stub-when span{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);}
+  .stub-when b{font-size:0.92rem;font-weight:600;color:#ffffff;}
+  .stub-what{display:flex;align-items:center;gap:14px;padding:10px 14px;min-width:0;}
+  .stub-teams{font-weight:600;font-size:0.98rem;color:#ffffff;}
+  .stub-ground{font-family:var(--font-mono);font-size:0.66rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--on-navy-muted);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:64px 0 8px;scroll-margin-top:56px;}
+  .sec-head{margin-bottom:30px;}
+  .sec-head h2{
+    font-family:var(--font-display);
+    text-transform:uppercase;
+    font-size:clamp(1.6rem,3.4vw,2.4rem);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+  }
+  .sec-head p{color:var(--muted);max-width:60ch;margin:0;font-size:0.96rem;}
+
+  /* ---------- PROGRAMMA ---------- */
+  .days{display:flex;flex-direction:column;gap:18px;}
+  .day{
+    position:relative;
+    display:grid;
+    grid-template-columns:170px minmax(0,1fr);
+    gap:28px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px 26px;
+    scroll-margin-top:72px;
+    transition:opacity .2s ease;
+  }
+  .day.today{
+    border-color:var(--gold);
+    box-shadow:0 0 0 2px rgba(201,162,39,0.28), 0 14px 36px rgba(201,162,39,0.12);
+  }
+  .day.past{opacity:0.62;}
+  .day .ribbon{display:none;}
+  .day.today .ribbon{display:block;}
+  .day-dow{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+  }
+  .day-date{display:flex;align-items:baseline;gap:8px;}
+  .day-num{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:3.6rem;
+    line-height:0.95;
+  }
+  .day-month{font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);text-transform:uppercase;}
+  .day-title{
+    font-family:var(--font-display);
+    font-weight:500;
+    text-transform:uppercase;
+    font-size:1.05rem;
+    letter-spacing:0.01em;
+    margin-top:10px;
+    color:var(--muted);
+  }
+
+  .events{list-style:none;margin:0;padding:0;}
+  .ev{
+    display:grid;
+    grid-template-columns:72px minmax(0,1fr);
+    gap:16px;
+    transition:opacity .2s ease;
+  }
+  .ev.past{opacity:0.5;}
+  .ev-time{
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:0.88rem;
+    text-align:right;
+    padding-top:1px;
+    line-height:1.3;
+  }
+  .ev-time small{
+    display:block;
+    font-weight:500;
     font-size:0.6rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  .ev-body{
+    position:relative;
+    padding:0 0 24px 22px;
+    border-left:2px solid var(--line);
+    min-width:0;
+  }
+  .ev:last-child .ev-body{padding-bottom:0;border-left-color:transparent;}
+  .ev-body::before{
+    content:"";
+    position:absolute;left:-7px;top:4px;
+    width:12px;height:12px;border-radius:50%;
+    background:var(--surface);
+    border:2px solid var(--gold);
+  }
+  .ev.match .ev-body::before{background:var(--gold);border-color:var(--gold-deep);}
+  .ev.reminder .ev-body::before{border-color:var(--muted);border-style:dashed;}
+  .ev.now .ev-body::before{background:var(--gold);box-shadow:0 0 0 5px rgba(201,162,39,0.28);}
+  .ev-flag{
+    display:none;
+    font-family:var(--font-mono);
+    font-size:0.58rem;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:20px;
+    margin-left:8px;
+    vertical-align:2px;
+  }
+  .ev.now .ev-flag{display:inline-block;background:var(--gold);color:var(--navy);}
+  .ev.next .ev-flag{display:inline-block;background:var(--pitch);color:#ffffff;}
+  .ev-title{font-weight:700;font-size:1.04rem;line-height:1.3;}
+  .ev-title .icon{margin-right:6px;}
+  .ev.reminder .ev-title{font-weight:600;font-size:0.94rem;color:var(--muted);}
+  .ev.tbd .ev-title{color:var(--gold-deep);}
+  .ev-sub{color:var(--muted);font-size:0.9rem;margin-top:2px;}
+  .ev-note{
+    font-size:0.86rem;
+    margin-top:8px;
+    padding:8px 12px;
+    background:var(--surface-2);
+    border-left:3px solid var(--gold);
+    border-radius:0 8px 8px 0;
+  }
+  .ev-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;}
+
+  .match-card{
+    background:linear-gradient(160deg, var(--surface-2), var(--surface));
+    border:1px solid var(--gold);
+    border-radius:12px;
+    padding:14px 16px;
+    box-shadow:0 0 0 2px rgba(201,162,39,0.16);
+  }
+  .match-head{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+    font-family:var(--font-mono);
+    font-size:0.64rem;
     letter-spacing:0.1em;
     text-transform:uppercase;
-    padding:4px 9px;
-    border-radius:20px;
-    font-weight:600;
+    color:var(--gold-deep);
+    margin-bottom:12px;
   }
-  .fcard .meta{
-    display:flex;justify-content:space-between;align-items:center;
-    font-family:var(--font-mono);
-    font-size:0.66rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-bottom:14px;
-  }
-  .fcard .meta .tier-tag{color:var(--gold-soft);}
-  .matchup{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-  .matchup .badge{width:44px;height:50px;font-size:0.74rem;}
-  .matchup .vs-names{flex:1;}
-  .matchup .home{font-weight:700;font-size:1.02rem;}
-  .matchup .away{font-size:0.88rem;color:var(--muted);}
-  .kickoff{
-    font-family:var(--font-mono);
-    font-size:0.78rem;
-    color:var(--parchment);
-    display:flex;justify-content:space-between;
+  .match-head .tag{background:var(--pitch);color:#ffffff;border-radius:20px;padding:3px 9px;font-weight:600;}
+  .match-head .ev-flag{margin-left:10px;vertical-align:0;}
+  .matchup{display:flex;align-items:center;gap:14px;}
+  .matchup .badge{width:42px;height:48px;font-size:0.72rem;}
+  .matchup .home{font-weight:700;font-size:1.06rem;line-height:1.25;}
+  .matchup .away{font-size:0.9rem;color:var(--muted);}
+  .facts{
+    list-style:none;
+    margin:12px 0 0;padding:10px 0 0;
     border-top:1px dashed var(--line);
-    padding-top:10px;
-  }
-  .kickoff .ground{color:var(--muted);}
-  .fcard .tickets{
-    display:flex;align-items:center;gap:6px;
-    margin-top:10px;
-    font-family:var(--font-mono);
-    font-size:0.72rem;
-    color:var(--gold-soft);
-  }
-  .fcard .tickets a{text-decoration:underline;text-underline-offset:2px;}
-  .fcard .tickets a:hover{color:var(--parchment);}
-
-  /* ---------- AWAY LIST ---------- */
-  .away-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-    gap:10px;
-  }
-  .away-item{
-    display:flex;justify-content:space-between;gap:10px;
-    padding:12px 14px;
-    background:transparent;
-    border:1px solid var(--line);
-    border-radius:8px;
+    display:flex;flex-direction:column;gap:5px;
     font-size:0.86rem;
   }
-  .away-item .who{font-weight:600;}
-  .away-item .where{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);text-align:right;}
+  .facts li{display:flex;gap:8px;}
+  .facts li span:first-child{flex-shrink:0;width:1.3em;text-align:center;}
+  .facts a{color:var(--gold-deep);text-underline-offset:2px;}
 
-  /* ---------- TBC NOTE ---------- */
-  .tbc{
-    border:1px dashed var(--line-strong);
-    border-radius:10px;
-    padding:18px 20px;
-    font-size:0.88rem;
-    color:var(--muted);
-    background:rgba(201,162,39,0.04);
+  /* ---------- KAMERS & BAGAGE ---------- */
+  .pair-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:14px;
   }
-  .tbc strong{color:var(--parchment);}
-
-  footer{
-    padding:36px 0 60px;
-    border-top:1px solid var(--line);
+  .pair{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 18px 18px;
+  }
+  .pair-label{
+    display:flex;justify-content:space-between;align-items:center;
     font-family:var(--font-mono);
-    font-size:0.72rem;
+    font-size:0.62rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
     color:var(--muted);
-    letter-spacing:0.02em;
   }
+  .pair-label .icons{font-size:1rem;letter-spacing:0.2em;}
+  .pair-names{
+    font-family:var(--font-display);
+    font-weight:600;
+    text-transform:uppercase;
+    font-size:1.55rem;
+    line-height:1.05;
+    margin-top:12px;
+  }
+  .pair-names .amp{color:var(--gold);margin:0 2px;}
+
+  .pack-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+    gap:18px;
+    margin-top:18px;
+  }
+  .bag-card, .check-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px 24px;
+  }
+  .bag-card{
+    display:grid;
+    grid-template-columns:150px minmax(0,1fr);
+    gap:22px;
+    align-items:center;
+    border:2px solid var(--line-strong);
+    background:linear-gradient(160deg, var(--surface-2), var(--surface));
+  }
+  .bag-svg{width:100%;height:auto;display:block;}
+  .bag-svg .front{fill:rgba(201,162,39,0.16);stroke:var(--gold-deep);stroke-width:1.5;}
+  .bag-svg .top{fill:rgba(201,162,39,0.42);stroke:var(--gold-deep);stroke-width:1.5;}
+  .bag-svg .side{fill:rgba(201,162,39,0.28);stroke:var(--gold-deep);stroke-width:1.5;}
+  .bag-svg .handle{fill:none;stroke:var(--gold-deep);stroke-width:2.5;stroke-linecap:round;}
+  .bag-svg .dim{stroke:var(--muted);stroke-width:1;}
+  .bag-svg text{font-family:var(--font-mono);font-size:11px;font-weight:600;fill:var(--text);}
+  .box-title{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin-bottom:6px;
+    display:flex;justify-content:space-between;gap:10px;
+  }
+  .bag-size{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:2.1rem;
+    line-height:1;
+    white-space:nowrap;
+  }
+  .bag-size small{font-size:1rem;font-weight:500;color:var(--muted);}
+  .bag-dims{
+    list-style:none;margin:12px 0 10px;padding:0;
+    display:flex;flex-wrap:wrap;gap:6px;
+  }
+  .bag-dims li{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    border:1px solid var(--line-strong);
+    border-radius:20px;
+    padding:3px 9px;
+    color:var(--gold-deep);
+  }
+  .bag-note{font-size:0.88rem;color:var(--muted);margin:0;}
+
+  .check-list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;}
+  .check-item label{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:10px 12px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    cursor:pointer;
+    font-size:0.95rem;
+    line-height:1.35;
+  }
+  .check-item input{width:19px;height:19px;margin:0;accent-color:var(--pitch);cursor:pointer;flex-shrink:0;}
+  .check-item small{display:block;color:var(--muted);font-size:0.78rem;margin-top:2px;}
+  .check-item a{color:var(--gold-deep);text-underline-offset:2px;}
+  .check-item.done .check-text{text-decoration:line-through;color:var(--muted);}
+  .check-foot{font-size:0.76rem;color:var(--muted);margin:12px 0 0;}
 
   /* ---------- MAP ---------- */
   .map-legend{
-    display:flex;flex-wrap:wrap;gap:20px;
-    margin-bottom:16px;
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    margin-bottom:14px;
     font-family:var(--font-mono);
-    font-size:0.76rem;
+    font-size:0.72rem;
     text-transform:uppercase;
     letter-spacing:0.04em;
     color:var(--muted);
   }
-  .map-legend label{display:flex;align-items:center;gap:8px;cursor:pointer;}
+  .map-legend span{display:inline-flex;align-items:center;gap:8px;}
   .map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
   #map{
-    width:100%;height:480px;
-    border-radius:12px;
+    width:100%;height:460px;
+    border-radius:14px;
     border:1px solid var(--line);
-    filter:saturate(0.55) brightness(1.03) contrast(0.96);
+    background:var(--surface-2);
+    z-index:0;
   }
-  .leaflet-popup-content-wrapper{
-    background:var(--ink-2);color:var(--parchment);
-    border-radius:8px;font-family:var(--font-body);
-  }
-  .leaflet-popup-tip{background:var(--ink-2);}
-  .leaflet-popup-content b{font-family:var(--font-display);text-transform:uppercase;letter-spacing:0.01em;}
+  .leaflet-container{font-family:var(--font-body);}
+  .leaflet-popup-content-wrapper{background:var(--surface);color:var(--text);border-radius:10px;}
+  .leaflet-popup-tip{background:var(--surface);}
+  .leaflet-popup-content{margin:12px 14px;line-height:1.45;}
+  .leaflet-popup-content b{font-family:var(--font-display);text-transform:uppercase;letter-spacing:0.01em;font-size:0.95rem;}
+  .leaflet-popup-content .pop-when{font-family:var(--font-mono);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--gold-deep);margin-top:4px;}
+  .leaflet-popup-content a{color:var(--gold-deep);}
   .map-pin{
-    width:26px;height:26px;border-radius:50% 50% 50% 0;
+    width:28px;height:28px;border-radius:50% 50% 50% 0;
     transform:rotate(-45deg);
     display:flex;align-items:center;justify-content:center;
-    border:2px solid rgba(0,0,0,0.4);
-    box-shadow:0 2px 6px rgba(0,0,0,0.5);
+    border:2px solid #ffffff;
+    box-shadow:0 2px 6px rgba(0,0,0,0.35);
   }
   .map-pin span{transform:rotate(45deg);font-size:0.85rem;line-height:1;}
 
-  .stay-grid{
+  /* ---------- ETEN ---------- */
+  .dinner-plan{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-    gap:16px;
-    margin-top:24px;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+    margin-bottom:30px;
   }
-  .stay-card{
-    position:relative;
-    background:var(--ink-2);
-    border:1px solid var(--line);
+  .dinner{
+    background:var(--surface);
+    border:1px solid var(--line-strong);
     border-radius:12px;
-    padding:16px 18px;
+    padding:14px 16px;
   }
-  .stay-card.confirmed{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
-  .stay-card .ribbon{
-    position:absolute;top:-10px;right:16px;
-    background:var(--gold);
-    color:var(--parchment);
+  .dinner.open{border-style:dashed;background:rgba(201,162,39,0.06);}
+  .dinner-day{
     font-family:var(--font-mono);
-    font-size:0.6rem;
-    letter-spacing:0.1em;
+    font-size:0.64rem;
+    letter-spacing:0.14em;
     text-transform:uppercase;
-    padding:4px 9px;
-    border-radius:20px;
-    font-weight:600;
+    color:var(--gold-deep);
   }
-  .stay-card .stay-name{font-weight:600;font-size:0.94rem;margin-bottom:4px;}
-  .stay-card .stay-meta{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;}
-  .stay-card .stay-note{font-size:0.84rem;color:var(--parchment);opacity:0.85;}
-  .stay-card .stay-link{
-    display:inline-block;margin-top:10px;
-    font-family:var(--font-mono);font-size:0.72rem;
-    letter-spacing:0.04em;text-transform:uppercase;
-    color:var(--gold-soft);text-decoration:none;
-    border-bottom:1px solid var(--line-strong);
-  }
-  .stay-card .stay-link:hover{color:var(--parchment);}
-
-  .wishlist-cta{
-    display:inline-flex;align-items:center;gap:8px;
-    margin-top:20px;
-    background:var(--gold);
-    color:var(--parchment);
-    font-family:var(--font-mono);
-    font-size:0.8rem;
-    font-weight:600;
-    letter-spacing:0.04em;
-    text-transform:uppercase;
-    text-decoration:none;
-    padding:12px 22px;
-    border-radius:30px;
-    transition:background .15s ease, transform .15s ease;
-  }
-  .wishlist-cta:hover{background:var(--gold-soft);transform:translateY(-1px);}
-
-  /* ---------- RESTAURANTS ---------- */
+  .dinner-name{font-family:var(--font-display);font-weight:600;text-transform:uppercase;font-size:1.1rem;margin-top:4px;}
+  .dinner-where{font-size:0.84rem;color:var(--muted);}
+  .food-intro{color:var(--muted);font-size:0.94rem;max-width:64ch;margin:0 0 22px;font-style:italic;}
   .food-group-label{
     font-family:var(--font-mono);
     font-size:0.72rem;
     letter-spacing:0.18em;
     text-transform:uppercase;
-    color:var(--gold-soft);
-    margin:34px 0 14px;
+    color:var(--gold-deep);
+    margin:30px 0 14px;
     display:flex;align-items:center;gap:12px;
   }
   .food-group-label:first-child{margin-top:0;}
@@ -428,25 +567,13 @@
   }
   .food-card{
     position:relative;
-    background:var(--ink-2);
+    background:var(--surface);
     border:1px solid var(--line);
     border-radius:12px;
     padding:16px 18px;
     display:flex;flex-direction:column;
   }
   .food-card.favourite{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
-  .food-card .ribbon{
-    position:absolute;top:-10px;right:16px;
-    background:var(--gold);
-    color:var(--parchment);
-    font-family:var(--font-mono);
-    font-size:0.6rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    padding:4px 9px;
-    border-radius:20px;
-    font-weight:600;
-  }
   .food-card .food-name{
     font-family:var(--font-display);
     font-weight:600;
@@ -454,7 +581,7 @@
     font-size:1.05rem;
     letter-spacing:0.01em;
     margin-bottom:6px;
-    padding-right:70px;
+    padding-right:90px;
   }
   .food-card .food-meta{
     font-family:var(--font-mono);
@@ -465,156 +592,103 @@
     margin-bottom:10px;
     display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;
   }
-  .food-card .food-note{font-size:0.86rem;color:var(--parchment);opacity:0.88;flex:1;}
-  .food-card .food-foot{
-    display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
-    margin-top:12px;
-  }
+  .food-card .food-note{font-size:0.86rem;opacity:0.9;flex:1;}
+  .food-card .food-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:12px;}
   .food-card .food-score{
     display:inline-flex;align-items:center;gap:6px;
     font-family:var(--font-mono);
     font-size:0.68rem;
     letter-spacing:0.06em;
     text-transform:uppercase;
-    color:var(--gold-soft);
+    color:var(--gold-deep);
     border:1px solid var(--line-strong);
     border-radius:20px;
     padding:4px 10px;
   }
-  .food-card .food-map{
-    font-family:var(--font-mono);
-    font-size:0.68rem;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--gold-soft);
-    text-decoration:none;
-    border-bottom:1px solid var(--line-strong);
-  }
-  .food-card .food-map:hover{color:var(--parchment);}
 
-  .flight-day-label{
-    font-family:var(--font-mono);
-    font-size:0.72rem;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--gold-soft);
-    margin:30px 0 14px;
-    display:flex;align-items:center;gap:12px;
-  }
-  .flight-day-label:first-child{margin-top:0;}
-  .flight-day-label::after{content:"";flex:1;height:1px;background:var(--line);}
-  .flight-grid{
+  /* ---------- REIS ---------- */
+  .travel-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:16px;
+    grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
+    gap:18px;
   }
-  .flight-card{
+  .travel-card{
     position:relative;
-    background:var(--ink-2);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:18px 20px;
+    background:var(--surface);
+    border:1px solid var(--line-strong);
+    border-radius:14px;
+    padding:20px 22px;
+    box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);
   }
-  .flight-card.cheapest{border-color:var(--line-strong);box-shadow:0 0 0 1px rgba(201,162,39,0.15), 0 10px 30px rgba(201,162,39,0.06);}
-  .flight-card .ribbon{
-    position:absolute;top:-10px;right:16px;
-    background:var(--gold);
-    color:var(--parchment);
-    font-family:var(--font-mono);
-    font-size:0.6rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    padding:4px 9px;
-    border-radius:20px;
-    font-weight:600;
-  }
-  .flight-card .flight-title{
-    font-family:var(--font-mono);
-    font-size:0.68rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-bottom:12px;
-  }
-  .flight-leg{
-    display:flex;align-items:center;gap:14px;
-    padding:8px 0;
+  .travel-card .box-title{margin-bottom:12px;}
+  .leg{
+    display:grid;
+    grid-template-columns:84px minmax(0,1fr) auto;
+    gap:12px;
+    align-items:center;
+    padding:12px 0;
     border-top:1px dashed var(--line);
   }
-  .flight-leg:first-of-type{border-top:none;}
-  .flight-leg .route{font-family:var(--font-display);font-size:1rem;font-weight:600;min-width:88px;}
-  .flight-leg .times{font-family:var(--font-mono);font-size:0.82rem;color:var(--parchment);flex:1;}
-  .flight-leg .times .arrow{color:var(--muted);margin:0 6px;}
-  .flight-price{
+  .leg:first-of-type{border-top:none;padding-top:0;}
+  .leg-dir{font-family:var(--font-mono);font-size:0.64rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-deep);}
+  .leg-dir b{display:block;font-size:0.8rem;color:var(--text);letter-spacing:0.02em;white-space:nowrap;}
+  .leg-route{font-family:var(--font-display);font-weight:600;font-size:1.15rem;}
+  .leg-times{font-family:var(--font-mono);font-size:0.82rem;}
+  .leg-times .arrow{color:var(--muted);margin:0 4px;}
+  .leg-no{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);text-align:right;}
+  .travel-foot{
     margin-top:12px;padding-top:12px;
     border-top:1px solid var(--line);
-    display:flex;justify-content:space-between;align-items:baseline;
-    font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);
+    display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;
+    font-family:var(--font-mono);font-size:0.78rem;color:var(--muted);
   }
-  .flight-price b{color:var(--gold-soft);font-size:1.2rem;}
+  .travel-foot b{color:var(--gold-deep);font-size:1.05rem;}
+  .stay-name{font-family:var(--font-display);font-weight:600;text-transform:uppercase;font-size:1.3rem;line-height:1.15;}
+  .stay-addr{font-size:0.92rem;margin-top:6px;}
+  .stay-when{font-family:var(--font-mono);font-size:0.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;margin-top:10px;}
 
-  /* ---------- PREP: TO-DO + INFO ---------- */
-  .prep-grid{
-    display:grid;
-    grid-template-columns:1.3fr 1fr;
-    gap:20px;
+  footer{
+    margin-top:64px;
+    padding:28px 0 56px;
+    border-top:1px solid var(--line);
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    color:var(--muted);
+    letter-spacing:0.02em;
   }
-  @media (max-width:800px){
-    .prep-grid{grid-template-columns:1fr;}
-  }
-  .todo-box{
-    background:linear-gradient(160deg, var(--ink-3), var(--ink-2));
-    border:2px solid var(--line-strong);
-    border-radius:16px;
-    padding:26px 28px;
-  }
-  .todo-box .box-title{
-    font-family:var(--font-display);
-    text-transform:uppercase;
-    font-size:1.3rem;
-    letter-spacing:-0.01em;
-    margin:0 0 18px;
-  }
-  .todo-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
-  .todo-item{
-    display:flex;align-items:center;gap:12px;
-    padding:12px 14px;
-    background:var(--ink-2);
-    border:1px solid var(--line);
-    border-radius:10px;
-    cursor:pointer;
-    font-size:1rem;
-  }
-  .todo-item input{width:19px;height:19px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
-  .todo-item span{flex:1;}
-  .todo-item.done span{text-decoration:line-through;color:var(--muted);}
-  .info-box{
-    background:rgba(184,134,11,0.06);
-    border:1px dashed var(--line-strong);
-    border-radius:16px;
-    padding:26px 28px;
-  }
-  .info-box .box-title{
-    font-family:var(--font-display);
-    text-transform:uppercase;
-    font-size:1.3rem;
-    letter-spacing:-0.01em;
-    margin:0 0 18px;
-    display:flex;align-items:center;gap:10px;
-  }
-  .info-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
-  .info-list li{
-    display:flex;align-items:flex-start;gap:10px;
-    font-size:0.95rem;
-  }
-  .info-list li::before{content:"⚠";flex-shrink:0;color:var(--gold-soft);}
-  .info-list a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:2px;}
-  .info-list a:hover{color:var(--parchment);}
 
-
-  @media (max-width:640px){
-    .tier-header{grid-template-columns:70px 1fr auto;gap:12px;}
-    .tier-num{font-size:2rem;flex-direction:row;align-items:baseline;gap:8px;}
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;gap:28px;}
+    .pair-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .pack-grid, .travel-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:720px){
+    .wrap{padding:0 16px;}
+    header.hero{padding:40px 0 36px;}
+    section{padding-top:48px;}
+    .day{grid-template-columns:1fr;gap:16px;padding:20px 16px 22px;}
+    .day-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;}
+    .day-dow{flex-basis:100%;}
+    .day-num{font-size:2.6rem;}
+    .day-title{margin-top:0;}
+    .ev{grid-template-columns:54px minmax(0,1fr);gap:12px;}
+    .ev-time{font-size:0.8rem;}
+    .ev-body{padding-left:18px;}
+    .match-card{padding:12px 12px 14px;}
+    .matchup{gap:10px;}
+    .matchup .badge{width:34px;height:40px;font-size:0.62rem;}
+    .dinner-plan{grid-template-columns:1fr;}
+    #map{height:380px;}
+  }
+  @media (max-width:520px){
+    .pair-names{font-size:1.3rem;}
+    .pair-label .icons{display:none;}
+    .bag-card{grid-template-columns:110px minmax(0,1fr);gap:16px;padding:18px;}
+    .bag-size{font-size:1.7rem;}
+    .check-card{padding:18px;}
+    .leg{grid-template-columns:76px minmax(0,1fr);}
+    .leg-no{grid-column:2;text-align:left;}
   }
 </style>
 </head>
@@ -623,157 +697,134 @@
 <nav class="topnav">
   <div class="wrap navwrap">
     <span class="brand">Londen 2026</span>
-    <a href="#prep">Voorbereiding</a>
-    <a href="#fixtures">Wedstrijden</a>
-    <a href="#mapSection">Kaart &amp; verblijf</a>
-    <a href="#food">Eten &amp; drinken</a>
-    <a href="#flights">Vluchten &amp; tickets</a>
-    <a href="#pyramid">Piramide</a>
+    <a href="#programma">Programma</a>
+    <a href="#kamers">Kamers &amp; bagage</a>
+    <a href="#kaart">Kaart</a>
+    <a href="#eten">Eten</a>
+    <a href="#reis">Vlucht &amp; verblijf</a>
   </div>
 </nav>
 
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">Do 8 – ma 12 oktober 2026 · Londen</div>
+      <h1 class="title">Drie stadions,<br><em>één weekend</em></h1>
+      <p class="hero-sub">Acht man, vier nachten in Rotherhithe en drie wedstrijden. Alles wat je onderweg nodig hebt staat op deze pagina.</p>
+    </div>
+    <div class="hero-side">
+      <div class="status" id="tripStatus"></div>
+      <div id="matchStrip" class="hero-side"></div>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-  <header class="hero">
-    <div class="eyebrow">Wedstrijddaggids · Londen &amp; omstreken</div>
-    <h1 class="title">Zes niveaus,<br><em>één weekend</em></h1>
-    <p class="hero-sub">Elke club uit de Londense regio, van de Emirates tot de National League South, uitgestippeld voor een weekend op de tribune.</p>
-    <div class="hero-dates" id="heroDates"></div>
-  </header>
-
-  <section id="prep">
+  <section id="programma">
     <div class="sec-head">
-      <div class="eyebrow">Voordat je gaat</div>
-      <h2>Nog te regelen</h2>
-      <p>De belangrijkste stappen om de trip rond te krijgen, en wat je zeker moet checken voordat je instapt.</p>
+      <div class="eyebrow">Dag voor dag</div>
+      <h2>Het programma</h2>
+      <p>Alle tijden zijn Londense tijd, een uur vroeger dan thuis. Alleen waar ‘NL-tijd’ staat, geldt de Nederlandse klok.</p>
     </div>
-    <div class="prep-grid">
-      <div class="todo-box">
-        <div class="box-title">✅ Grote to-do lijst</div>
-        <ul class="todo-list" id="todoList"></ul>
+    <div class="days" id="days"></div>
+  </section>
+
+  <section id="kamers">
+    <div class="sec-head">
+      <div class="eyebrow">Wie met wie</div>
+      <h2>Kamers &amp; koffers</h2>
+      <p>Elk duo deelt een kamer en een koffer. Check ook even of je tas binnen de maat blijft.</p>
+    </div>
+    <div class="pair-grid" id="pairGrid"></div>
+
+    <div class="pack-grid">
+      <div class="bag-card">
+        <svg class="bag-svg" viewBox="0 0 210 220" role="img" aria-label="Tas van 40 cm hoog, 30 cm breed en 20 cm diep">
+          <path class="handle" d="M64 50 C64 28, 94 28, 94 50"/>
+          <polygon class="side" points="124,62 164,38 164,158 124,182"/>
+          <polygon class="top" points="34,62 124,62 164,38 74,38"/>
+          <rect class="front" x="34" y="62" width="90" height="120" rx="3"/>
+          <line class="dim" x1="18" y1="62" x2="18" y2="182"/>
+          <line class="dim" x1="13" y1="62" x2="23" y2="62"/>
+          <line class="dim" x1="13" y1="182" x2="23" y2="182"/>
+          <text x="10" y="122" text-anchor="middle" transform="rotate(-90 10 122)">40 cm</text>
+          <line class="dim" x1="34" y1="198" x2="124" y2="198"/>
+          <line class="dim" x1="34" y1="193" x2="34" y2="203"/>
+          <line class="dim" x1="124" y1="193" x2="124" y2="203"/>
+          <text x="79" y="214" text-anchor="middle">30 cm</text>
+          <line class="dim" x1="132" y1="192" x2="172" y2="168"/>
+          <text x="176" y="194" text-anchor="start">20</text>
+          <text x="176" y="206" text-anchor="start">cm</text>
+        </svg>
+        <div>
+          <div class="box-title">Toegestane tasmaat</div>
+          <div class="bag-size">40 × 30 × 20 <small>cm</small></div>
+          <ul class="bag-dims">
+            <li>40 cm hoog</li>
+            <li>30 cm breed</li>
+            <li>20 cm diep</li>
+          </ul>
+          <p class="bag-note">Moet onder de stoel voor je passen. Is je tas groter, dan betaal je bij aan de gate.</p>
+        </div>
       </div>
-      <div class="info-box">
-        <div class="box-title">📋 Belangrijk om te weten</div>
-        <ul class="info-list" id="infoList"></ul>
+
+      <div class="check-card">
+        <div class="box-title"><span>Voor vertrek</span><span id="checkCount"></span></div>
+        <ul class="check-list" id="checkList"></ul>
+        <p class="check-foot">Je vinkjes worden alleen op dit apparaat bewaard.</p>
       </div>
     </div>
   </section>
 
-  <section id="fixtures">
+  <section id="kaart">
     <div class="sec-head">
-      <div class="eyebrow">Aftrap, vrijdag tot maandag</div>
-      <h2>Thuiswedstrijden dit weekend</h2>
-      <p>Elke club uit de Londense regio met een thuiswedstrijd over de vier dagen — inclusief West Ham, al op je shortlist.</p>
-    </div>
-    <div id="fixturesWrap"></div>
-
-    <div id="tbcWrap" style="margin-top:30px;"></div>
-
-  </section>
-
-  <section id="mapSection">
-    <div class="sec-head">
-      <div class="eyebrow">Stadions, verblijf &amp; bezienswaardigheden</div>
+      <div class="eyebrow">Waar we heen gaan</div>
       <h2>De kaart</h2>
-      <p>Alle 20 stadions, je shortlist met verblijven en bezienswaardigheden om een dag rond te plannen. Zet lagen aan/uit, klik op een pin voor details.</p>
+      <p>Ons Airbnb, de drie stadions en de plekken waar we eten en drinken. Tik op een pin voor details en een link naar Google Maps.</p>
     </div>
-
-    <div class="map-legend">
-      <label><input type="checkbox" id="lyrGrounds" checked> <span class="dot" style="background:var(--gold)"></span> Stadions</label>
-      <label><input type="checkbox" id="lyrStays" checked> <span class="dot" style="background:#5fbf6e"></span> Verblijf</label>
-      <label><input type="checkbox" id="lyrLandmarks" checked> <span class="dot" style="background:#6fa8dc"></span> Bezienswaardigheden</label>
-    </div>
+    <div class="map-legend" id="mapLegend"></div>
     <div id="map"></div>
-
-    <div class="stay-grid" id="stayGrid"></div>
-    <a class="wishlist-cta" href="https://www.airbnb.nl/wishlists/invite/cc875b76-2e3a-404c-9b83-5ab8e730e272?s=67&amp;unique_share_id=59d5ce6e-787a-4f7f-b993-b5a67e21db74" target="_blank" rel="noopener noreferrer">Bekijk volledige Airbnb-wenslijst ↗</a>
   </section>
 
-  <section id="food">
+  <section id="eten">
     <div class="sec-head">
       <div class="eyebrow">Eate en drinke</div>
-      <h2>Restaurantopties</h2>
-      <p>Wo hobbe we ozze bordjes vol? Ierst de tentjes op loopafstandj van 't verblief in Rotherhithe, doanoa de favorietjes van veurige tripjes. Tripadvisor-score sjtuit d'r bie wo bekindj.</p>
+      <h2>Eten &amp; drinken</h2>
+      <p>Twee van de drie diners staan vast. Voor zondag kiezen we nog iets uit de lijst hieronder.</p>
     </div>
+    <div class="dinner-plan" id="dinnerPlan"></div>
+    <p class="food-intro">Wo hobbe we ozze bordjes vol? Ierst de tentjes op loopafstandj van 't verblief in Rotherhithe, doanoa de favorietjes van veurige tripjes. Tripadvisor-score sjtuit d'r bie wo bekindj.</p>
     <div id="foodOptions"></div>
   </section>
 
-  <section id="flights">
+  <section id="reis">
     <div class="sec-head">
-      <div class="eyebrow">Erheen reizen</div>
-      <h2>Vlucht</h2>
-      <p>Ryanair direct, Eindhoven ↔ Stansted, geprijsd voor 8 passagiers.</p>
+      <div class="eyebrow">Heen &amp; terug</div>
+      <h2>Vlucht &amp; verblijf</h2>
+      <p>Ryanair direct tussen Eindhoven en Stansted, en vier nachten in Rotherhithe.</p>
     </div>
-    <div id="flightOptions"></div>
-  </section>
-
-  <section id="pyramid">
-    <div class="sec-head">
-      <div class="eyebrow">De piramide</div>
-      <h2>Niveau 1 → Niveau 6</h2>
-      <p>De Engelse voetbalpiramide, gefilterd op de clubs die dit seizoen in of rond Londen spelen.</p>
+    <div class="travel-grid">
+      <div class="travel-card" id="flightCard"></div>
+      <div class="travel-card" id="stayCard"></div>
     </div>
-    <div id="pyramidRows"></div>
   </section>
 
   <footer>
-    Wedstrijden verzameld uit club- en bondsbronnen, juli 2026 &middot; clubkleuren zijn bij benadering, geen officiële logo's gebruikt &middot; verblijven uit je Airbnb-wenslijst screenshot, prijzen/beoordelingen kunnen inmiddels zijn gewijzigd &middot; check officiële kanalen van de club voor vertrek
+    Londen 2026 &middot; alle tijden zijn Londense tijd, tenzij er NL-tijd bij staat &middot; clubkleuren zijn bij benadering, geen officiële logo's gebruikt &middot; check de officiële kanalen van de club voor vertrek
   </footer>
 </div>
 
 <script>
-const CLUBS = [
-  // tier 1
-  {tier:1, name:"Arsenal", abbr:"ARS", ground:"Emirates Stadium", pattern:"solid", c1:"#ef0107", c2:"#ffffff", text:"#ffffff", lat:51.5550821, lng:-0.1083998},
-  {tier:1, name:"Chelsea", abbr:"CHE", ground:"Stamford Bridge", pattern:"solid", c1:"#034694", c2:"#ffffff", text:"#ffffff", lat:51.4817241, lng:-0.1909471},
-  {tier:1, name:"Tottenham Hotspur", abbr:"TOT", ground:"Tottenham Hotspur Stadium", pattern:"solid", c1:"#ffffff", c2:"#132257", text:"#132257", lat:51.6042536, lng:-0.0662083},
-  {tier:1, name:"Crystal Palace", abbr:"CRY", ground:"Selhurst Park", pattern:"stripes", c1:"#c4122e", c2:"#1b458f", text:"#ffffff", lat:51.3980232, lng:-0.0860447},
-  {tier:1, name:"Fulham", abbr:"FUL", ground:"Craven Cottage", pattern:"solid", c1:"#ffffff", c2:"#000000", text:"#111111", lat:51.4749003, lng:-0.2216078},
-  {tier:1, name:"Brentford", abbr:"BRE", ground:"Gtech Community Stadium", pattern:"stripes", c1:"#e30613", c2:"#ffffff", text:"#111111", lat:51.4908011, lng:-0.288834},
-
-  // tier 2
-  {tier:2, name:"West Ham United", abbr:"WHU", ground:"London Stadium", pattern:"solid", c1:"#7a263a", c2:"#1bb1e7", text:"#ffffff", lat:51.5386745, lng:-0.0164597},
-  {tier:2, name:"Millwall", abbr:"MIL", ground:"The Den", pattern:"solid", c1:"#001c58", c2:"#ffffff", text:"#ffffff", lat:51.4866716, lng:-0.0510267},
-  {tier:2, name:"Queens Park Rangers", abbr:"QPR", ground:"Loftus Road", pattern:"hoops", c1:"#1d5ba4", c2:"#ffffff", text:"#ffffff", lat:51.509863, lng:-0.2321004},
-  {tier:2, name:"Charlton Athletic", abbr:"CHA", ground:"The Valley", pattern:"solid", c1:"#d2122e", c2:"#ffffff", text:"#ffffff", lat:51.4864612, lng:0.0365246},
-  {tier:2, name:"Watford", abbr:"WAT", ground:"Vicarage Road", pattern:"solid", c1:"#fbee23", c2:"#000000", text:"#141200", note:"Just outside Greater London", lat:51.6499133, lng:-0.4015284},
-
-  // tier 3
-  {tier:3, name:"Leyton Orient", abbr:"LOR", ground:"Brisbane Road", pattern:"solid", c1:"#e2231a", c2:"#ffffff", text:"#ffffff", lat:51.5604958, lng:-0.0118915},
-  {tier:3, name:"AFC Wimbledon", abbr:"WIM", ground:"Cherry Red Records Stadium", pattern:"solid", c1:"#1b458f", c2:"#ffd200", text:"#ffffff", lat:51.4315397, lng:-0.1866871},
-  {tier:3, name:"Bromley", abbr:"BRO", ground:"Hayes Lane", pattern:"solid", c1:"#ffffff", c2:"#0033a0", text:"#0033a0", lat:51.3899755, lng:0.0209571},
-
-  // tier 4
-  {tier:4, name:"Barnet", abbr:"BAR", ground:"The Hive Stadium", pattern:"solid", c1:"#111111", c2:"#f5a623", text:"#f5a623", lat:51.6026245, lng:-0.2917519},
-
-  // tier 5
-  {tier:5, name:"Sutton United", abbr:"SUT", ground:"VBS Community Stadium", pattern:"halves", c1:"#f5a623", c2:"#4a2e1e", text:"#ffffff", lat:51.3677754, lng:-0.2042941},
-  {tier:5, name:"Wealdstone", abbr:"WEA", ground:"Grosvenor Vale", pattern:"halves", c1:"#d2122e", c2:"#ffffff", text:"#111111", lat:51.5695267, lng:-0.4174731},
-  {tier:5, name:"Hornchurch", abbr:"HOR", ground:"Bridge Avenue", pattern:"solid", c1:"#00843d", c2:"#ffffff", text:"#ffffff", lat:51.5564874, lng:0.2386014},
-
-  // tier 6
-  {tier:6, name:"Dagenham & Redbridge", abbr:"D&R", ground:"Chigwell Construction Stadium", pattern:"halves", c1:"#d2122e", c2:"#1b458f", text:"#ffffff", lat:51.5477999, lng:0.1599408},
-  {tier:6, name:"Hampton & Richmond Borough", abbr:"H&R", ground:"Beveree Stadium", pattern:"solid", c1:"#0033a0", c2:"#f5a623", text:"#f5a623", lat:51.4151418, lng:-0.3631547},
-];
-
-const TIER_LABELS = {
-  1:"Premier League", 2:"Championship", 3:"League One",
-  4:"League Two", 5:"National League", 6:"National League South"
+// ---- Clubs (only the six we'll see) ----
+const CLUBS = {
+  "West Ham United":     {abbr:"WHU", short:"West Ham", pattern:"solid",   c1:"#7a263a", c2:"#1bb1e7", text:"#ffffff"},
+  "Queens Park Rangers": {abbr:"QPR", short:"QPR",      pattern:"hoops",   c1:"#1d5ba4", c2:"#ffffff", text:"#ffffff", shadow:"0 0 2px #0b2a55, 0 0 3px #0b2a55, 0 1px 2px #0b2a55"},
+  "Watford":             {abbr:"WAT", short:"Watford",  pattern:"solid",   c1:"#fbee23", c2:"#000000", text:"#141200"},
+  "Burnley":             {abbr:"BUR", short:"Burnley",  pattern:"solid",   c1:"#6c1d45", c2:"#99d6ea", text:"#ffffff"},
+  "Crystal Palace":      {abbr:"CRY", short:"Palace",   pattern:"stripes", c1:"#c4122e", c2:"#1b458f", text:"#ffffff"},
+  "Nottingham Forest":   {abbr:"NFO", short:"Forest",   pattern:"solid",   c1:"#dd0000", c2:"#ffffff", text:"#ffffff"},
 };
-const TIER_COLORS = {1:"#e6c665",2:"#cdaf58",3:"#b0904a",4:"#93773d",5:"#786033",6:"#5c4b28"};
 
-function badgeStyle(club, size){
-  let bg;
-  if(club.pattern==="halves"){
-    bg = `linear-gradient(90deg, ${club.c1} 50%, ${club.c2} 50%)`;
-  } else if(club.pattern==="hoops"){
-    bg = `repeating-linear-gradient(0deg, ${club.c1} 0 7px, ${club.c2} 7px 14px)`;
-  } else if(club.pattern==="stripes"){
-    bg = `repeating-linear-gradient(90deg, ${club.c1} 0 6px, ${club.c2} 6px 12px)`;
-  } else {
-    bg = `linear-gradient(160deg, ${club.c1}, ${shade(club.c1)})`;
-  }
-  return `background:${bg}; color:${club.text}; border:1.5px solid rgba(0,0,0,0.25);`;
-}
 function shade(hex){
   // slightly darken a hex color for gradient depth
   const n = parseInt(hex.replace('#',''),16);
@@ -781,274 +832,111 @@ function shade(hex){
   r=Math.max(0,r-40); g=Math.max(0,g-40); b=Math.max(0,b-40);
   return `rgb(${r},${g},${b})`;
 }
-function badgeHTML(club, size){
-  const dim = size==="lg" ? "width:44px;height:50px;font-size:0.74rem;" : "";
-  return `<div class="badge" style="${badgeStyle(club)}${dim}">${club.abbr}</div>`;
-}
-
-// ---- Build pyramid (accordion, collapsed by default) ----
-const pyramidWrap = document.getElementById('pyramidRows');
-for(let t=1;t<=6;t++){
-  const clubs = CLUBS.filter(c=>c.tier===t);
-  const row = document.createElement('div');
-  row.className = 'tier-row';
-  row.innerHTML = `
-    <button type="button" class="tier-header" aria-expanded="false">
-      <div class="tier-num" style="--tier-color:${TIER_COLORS[t]}">
-        0${t}
-        <small>${TIER_LABELS[t]}</small>
-      </div>
-      <div class="tier-count">${clubs.length} club${clubs.length===1?'':'s'}</div>
-      <div class="tier-chevron">▾</div>
-    </button>
-    <div class="tier-panel">
-      <div class="club-row">
-        ${clubs.map(c=>`
-          <div class="club-chip">
-            ${badgeHTML(c)}
-            <div class="club-info">
-              <div class="name">${c.name}</div>
-              <div class="ground">${c.ground}</div>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
-  row.querySelector('.tier-header').addEventListener('click', (e)=>{
-    const open = row.classList.toggle('open');
-    e.currentTarget.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  pyramidWrap.appendChild(row);
-}
-
-// ---- Fixtures data ----
-function findClub(name){ return CLUBS.find(c=>c.name===name); }
-
-const DEFAULT_WEEKENDS = {
-  oct: {
-    dates: ["VRIJ 9 —", "MAA 12 OKT 2026"],
-    fixtures: [
-      {day:"Vrijdag 9 oktober", items:[
-        {home:"Sutton United", away:"Boreham Wood", time:"19:45", tier:5, starred:false},
-        {home:"West Ham United", away:"Queens Park Rangers", time:"20:00", tier:2, starred:true, pick:true, ribbon:"✅ Onze keuze vrijdag · Londense derby", tickets:"Beschikbaar · ~£35pp", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/london-stadium/"},
-      ]},
-      {day:"Zaterdag 10 oktober", items:[
-        {home:"Charlton Athletic", away:"Bristol City", time:"12:30", tier:2, starred:false},
-        {home:"Arsenal", away:"Leeds United", time:"15:00", tier:1, starred:false},
-        {home:"Chelsea", away:"AFC Bournemouth", time:"15:00", tier:1, starred:false, tickets:"£200+"},
-        {home:"Watford", away:"Burnley", time:"15:00", tier:2, starred:true, pick:true, ribbon:"✅ Onze keuze zaterdag", tickets:"£35"},
-        {home:"Wealdstone", away:"Yeovil Town", time:"15:00", tier:5, starred:false},
-        {home:"Hornchurch", away:"Eastleigh", time:"15:00", tier:5, starred:false},
-        {home:"Dagenham & Redbridge", away:"Hemel Hempstead Town", time:"15:00", tier:6, starred:true, ribbon:"Andy Carroll staat op het veld", tickets:"£20"},
-        {home:"Hampton & Richmond Borough", away:"Ebbsfleet United", time:"15:00", tier:6, starred:false},
-      ]},
-      {day:"Zondag 11 oktober", items:[
-        {home:"Southampton", away:"Portsmouth", ground:"St Mary's Stadium", time:"12:00", tier:2, starred:true, ribbon:"Bonus dagtrip · Hampshire-derby", travel:"🚆 Waterloo → Southampton, 1,5 uur · £25 retour", homeBadge:{pattern:"stripes", c1:"#d2122e", c2:"#ffffff", text:"#111111"}, groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/southampton/st-marys-stadium/"},
-        {home:"Crystal Palace", away:"Nottingham Forest", time:"14:00", tier:1, starred:false, tickets:"£100–130 · <a href=\"https://www.stubhub.ie/crystal-palace-fc-vs-nottingham-forest-fc-tickets-selhurst-park-stadium-10-10-2026/event/107320089/\" target=\"_blank\" rel=\"noopener noreferrer\">StubHub ↗</a> · <a href=\"https://groundhopticket.com/premier-league/crystal-palace-nottingham-forest\" target=\"_blank\" rel=\"noopener noreferrer\">Groundhop Ticket ↗</a>", groundInfo:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"},
-        {type:"alt", emoji:"🥪", title:"Passyunk Avenue (Waterloo)", subtitle:"Philly cheesesteaks & American dive bar", info:"22 Leake St, SE1 7NN — vlak bij Waterloo station, batting cages, NFL op groot scherm", note:"🎟 Tickets nodig — nu uitverkocht, meer volgt", tickets:"£20,00* pp — garandeert een zitplek voor het volledige venster 14:00–19:00 (hele wedstrijd + meer)", perks:"🍺 Inclusief een gratis huisdrankje", groundInfo:"https://passyunkavenue.com/waterloo/"},
-      ]}
-    ],
-    away: [
-      {who:"Tottenham Hotspur", where:"uit bij Manchester United"},
-      {who:"Fulham", where:"uit bij Ipswich Town"},
-      {who:"Brentford", where:"uit bij Aston Villa"},
-      {who:"Millwall", where:"uit bij Preston North End"},
-      {who:"Leyton Orient", where:"uit bij Bradford City"},
-      {who:"Bromley", where:"uit bij Mansfield Town"},
-      {who:"Barnet", where:"uit bij Fleetwood Town"},
-      {who:"AFC Wimbledon", where:"uit bij Plymouth Argyle"},
-    ],
-    tbc: null
-  },
-  nov: {
-    dates: ["VRIJ 20 —", "MAA 23 NOV 2026"],
-    fixtures: [
-      {day:"Zaterdag 21 november", items:[
-        {home:"Chelsea", away:"Leeds United", time:"15:00", tier:1, starred:false},
-        {home:"Tottenham Hotspur", away:"Ipswich Town", time:"15:00", tier:1, starred:false},
-        {home:"Brentford", away:"Everton", time:"15:00", tier:1, starred:false},
-        {home:"West Ham United", away:"Preston North End", time:"15:00", tier:2, starred:true, ribbon:"Op je shortlist"},
-        {home:"Millwall", away:"Queens Park Rangers", time:"15:00", tier:2, starred:true, ribbon:"Londense derby"},
-        {home:"Leyton Orient", away:"AFC Wimbledon", time:"15:00", tier:3, starred:true, ribbon:"Londense derby"},
-        {home:"Barnet", away:"Port Vale", time:"15:00", tier:4, starred:false},
-        {home:"Sutton United", away:"Boston United", time:"15:00", tier:5, starred:false},
-        {home:"Wealdstone", away:"Hornchurch", time:"15:00", tier:5, starred:true, ribbon:"National League-derby"},
-      ]}
-    ],
-    away: [
-      {who:"Arsenal", where:"uit bij Newcastle United"},
-      {who:"Crystal Palace", where:"uit bij Coventry City"},
-      {who:"Fulham", where:"uit bij Manchester City"},
-      {who:"Charlton Athletic", where:"uit bij Wolverhampton Wanderers"},
-      {who:"Watford", where:"uit bij Sheffield United"},
-      {who:"Bromley", where:"uit bij Reading"},
-      {who:"Dagenham & Redbridge", where:"uit"},
-      {who:"Hampton & Richmond Borough", where:"uit"},
-    ],
-    tbc: null
+function badgeHTML(name){
+  const club = CLUBS[name];
+  let bg;
+  if(club.pattern==="hoops"){
+    bg = `repeating-linear-gradient(0deg, ${club.c1} 0 7px, ${club.c2} 7px 14px)`;
+  } else if(club.pattern==="stripes"){
+    bg = `repeating-linear-gradient(90deg, ${club.c1} 0 6px, ${club.c2} 6px 12px)`;
+  } else {
+    bg = `linear-gradient(160deg, ${club.c1}, ${shade(club.c1)})`;
   }
+  const shadow = club.shadow ? `text-shadow:${club.shadow};` : (club.text === "#ffffff" ? "text-shadow:0 1px 2px rgba(0,0,0,0.5);" : "");
+  return `<div class="badge" style="background:${bg};color:${club.text};${shadow}">${club.abbr}</div>`;
+}
+
+const gmaps = (q) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+
+// ---- Places: used for the map pins and the "Google Maps" links ----
+const PLACES = {
+  airbnb:        {name:"Ons Airbnb", sub:"Rotherhithe · SE16 7UX", kind:"stay", emoji:"\u{1F3E0}", lat:51.4934, lng:-0.0341, maps:gmaps("SE16 7UX, London"), url:"https://www.airbnb.com/l/cS7x6vcq"},
+  beermile:      {name:"Bermondsey Beer Mile", sub:"Brouwerijen onder de spoorbogen", kind:"drink", emoji:"\u{1F37A}", lat:51.4978, lng:-0.0723, maps:gmaps("Bermondsey Beer Mile, London")},
+  maltby:        {name:"Maltby Street Market", sub:"Ropewalk, Bermondsey", kind:"food", emoji:"\u{1F32E}", lat:51.4996, lng:-0.0768, maps:"https://maps.app.goo.gl/DesdAar5HtoVJLmT9"},
+  londonStadium: {name:"London Stadium", sub:"Stratford · West Ham United", kind:"match", emoji:"⚽", lat:51.5386745, lng:-0.0164597, maps:gmaps("London Stadium, Stratford, London")},
+  vicarage:      {name:"Vicarage Road", sub:"Watford", kind:"match", emoji:"⚽", lat:51.6499133, lng:-0.4015284, maps:gmaps("Vicarage Road Stadium, Watford")},
+  boneDaddies:   {name:"Bone Daddies", sub:"Old Compton Street, Soho", kind:"food", emoji:"\u{1F35C}", lat:51.5133, lng:-0.1301, maps:gmaps("Bone Daddies Old Compton Street, London")},
+  oche:          {name:"Oche", sub:"105 Strand · darts", kind:"drink", emoji:"\u{1F3AF}", lat:51.5106, lng:-0.1199, maps:gmaps("Oche, 105 Strand, London WC2R 0AA")},
+  selhurst:      {name:"Selhurst Park", sub:"South Norwood · Crystal Palace", kind:"match", emoji:"⚽", lat:51.3980232, lng:-0.0860447, maps:gmaps("Selhurst Park, London")},
+};
+const KINDS = {
+  stay:  {label:"Verblijf", color:"var(--pitch)"},
+  match: {label:"Stadions", color:"var(--gold)"},
+  food:  {label:"Eten", color:"var(--food)"},
+  drink: {label:"Bier & darts", color:"var(--drink)"},
 };
 
-const DEFAULT_PLACES = {
-  stays: [
-    {name:"Geboekte Airbnb — Rotherhithe", confirmed:true, lat:51.4934, lng:-0.0341, note:"✅ Geboekt — SE16 7UX, bij Windsock Close/Plough Way, Greenland Dock", url:"https://www.airbnb.com/l/cS7x6vcq"}
-  ],
-  landmarks: [
-    {name:"Bermondsey Beer Mile", lat:51.4978, lng:-0.0723}
-  ],
-  flights: {
-    airline: "Ryanair",
-    passengers: 8,
-    combos: [
-      {day:"Donderdag 8 oktober", returnDay:"Maandag 12 oktober", confirmed:true, outbound:{from:"EIN",to:"STN",depart:"21:10",arrive:"21:15",duration:"1u05",flightNo:"FR5682"}, inbound:{from:"STN",to:"EIN",depart:"12:00",arrive:"14:05",duration:"1u05",flightNo:"FR2534"}, pricePerPerson:"€97,21", totalPrice:"€777,67"}
-    ]
-  },
-  prep: {
-    todos: [
-      {text:"Tickets kopen", done:false},
-      {text:"Restaurant scouten", done:false}
-    ],
-    info: [
-      "Zorg dat je een geldig paspoort hebt",
-      "Vraag een <a href=\"https://www.gov.uk/eta\" target=\"_blank\" rel=\"noopener noreferrer\">ETA</a> aan (£20)"
-    ]
-  }
+// ---- The programme ----
+// start/end are London time (BST, UTC+1 for the whole trip; the clocks change on 25 Oct).
+// They only drive the "now / next" highlighting; `time` is what's shown.
+const DAYS = [
+  {id:"do", date:"2026-10-08", dow:"Donderdag", num:"8", title:"Aankomst", events:[
+    {time:"21:10", timeSub:"NL-tijd", start:"20:10", end:"21:15", icon:"✈️", title:"Vlucht naar Londen", sub:"Eindhoven → Stansted · Ryanair FR5682 · landing 21:15 Londense tijd"},
+    {time:"Daarna", start:"21:15", end:"23:30", icon:"\u{1F3E0}", title:"Naar ons Airbnb", sub:"Rotherhithe · SE16 7UX", place:"airbnb"},
+  ]},
+  {id:"vr", date:"2026-10-09", dow:"Vrijdag", num:"9", title:"Beer Mile & West Ham", events:[
+    {time:"Middag", start:"13:00", end:"17:30", icon:"\u{1F37A}", title:"Bermondsey Beer Mile", sub:"Brouwerijen onder de spoorbogen van Bermondsey", place:"beermile",
+      note:"Tip: begin aan de kant van South Bermondsey en loop richting Maltby Street. Dan eindig je precies bij het diner."},
+    {time:"Diner", start:"17:30", end:"19:00", icon:"\u{1F32E}", title:"Maltby Street Market", sub:"Streetfood in een steegje onder het spoor, het begin van de Beer Mile", place:"maltby"},
+    {time:"20:00", timeSub:"aftrap", start:"20:00", end:"21:55", place:"londonStadium", match:{
+      home:"West Ham United", away:"Queens Park Rangers", comp:"Championship", tag:"Londense derby", ground:"London Stadium · Stratford",
+      facts:[
+        ["\u{1F39F}", "Tickets ~£35 pp"],
+        ["\u{1F687}", "Jubilee line vanaf London Bridge of Bermondsey naar Stratford (±20 min), dan ±15 min lopen"],
+      ],
+      info:"https://www.santosfootballplanet.nl/europa/engeland/londen/london-stadium/"}},
+  ]},
+  {id:"za", date:"2026-10-10", dow:"Zaterdag", num:"10", title:"Watford & darts", events:[
+    {time:"15:00", timeSub:"aftrap", start:"15:00", end:"16:55", place:"vicarage", match:{
+      home:"Watford", away:"Burnley", comp:"Championship", ground:"Vicarage Road · Watford",
+      facts:[
+        ["\u{1F39F}", "Tickets £35"],
+        ["\u{1F686}", "Trein vanaf Euston naar Watford Junction (±20 min), dan ±20 min lopen"],
+      ]}},
+    {time:"Diner", start:"18:00", end:"20:15", icon:"\u{1F35C}", title:"Bone Daddies", sub:"Ramen · Old Compton Street, Soho", place:"boneDaddies"},
+    {time:"20:30", timeSub:"tot 22:25", start:"20:30", end:"22:25", icon:"\u{1F3AF}", title:"Darts bij Oche", sub:"105 Strand, op loopafstand van Soho", place:"oche"},
+  ]},
+  {id:"zo", date:"2026-10-11", dow:"Zondag", num:"11", title:"Selhurst Park", events:[
+    {time:"12:00", start:"12:00", end:"12:30", icon:"\u{1F4F2}", title:"Inchecken voor de terugvlucht", sub:"Nog niet gedaan? Vanaf nu kan het in de Ryanair-app (FR2534).", reminder:true},
+    {time:"14:00", timeSub:"aftrap", start:"14:00", end:"15:55", place:"selhurst", match:{
+      home:"Crystal Palace", away:"Nottingham Forest", comp:"Premier League", ground:"Selhurst Park · South Norwood",
+      facts:[
+        ["\u{1F39F}", "Tickets £100–130 · <a href=\"https://www.stubhub.ie/crystal-palace-fc-vs-nottingham-forest-fc-tickets-selhurst-park-stadium-10-10-2026/event/107320089/\" target=\"_blank\" rel=\"noopener noreferrer\">StubHub ↗</a> · <a href=\"https://groundhopticket.com/premier-league/crystal-palace-nottingham-forest\" target=\"_blank\" rel=\"noopener noreferrer\">Groundhop Ticket ↗</a>"],
+        ["\u{1F686}", "Overground (Windrush line) vanaf Surrey Quays of Canada Water richting West Croydon, uitstappen op Norwood Junction, dan ±15 min lopen"],
+      ],
+      info:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"}},
+    {time:"Diner", start:"18:00", end:"20:30", icon:"\u{1F37D}️", title:"Nog te kiezen", sub:"Opties staan hieronder bij Eten & drinken", tbd:true, link:"#eten"},
+  ]},
+  {id:"ma", date:"2026-10-12", dow:"Maandag", num:"12", title:"Naar huis", events:[
+    {time:"± 08:00", start:"08:00", end:"11:00", icon:"\u{1F9F3}", title:"Vertrek naar Stansted", sub:"Op tijd weg voor de vlucht van 12:00"},
+    {time:"12:00", start:"12:00", end:"13:05", icon:"✈️", title:"Vlucht naar huis", sub:"Stansted → Eindhoven · Ryanair FR2534 · landing 14:05 NL-tijd"},
+  ]},
+];
+
+const londonTs = (date, hhmm) => Date.parse(`${date}T${hhmm}:00+01:00`);
+const EVENTS = DAYS.flatMap(d => d.events.map((e, i) => Object.assign(e, {
+  id:`ev-${d.id}-${i}`, day:d, startMs:londonTs(d.date, e.start), endMs:londonTs(d.date, e.end),
+  label: e.match ? `${CLUBS[e.match.home].short} v ${CLUBS[e.match.away].short}` : e.title,
+})));
+
+const PAIRS = [["Guus","Rutger"], ["Ralf","Max"], ["Nick","Loek"], ["Dennis","Luc"]];
+
+const CHECKLIST = [
+  {id:"paspoort", html:"Paspoort geldig en ingepakt"},
+  {id:"eta", html:"<a href=\"https://www.gov.uk/eta\" target=\"_blank\" rel=\"noopener noreferrer\">ETA</a> aangevraagd (£20)"},
+  {id:"checkin-heen", html:"Ingecheckt voor de heenvlucht<small>Ryanair-app · zonder gekozen stoel kan het vanaf wo 7 okt 21:10</small>"},
+  {id:"checkin-terug", html:"Ingecheckt voor de terugvlucht<small>Zonder gekozen stoel kan het vanaf zo 11 okt 12:00 (Londense tijd)</small>"},
+  {id:"tas", html:"Tas past binnen 40 × 30 × 20 cm"},
+  {id:"tickets", html:"Wedstrijdtickets op je telefoon<small>West Ham, Watford en Crystal Palace</small>"},
+];
+
+const FLIGHT = {
+  airline:"Ryanair", passengers:8, pricePerPerson:"€97,21", totalPrice:"€777,67",
+  legs:[
+    {dir:"Heen", day:"Do 8 okt", from:"EIN", to:"STN", depart:"21:10", arrive:"21:15", no:"FR5682"},
+    {dir:"Terug", day:"Ma 12 okt", from:"STN", to:"EIN", depart:"12:00", arrive:"14:05", no:"FR2534"},
+  ]
 };
-
-const heroDates = document.getElementById('heroDates');
-const fixturesWrap = document.getElementById('fixturesWrap');
-const tbcWrap = document.getElementById('tbcWrap');
-
-function countHome(weekend){
-  return weekend.fixtures.reduce((n,g)=>n+g.items.length,0);
-}
-
-function renderWeekend(key){
-  const w = ACTIVE_DATA.weekends[key];
-
-  // hero stats
-  heroDates.innerHTML = `<span>${w.dates[0]}</span> <span>${w.dates[1]}</span> <span>${countHome(w)} BEVESTIGDE THUISWEDSTRIJDEN</span> <span>6 NIVEAUS</span>`;
-
-  // fixtures
-  fixturesWrap.innerHTML = '';
-  w.fixtures.forEach(group=>{
-    const label = document.createElement('div');
-    label.className = 'day-label';
-    label.textContent = group.day;
-    fixturesWrap.appendChild(label);
-
-    const grid = document.createElement('div');
-    grid.className = 'fixture-grid';
-    group.items.forEach(f=>{
-      const card = document.createElement('div');
-
-      if(f.type === 'alt'){
-        card.className = 'fcard' + (f.note ? ' starred' : '');
-        card.innerHTML = `
-          ${f.note ? `<div class="ribbon">${f.note}</div>` : ''}
-          <div class="meta"><span class="tier-tag">Alternatief</span><span>${group.day.split(' ')[0]}</span></div>
-          <div class="matchup">
-            <div class="badge" style="width:44px;height:50px;font-size:1.1rem;background:linear-gradient(160deg, #7a263a, #4a1522);color:#fff;border:1.5px solid rgba(0,0,0,0.25);">${f.emoji||'📍'}</div>
-            <div class="vs-names">
-              <div class="home">${f.title}</div>
-              <div class="away">${f.subtitle||''}</div>
-            </div>
-          </div>
-          <div class="kickoff"><span>${f.info||''}</span></div>
-          ${f.tickets ? `<div class="tickets">💵 ${f.tickets}</div>` : ''}
-          ${f.perks ? `<div class="tickets">${f.perks}</div>` : ''}
-          ${f.groundInfo ? `<div class="tickets"><a href="${f.groundInfo}" target="_blank" rel="noopener noreferrer">Meer info ↗</a></div>` : ''}
-        `;
-        grid.appendChild(card);
-        return;
-      }
-
-      const home = findClub(f.home) || Object.assign({name:f.home, ground:f.ground||'', abbr:f.home.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.homeBadge||{});
-      const away = findClub(f.away) || Object.assign({abbr:f.away.slice(0,3).toUpperCase(), c1:"#3a3a3a", c2:"#555", text:"#fff", pattern:"solid"}, f.awayBadge||{});
-      card.className = 'fcard' + (f.starred ? ' starred' : '') + (f.pick ? ' pick' : '');
-      card.innerHTML = `
-        ${f.starred ? `<div class="ribbon">${f.ribbon}</div>` : ''}
-        <div class="meta"><span class="tier-tag">${TIER_LABELS[f.tier]}</span><span>${group.day.split(' ')[0]}</span></div>
-        <div class="matchup">
-          ${badgeHTML(home,'lg')}
-          <div class="vs-names">
-            <div class="home">${home.name}</div>
-            <div class="away">v ${away.name || f.away}</div>
-          </div>
-        </div>
-        <div class="kickoff"><span>${f.time} aftrap</span><span class="ground">${home.ground}</span></div>
-        ${f.tickets ? `<div class="tickets">🎟 ${f.tickets}</div>` : ''}
-        ${f.travel ? `<div class="tickets">${f.travel}</div>` : ''}
-        ${f.groundInfo ? `<div class="tickets"><a href="${f.groundInfo}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a></div>` : ''}
-      `;
-      grid.appendChild(card);
-    });
-    fixturesWrap.appendChild(grid);
-  });
-
-  // tbc note
-  tbcWrap.innerHTML = w.tbc ? `<div class="tbc"><strong>Nog te bevestigen:</strong> ${w.tbc}</div>` : '';
-}
-
-// ---- Persistent storage: makes this a "live" hub at a stable link ----
-const STORAGE_KEY = 'trip-data-v20';
-let ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
-let currentWeekend = 'oct';
-let leafletMap = null;
-const mapLayers = {grounds: null, stays: null, landmarks: null};
-
-async function loadData(){
-  try{
-    const result = await window.storage.get(STORAGE_KEY, true); // shared: same data for everyone with the link
-    if(result && result.value) return JSON.parse(result.value);
-  }catch(e){
-    // key doesn't exist yet — seed it below
-  }
-  const seed = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
-  try{
-    await window.storage.set(STORAGE_KEY, JSON.stringify(seed), true);
-  }catch(e){ console.error('Seeding storage failed', e); }
-  return seed;
-}
-
-function pinDivIcon(bg, emoji){
-  return L.divIcon({
-    className: '',
-    html: `<div class="map-pin" style="background:${bg}"><span>${emoji}</span></div>`,
-    iconSize: [26,26],
-    iconAnchor: [13,26],
-    popupAnchor: [0,-24]
-  });
-}
-
-function renderMap(){
-  const places = ACTIVE_DATA.places;
-  if(!leafletMap){
-    leafletMap = L.map('map', {scrollWheelZoom:false}).setView([51.508, -0.09], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
-      maxZoom: 18
-    }).addTo(leafletMap);
-  }
-  Object.values(mapLayers).forEach(l=>{ if(l) leafletMap.removeLayer(l); });
-
-  mapLayers.grounds = L.layerGroup(CLUBS.map(c=>
-    L.marker([c.lat, c.lng], {icon:pinDivIcon('var(--gold)','⚽')}).bindPopup(`<b>${c.name}</b><br>${c.ground} · Tier ${c.tier}`)
-  ));
-  mapLayers.stays = L.layerGroup((places.stays||[]).map(s=>
-    L.marker([s.lat, s.lng], {icon:pinDivIcon('#5fbf6e','\u{1F3E0}')}).bindPopup(`<b>${s.name}</b><br>${s.note||''}${s.url ? `<br><a href="${s.url}" target="_blank" rel="noopener noreferrer">Bekijk op Airbnb ↗</a>` : ''}`)
-  ));
-  mapLayers.landmarks = L.layerGroup((places.landmarks||[]).map(m=>
-    L.marker([m.lat, m.lng], {icon:pinDivIcon('#6fa8dc','★')}).bindPopup(`<b>${m.name}</b>`)
-  ));
-
-  if(document.getElementById('lyrGrounds').checked) mapLayers.grounds.addTo(leafletMap);
-  if(document.getElementById('lyrStays').checked) mapLayers.stays.addTo(leafletMap);
-  if(document.getElementById('lyrLandmarks').checked) mapLayers.landmarks.addTo(leafletMap);
-
-  setTimeout(()=>leafletMap.invalidateSize(), 150);
-}
 
 const RESTAURANTS = [
   {
@@ -1064,7 +952,7 @@ const RESTAURANTS = [
     name:"Canada Water Cafe",
     map:"https://maps.app.goo.gl/JhHnQHLkwyB2tbzJ7",
     tags:["Ontbijt tot diner", "Kwarteerke te voot"],
-    note:"Van \u2019s murges vreug tot soaves laat. Alles hobbe ze, van ontbijt tot diner! Italiaans diner, full english breakfast, gebak, brunch! Ough veur de blome-vreaters onger os. Te voot ein kwarteerke van os verblief.",
+    note:"Van ’s murges vreug tot soaves laat. Alles hobbe ze, van ontbijt tot diner! Italiaans diner, full english breakfast, gebak, brunch! Ough veur de blome-vreaters onger os. Te voot ein kwarteerke van os verblief.",
     score:"4,3/5"
   },
   {
@@ -1072,7 +960,7 @@ const RESTAURANTS = [
     name:"The Pear Tree",
     map:"https://maps.app.goo.gl/ncB3RSRhAD3ytKpJA",
     tags:["Australian-inspired", "Um de hook"],
-    note:"Dennis zien suggestie. Ough hie kent de ganse daag gegeate weare. Ze numme zichzelf ein \u201cAustralian-inspired restaurant\u201d. Op de foto zeen ich ein gigantisch menu mit Sunday roast, burgers, nasi, spaghetti en Korean Fried Chicken. Missjien ein kleine ideniteitscrisis?? Om de hook van os accommodatie.",
+    note:"Dennis zien suggestie. Ough hie kent de ganse daag gegeate weare. Ze numme zichzelf ein “Australian-inspired restaurant”. Op de foto zeen ich ein gigantisch menu mit Sunday roast, burgers, nasi, spaghetti en Korean Fried Chicken. Missjien ein kleine ideniteitscrisis?? Om de hook van os accommodatie.",
     score:"4,5/5"
   },
   {
@@ -1080,14 +968,14 @@ const RESTAURANTS = [
     name:"Mama Pho",
     map:"https://maps.app.goo.gl/e22j1NjfrACo6RGD6",
     tags:["Vietnamees", "Sjappelijke prieze"],
-    note:"Toch ein bietje bie de mam op vakantie! Lunch en oavendeate vietnamesche stijl. Buns, Pho\u2019s en ries stuit hie op \u2019t menu. Zuut er prima oet en heel sjappelijke prieze. Ough dit kense hoas vanoet ozze sloapkamer zeen ligge!",
+    note:"Toch ein bietje bie de mam op vakantie! Lunch en oavendeate vietnamesche stijl. Buns, Pho’s en ries stuit hie op ’t menu. Zuut er prima oet en heel sjappelijke prieze. Ough dit kense hoas vanoet ozze sloapkamer zeen ligge!",
     score:"4,1/5"
   },
   {
     group:"Bie os um de hook",
     name:"La Chingada",
     map:"https://maps.app.goo.gl/TjnwWeQ2xRGQ37a37",
-    tags:["Mexicaans", "Vlakbie \u2019t huuske"],
+    tags:["Mexicaans", "Vlakbie ’t huuske"],
     note:"Dit liek hoas ein weareldreis? Noe zeen we in Mexico belandj. Qua gerechte zal det gein introductie neudig hubbe. Lekker dichtbie os huuske, dus es emes las krig van de bonen is det binne ein paar minuut trug!",
     score:"4,5/5"
   },
@@ -1104,14 +992,240 @@ const RESTAURANTS = [
     name:"Maltby Street Market",
     map:"https://maps.app.goo.gl/DesdAar5HtoVJLmT9",
     tags:["Streetfood", "Allein vriedigaovend, zoaterdig &amp; zondig"],
-    note:"Ein soart weakelijks foodtruck festival in ein kleine steeg. Eerst moeilijk te vinje, mer esse einmoal wets wose mos zeen\u2026 kleine mertkreumkes mit eate oet alle windjstreke. Allemoal eave lekker en good te deile. Officieel het begin van de Bermondsey Beer Mile. Allein te bezeuke op vriedigaovend, zoaterdig of zondig.",
-    ribbon:"Vri, zoa &amp; zo"
+    note:"Ein soart weakelijks foodtruck festival in ein kleine steeg. Eerst moeilijk te vinje, mer esse einmoal wets wose mos zeen… kleine mertkreumkes mit eate oet alle windjstreke. Allemoal eave lekker en good te deile. Officieel het begin van de Bermondsey Beer Mile. Allein te bezeuke op vriedigaovend, zoaterdig of zondig.",
+    ribbon:"Vrijdagdiner ✅"
   }
 ];
 
+// ---- Render: hero ----
+function renderMatchStrip(){
+  document.getElementById('matchStrip').innerHTML = EVENTS.filter(e=>e.match).map(e=>`
+    <a class="stub" href="#dag-${e.day.id}">
+      <div class="stub-when"><span>${e.day.dow.slice(0,2)}</span><b>${e.time}</b></div>
+      <div class="stub-what">
+        <div class="badges">${badgeHTML(e.match.home)}${badgeHTML(e.match.away)}</div>
+        <div>
+          <div class="stub-teams">${e.label}</div>
+          <div class="stub-ground">${e.match.ground.split(' · ')[0]}</div>
+        </div>
+      </div>
+    </a>
+  `).join('');
+}
+
+// ---- Render: programme ----
+function eventLinks(e){
+  const links = [];
+  const p = e.place && PLACES[e.place];
+  if(p) links.push(`<a class="text-link" href="${p.maps}" target="_blank" rel="noopener noreferrer">\u{1F4CD} Google Maps ↗</a>`);
+  if(e.match && e.match.info) links.push(`<a class="text-link" href="${e.match.info}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a>`);
+  if(e.link) links.push(`<a class="text-link" href="${e.link}">Bekijk de opties ↓</a>`);
+  return links.length ? `<div class="ev-links">${links.join('')}</div>` : '';
+}
+
+function eventBody(e){
+  if(e.match){
+    const m = e.match;
+    return `
+      <div class="match-card">
+        <div class="match-head"><span>${m.comp}<span class="ev-flag"></span></span>${m.tag ? `<span class="tag">${m.tag}</span>` : ''}</div>
+        <div class="matchup">
+          <div class="badges">${badgeHTML(m.home)}${badgeHTML(m.away)}</div>
+          <div>
+            <div class="home">${m.home}</div>
+            <div class="away">v ${m.away}</div>
+          </div>
+        </div>
+        <ul class="facts">
+          <li><span>\u{1F3DF}️</span><span>${m.ground}</span></li>
+          ${m.facts.map(([icon, text])=>`<li><span>${icon}</span><span>${text}</span></li>`).join('')}
+        </ul>
+        ${eventLinks(e)}
+      </div>`;
+  }
+  return `
+    <div class="ev-title"><span class="icon">${e.icon}</span>${e.title}<span class="ev-flag"></span></div>
+    ${e.sub ? `<div class="ev-sub">${e.sub}</div>` : ''}
+    ${e.note ? `<div class="ev-note">${e.note}</div>` : ''}
+    ${eventLinks(e)}`;
+}
+
+function renderDays(){
+  document.getElementById('days').innerHTML = DAYS.map(d=>`
+    <article class="day" id="dag-${d.id}">
+      <div class="ribbon">Vandaag</div>
+      <div class="day-head">
+        <div class="day-dow">${d.dow}</div>
+        <div class="day-date"><span class="day-num">${d.num}</span><span class="day-month">okt</span></div>
+        <div class="day-title">${d.title}</div>
+      </div>
+      <ol class="events">
+        ${d.events.map(e=>`
+          <li class="ev${e.match ? ' match' : ''}${e.reminder ? ' reminder' : ''}${e.tbd ? ' tbd' : ''}" id="${e.id}">
+            <div class="ev-time">${e.time}${e.timeSub ? `<small>${e.timeSub}</small>` : ''}</div>
+            <div class="ev-body">${eventBody(e)}</div>
+          </li>
+        `).join('')}
+      </ol>
+    </article>
+  `).join('');
+}
+
+// ---- Time-aware bits: countdown, "today", "now" and "next" ----
+const londonDate = (ms) => new Intl.DateTimeFormat('en-CA', {timeZone:'Europe/London', year:'numeric', month:'2-digit', day:'2-digit'}).format(ms);
+
+function currentTime(){
+  // ?nu=2026-10-09T15:00 (London time) previews the page at another moment
+  const q = new URLSearchParams(location.search).get('nu');
+  const t = q ? Date.parse(q.length <= 16 ? `${q}:00+01:00` : q) : NaN;
+  return isNaN(t) ? Date.now() : t;
+}
+
+function countdownText(ms){
+  const mins = Math.max(0, Math.floor(ms / 60000));
+  const d = Math.floor(mins / 1440), h = Math.floor((mins % 1440) / 60), m = mins % 60;
+  if(d >= 1) return `${d} ${d === 1 ? 'dag' : 'dagen'} · ${h} uur`;
+  if(h >= 1) return `${h} uur · ${m} min`;
+  return `${m} min`;
+}
+
+function whenText(e){
+  const time = e.timeSub && e.timeSub.startsWith('tot ') ? `${e.time}–${e.timeSub.slice(4)}` : e.time;
+  return `${e.day.dow} · ${time}`;
+}
+
+function applyTimeState(){
+  const now = currentTime();
+  const today = londonDate(now);
+  const first = EVENTS[0], last = EVENTS[EVENTS.length - 1];
+  const timed = EVENTS.filter(e => !e.reminder);
+  const current = timed.find(e => e.startMs <= now && now < e.endMs);
+  const next = timed.find(e => e.startMs > now);
+
+  DAYS.forEach(d=>{
+    const el = document.getElementById(`dag-${d.id}`);
+    el.classList.toggle('today', d.date === today);
+    el.classList.toggle('past', d.date < today);
+  });
+  EVENTS.forEach(e=>{
+    const el = document.getElementById(e.id);
+    const isNow = e === current, isNext = e === next && now >= first.startMs;
+    el.classList.toggle('past', e.endMs <= now);
+    el.classList.toggle('now', isNow);
+    el.classList.toggle('next', isNext);
+    el.querySelector('.ev-flag').textContent = isNow ? 'Nu' : (isNext ? 'Hierna' : '');
+  });
+
+  const status = document.getElementById('tripStatus');
+  if(now < first.startMs){
+    status.innerHTML = `
+      <div class="status-label">Vertrek over</div>
+      <div class="status-value">${countdownText(first.startMs - now)}</div>
+      <div class="status-sub">Donderdag 8 oktober, 21:10 vanaf Eindhoven · FR5682</div>`;
+  } else if(now >= last.endMs){
+    status.innerHTML = `
+      <div class="status-label">Londen 2026</div>
+      <div class="status-value">Het zit erop</div>
+      <div class="status-sub">Drie stadions, één weekend. Op naar de volgende trip.</div>`;
+  } else {
+    const dayIndex = DAYS.findIndex(d => d.date === today);
+    const focus = current || next;
+    const place = focus.place ? PLACES[focus.place].name : '';
+    status.innerHTML = `
+      <div class="status-label">${dayIndex >= 0 ? `Dag ${dayIndex + 1} van ${DAYS.length} · ` : ''}${current ? 'Nu' : 'Hierna'}</div>
+      <div class="status-value">${focus.label}</div>
+      <div class="status-sub">${whenText(focus)}${place && place !== focus.label ? ` · ${place}` : ''} · <a href="#${focus.id}">Bekijk in programma ↓</a></div>`;
+  }
+}
+
+// ---- Render: rooms, bag, checklist ----
+function renderPairs(){
+  document.getElementById('pairGrid').innerHTML = PAIRS.map(([a, b])=>`
+    <div class="pair">
+      <div class="pair-label"><span>Kamer &amp; koffer</span><span class="icons" aria-hidden="true">\u{1F6CF}️\u{1F9F3}</span></div>
+      <div class="pair-names">${a}<span class="amp">&amp;</span>${b}</div>
+    </div>
+  `).join('');
+}
+
+const CHECK_KEY = 'london2026-checklist';
+function readChecks(){
+  try{ return JSON.parse(localStorage.getItem(CHECK_KEY)) || {}; }catch(e){ return {}; }
+}
+function writeChecks(state){
+  try{ localStorage.setItem(CHECK_KEY, JSON.stringify(state)); }catch(e){ /* not available: ticks just aren't remembered */ }
+}
+function renderChecklist(){
+  const state = readChecks();
+  const list = document.getElementById('checkList');
+  const count = document.getElementById('checkCount');
+  const updateCount = () => {
+    count.textContent = `${CHECKLIST.filter(c => state[c.id]).length} / ${CHECKLIST.length}`;
+  };
+  list.innerHTML = CHECKLIST.map(c=>`
+    <li class="check-item${state[c.id] ? ' done' : ''}">
+      <label><input type="checkbox" data-id="${c.id}"${state[c.id] ? ' checked' : ''}><span class="check-text">${c.html}</span></label>
+    </li>
+  `).join('');
+  list.querySelectorAll('input').forEach(input=>{
+    input.addEventListener('change', ()=>{
+      state[input.dataset.id] = input.checked;
+      input.closest('.check-item').classList.toggle('done', input.checked);
+      writeChecks(state);
+      updateCount();
+    });
+  });
+  updateCount();
+}
+
+// ---- Render: map ----
+function placeVisits(key){
+  return EVENTS.filter(e => e.place === key).map(whenText).join(' · ');
+}
+function renderMap(){
+  document.getElementById('mapLegend').innerHTML = Object.values(KINDS).map(k=>
+    `<span><span class="dot" style="background:${k.color}"></span>${k.label}</span>`
+  ).join('');
+
+  const map = L.map('map', {scrollWheelZoom:false});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(map);
+
+  const markers = Object.entries(PLACES).map(([key, p])=>{
+    const icon = L.divIcon({
+      className: '',
+      html: `<div class="map-pin" style="background:${KINDS[p.kind].color}"><span>${p.emoji}</span></div>`,
+      iconSize: [28,28],
+      iconAnchor: [14,28],
+      popupAnchor: [0,-26]
+    });
+    const visits = placeVisits(key);
+    return L.marker([p.lat, p.lng], {icon}).addTo(map).bindPopup(`
+      <b>${p.name}</b><br>${p.sub}
+      ${visits ? `<div class="pop-when">${visits}</div>` : ''}
+      <div style="margin-top:6px"><a href="${p.maps}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>${p.url ? ` · <a href="${p.url}" target="_blank" rel="noopener noreferrer">Airbnb ↗</a>` : ''}</div>
+    `);
+  });
+  map.fitBounds(L.featureGroup(markers).getBounds(), {padding:[30,30]});
+  setTimeout(()=>map.invalidateSize(), 150);
+}
+
+// ---- Render: food ----
+function renderDinnerPlan(){
+  const dinners = EVENTS.filter(e => e.time === 'Diner');
+  document.getElementById('dinnerPlan').innerHTML = dinners.map(e=>`
+    <div class="dinner${e.tbd ? ' open' : ''}">
+      <div class="dinner-day">${e.day.dow} ${e.tbd ? '· nog open' : '✅'}</div>
+      <div class="dinner-name">${e.tbd ? 'Nog te kiezen' : e.title}</div>
+      <div class="dinner-where">${e.tbd ? 'Iets uit de lijst hieronder' : PLACES[e.place].sub}</div>
+    </div>
+  `).join('');
+}
+
 function renderRestaurants(){
   const el = document.getElementById('foodOptions');
-  if(!el) return;
   const groups = [...new Set(RESTAURANTS.map(r=>r.group))];
   el.innerHTML = groups.map(g=>{
     const items = RESTAURANTS.filter(r=>r.group===g);
@@ -1123,11 +1237,11 @@ function renderRestaurants(){
           <div class="food-card${favourite ? ' favourite' : ''}">
             ${r.ribbon ? `<div class="ribbon">${r.ribbon}</div>` : ''}
             <div class="food-name">${r.name}</div>
-            ${(r.tags && r.tags.length) ? `<div class="food-meta">${r.tags.map(t=>`<span>${t}</span>`).join('<span>\u00b7</span>')}</div>` : ''}
+            ${(r.tags && r.tags.length) ? `<div class="food-meta">${r.tags.map(t=>`<span>${t}</span>`).join('<span>·</span>')}</div>` : ''}
             <div class="food-note">${r.note}</div>
             <div class="food-foot">
-              ${r.score ? `<span class="food-score">\u2605 Tripadvisor ${r.score}</span>` : ''}
-              ${r.map ? `<a class="food-map" href="${r.map}" target="_blank" rel="noopener noreferrer">\u{1F4CD} Google Maps \u2197</a>` : ''}
+              ${r.score ? `<span class="food-score">★ Tripadvisor ${r.score}</span>` : ''}
+              ${r.map ? `<a class="text-link" href="${r.map}" target="_blank" rel="noopener noreferrer">\u{1F4CD} Google Maps ↗</a>` : ''}
             </div>
           </div>
         `).join('')}
@@ -1136,98 +1250,37 @@ function renderRestaurants(){
   }).join('');
 }
 
-function renderStayCards(){
-  const grid = document.getElementById('stayGrid');
-  grid.innerHTML = '';
-  (ACTIVE_DATA.places.stays||[]).forEach(s=>{
-    const el = document.createElement('div');
-    el.className = 'stay-card' + (s.confirmed ? ' confirmed' : '');
-    el.innerHTML = `${s.confirmed ? '<div class="ribbon">Geboekt ✅</div>' : ''}<div class="stay-name">${s.name}</div><div class="stay-note">${s.note||''}</div>${s.url ? `<a class="stay-link" href="${s.url}" target="_blank" rel="noopener noreferrer">Bekijk op Airbnb ↗</a>` : ''}`;
-    grid.appendChild(el);
-  });
-}
-
-function renderFlightOptions(){
-  const f = ACTIVE_DATA.places.flights;
-  const el = document.getElementById('flightOptions');
-  if(!f || !f.combos || !f.combos.length){ el.innerHTML = ''; return; }
-
-  const leg = (l, dayLabel) => `
-    <div class="flight-leg">
-      <div class="route">${l.from} → ${l.to}</div>
-      <div class="times">${dayLabel ? `<span style="color:var(--gold-soft);font-weight:600;">${dayLabel}</span> · ` : ''}${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(${l.duration}, direct${l.flightNo ? ' · ' + l.flightNo : ''})</span></div>
-    </div>`;
-
-  const cheapestPrice = Math.min(...f.combos.map(c=>parseFloat(c.pricePerPerson.replace(/[^\d.]/g,''))));
-
-  const days = [...new Set(f.combos.map(c=>c.day))];
-  el.innerHTML = days.map(day=>{
-    const combos = f.combos.filter(c=>c.day===day);
-    const returnDay = combos[0] && combos[0].returnDay;
-    const label = returnDay ? `${day} → ${returnDay}` : day;
-    return `
-      <div class="flight-day-label">${label}</div>
-      <div class="flight-grid">
-        ${combos.map(c=>{
-          const isCheapest = parseFloat(c.pricePerPerson.replace(/[^\d.]/g,'')) === cheapestPrice;
-          return `
-            <div class="flight-card${(isCheapest || c.confirmed) ? ' cheapest' : ''}">
-              ${c.confirmed ? '<div class="ribbon">Geboekt ✅</div>' : (isCheapest ? '<div class="ribbon">Goedkoopste</div>' : '')}
-              <div class="flight-title">${f.airline} · direct</div>
-              ${leg(c.outbound, 'Heen · ' + day)}
-              ${leg(c.inbound, 'Terug · ' + (c.returnDay || day))}
-              <div class="flight-price"><span>${f.passengers} passagiers</span><span><b>${c.pricePerPerson}</b> pp · ${c.totalPrice} totaal</span></div>
-            </div>
-          `;
-        }).join('')}
+// ---- Render: flight & stay ----
+function renderTravel(){
+  const f = FLIGHT;
+  document.getElementById('flightCard').innerHTML = `
+    <div class="ribbon">Geboekt ✅</div>
+    <div class="box-title">${f.airline} · direct · ${f.passengers} passagiers</div>
+    ${f.legs.map(l=>`
+      <div class="leg">
+        <div class="leg-dir">${l.dir}<b>${l.day}</b></div>
+        <div>
+          <div class="leg-route">${l.from} → ${l.to}</div>
+          <div class="leg-times">${l.depart}<span class="arrow">→</span>${l.arrive} <span style="color:var(--muted)">(lokale tijd)</span></div>
+        </div>
+        <div class="leg-no">${l.no}</div>
       </div>
-    `;
-  }).join('');
-}
+    `).join('')}
+    <div class="travel-foot"><span>Betaald</span><span><b>${f.pricePerPerson}</b> pp · ${f.totalPrice} totaal</span></div>
+  `;
 
-function renderPrep(){
-  const prep = ACTIVE_DATA.places.prep;
-  const todoList = document.getElementById('todoList');
-  const infoList = document.getElementById('infoList');
-  if(!prep){ todoList.innerHTML = ''; infoList.innerHTML = ''; return; }
-
-  todoList.innerHTML = (prep.todos||[]).map((t,i)=>`
-    <li class="todo-item${t.done ? ' done' : ''}" data-index="${i}">
-      <input type="checkbox" ${t.done ? 'checked' : ''}>
-      <span>${t.text}</span>
-    </li>
-  `).join('');
-
-  infoList.innerHTML = (prep.info||[]).map(text=>`<li>${text}</li>`).join('');
-
-  todoList.querySelectorAll('.todo-item').forEach(item=>{
-    item.addEventListener('click', async ()=>{
-      const i = Number(item.dataset.index);
-      prep.todos[i].done = !prep.todos[i].done;
-      item.classList.toggle('done', prep.todos[i].done);
-      item.querySelector('input').checked = prep.todos[i].done;
-      try{ await window.storage.set(STORAGE_KEY, JSON.stringify(ACTIVE_DATA), true); }catch(e){ /* best effort */ }
-    });
-  });
-}
-
-['lyrGrounds','lyrStays','lyrLandmarks'].forEach(id=>{
-  document.getElementById(id).addEventListener('change', renderMap);
-});
-
-async function init(){
-  try{
-    ACTIVE_DATA = await loadData();
-  }catch(e){
-    ACTIVE_DATA = {weekends: DEFAULT_WEEKENDS, places: DEFAULT_PLACES};
-  }
-  renderWeekend('oct');
-  try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
-  renderStayCards();
-  renderRestaurants();
-  renderFlightOptions();
-  renderPrep();
-  initScrollspy();
+  const s = PLACES.airbnb;
+  document.getElementById('stayCard').innerHTML = `
+    <div class="ribbon">Geboekt ✅</div>
+    <div class="box-title">Verblijf</div>
+    <div class="stay-name">Airbnb in Rotherhithe</div>
+    <div class="stay-addr">SE16 7UX · bij Windsock Close / Plough Way, Greenland Dock</div>
+    <div class="stay-when">Do 8 – ma 12 oktober · 4 nachten</div>
+    <div class="ev-links">
+      <a class="text-link" href="${s.url}" target="_blank" rel="noopener noreferrer">Bekijk op Airbnb ↗</a>
+      <a class="text-link" href="${s.maps}" target="_blank" rel="noopener noreferrer">\u{1F4CD} Google Maps ↗</a>
+    </div>
+  `;
 }
 
 // ---- Nav scrollspy ----
@@ -1244,6 +1297,20 @@ function initScrollspy(){
     if(visible.length) setActive(visible[0].target.id);
   }, {rootMargin: '-40% 0px -55% 0px', threshold: 0});
   sections.forEach(sec => observer.observe(sec));
+}
+
+function init(){
+  renderMatchStrip();
+  renderDays();
+  applyTimeState();
+  setInterval(applyTimeState, 60000);
+  renderPairs();
+  renderChecklist();
+  try{ renderMap(); }catch(e){ console.error('Map failed to render', e); }
+  renderDinnerPlan();
+  renderRestaurants();
+  renderTravel();
+  initScrollspy();
 }
 
 init();
