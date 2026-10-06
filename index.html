@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#182338">
-<title>Londen 2026 — Drie stadions, één weekend</title>
+<title>London Calling</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
@@ -710,7 +710,7 @@
   <div class="wrap hero-inner">
     <div>
       <div class="eyebrow">Do 8 – ma 12 oktober 2026 · Londen</div>
-      <h1 class="title">Drie stadions,<br><em>één weekend</em></h1>
+      <h1 class="title">London<br><em>Calling</em></h1>
       <p class="hero-sub">Acht man, vier nachten in Rotherhithe en drie wedstrijden. Alles wat je onderweg nodig hebt staat op deze pagina.</p>
     </div>
     <div class="hero-side">
@@ -867,6 +867,7 @@ const PLACES = {
   vicarage:      {name:"Vicarage Road", sub:"Watford", kind:"match", emoji:"⚽", lat:51.6499133, lng:-0.4015284, maps:gmaps("Vicarage Road Stadium, Watford")},
   boneDaddies:   {name:"Bone Daddies", sub:"Old Compton Street, Soho", kind:"food", emoji:"\u{1F35C}", lat:51.5133, lng:-0.1301, maps:gmaps("Bone Daddies Old Compton Street, London")},
   oche:          {name:"Oche", sub:"105 Strand · darts", kind:"drink", emoji:"\u{1F3AF}", lat:51.5106, lng:-0.1199, maps:gmaps("Oche, 105 Strand, London WC2R 0AA")},
+  leadbelly:     {name:"Leadbelly's Bar & Kitchen", sub:"Sportbar & restaurant", kind:"drink", emoji:"\u{1F37B}", lat:51.4982446, lng:-0.0487064, maps:"https://www.google.com/maps/place/Leadbelly's+Bar+%26+Kitchen/@51.4982479,-0.0512867,828m/data=!3m2!1e3!4b1!4m6!3m5!1s0x48760320c13f4a13:0xb60b0f28348bcc43!8m2!3d51.4982446!4d-0.0487064!16s%2Fg%2F11c5zsm8r8"},
   selhurst:      {name:"Selhurst Park", sub:"South Norwood · Crystal Palace", kind:"match", emoji:"⚽", lat:51.3980232, lng:-0.0860447, maps:gmaps("Selhurst Park, London")},
 };
 const KINDS = {
@@ -915,8 +916,8 @@ const DAYS = [
         ["\u{1F686}", "Overground (Windrush line) vanaf Surrey Quays of Canada Water richting West Croydon, uitstappen op Norwood Junction, dan ±15 min lopen"],
       ],
       info:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"}},
-    {time:"16:30", timeSub:"aftrap", start:"16:30", end:"18:30", icon:"\u{1F37B}", title:"Liverpool v Man City kijken", sub:"Leadbelly's Bar & Kitchen · we kijken de wedstrijd hier", maps:"https://www.google.com/maps/place/Leadbelly's+Bar+%26+Kitchen/@51.4982479,-0.0512867,828m/data=!3m2!1e3!4b1!4m6!3m5!1s0x48760320c13f4a13:0xb60b0f28348bcc43!8m2!3d51.4982446!4d-0.0487064!16s%2Fg%2F11c5zsm8r8"},
-    {time:"Diner", start:"18:30", end:"20:30", icon:"\u{1F37D}️", title:"Nog te kiezen", sub:"Opties staan hieronder bij Eten & drinken", tbd:true, link:"#eten"},
+    {time:"16:30", timeSub:"aftrap", start:"16:30", end:"18:30", icon:"\u{1F37B}", title:"Liverpool v Man City kijken", sub:"Leadbelly's Bar & Kitchen · we kijken de wedstrijd hier", place:"leadbelly"},
+    {time:"Diner", start:"18:30", end:"20:30", icon:"\u{1F37D}️", title:"Diner bij Leadbelly's", sub:"Eten in de sportbar, na de wedstrijd", place:"leadbelly"},
   ]},
   {id:"ma", date:"2026-10-12", dow:"Maandag", num:"12", title:"Naar huis", events:[
     {time:"± 08:00", start:"08:00", end:"11:00", icon:"\u{1F9F3}", title:"Vertrek naar Stansted", sub:"Op tijd weg voor de vlucht van 12:00"},
