@@ -806,6 +806,15 @@
     <div class="travel-grid">
       <div class="travel-card" id="flightCard"></div>
       <div class="travel-card" id="stayCard"></div>
+      <div class="travel-card" id="ovCard">
+        <div class="box-title">Openbaar vervoer</div>
+        <p class="bag-note">Betaal gewoon met je bankpas of telefoon (contactless, Apple/Google Pay). Een dagkaart of driedaagse pas is niet nodig: je betaalt per rit en TfL stopt automatisch bij een daglimiet (cap), daarna reis je die dag gratis door. Binnen zone 1&ndash;2 is dat £8,90 per dag, zone 1&ndash;3 £10,50. Er is ook een weekcap (ma&ndash;zo).</p>
+        <ul class="bag-dims">
+          <li>Altijd met <b>dezelfde pas of telefoon</b> in- en uitchecken, ieder voor zich</li>
+          <li>Ook geldig op de trein naar Watford Junction en de Stansted Express (liggen buiten de zones, met hogere caps)</li>
+          <li>De dag loopt van 04:30 tot 04:29, ritten na middernacht tellen nog bij de vorige dag</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -905,8 +914,8 @@ const DAYS = [
         ["\u{1F686}", "Overground (Windrush line) vanaf Surrey Quays of Canada Water richting West Croydon, uitstappen op Norwood Junction, dan ±15 min lopen"],
       ],
       info:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"}},
-    {time:"Later", start:"16:30", end:"18:00", icon:"\u{1F37B}", title:"Liverpool v Man City kijken", sub:"Leadbelly Sportbar · we kijken de wedstrijd hier", maps:gmaps("Leadbelly Sportbar, London")},
-    {time:"Diner", start:"18:00", end:"20:30", icon:"\u{1F37D}️", title:"Nog te kiezen", sub:"Opties staan hieronder bij Eten & drinken", tbd:true, link:"#eten"},
+    {time:"16:30", timeSub:"aftrap", start:"16:30", end:"18:30", icon:"\u{1F37B}", title:"Liverpool v Man City kijken", sub:"Leadbelly's Bar & Kitchen · we kijken de wedstrijd hier", maps:"https://www.google.com/maps/place/Leadbelly's+Bar+%26+Kitchen/@51.4982479,-0.0512867,828m/data=!3m2!1e3!4b1!4m6!3m5!1s0x48760320c13f4a13:0xb60b0f28348bcc43!8m2!3d51.4982446!4d-0.0487064!16s%2Fg%2F11c5zsm8r8"},
+    {time:"Diner", start:"18:30", end:"20:30", icon:"\u{1F37D}️", title:"Nog te kiezen", sub:"Opties staan hieronder bij Eten & drinken", tbd:true, link:"#eten"},
   ]},
   {id:"ma", date:"2026-10-12", dow:"Maandag", num:"12", title:"Naar huis", events:[
     {time:"± 08:00", start:"08:00", end:"11:00", icon:"\u{1F9F3}", title:"Vertrek naar Stansted", sub:"Op tijd weg voor de vlucht van 12:00"},
