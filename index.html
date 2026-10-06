@@ -764,7 +764,7 @@
             <li>30 cm breed</li>
             <li>20 cm diep</li>
           </ul>
-          <p class="bag-note">Moet onder de stoel voor je passen. Is je tas groter, dan betaal je bij aan de gate.</p>
+          <p class="bag-note">Koffers wegen maximaal 10 kg en gaan als ruimbagage mee (checked-in). De bagage-incheckbalie sluit 40 minuten voor vertrek, dus op tijd zijn.</p>
         </div>
       </div>
 
@@ -905,6 +905,7 @@ const DAYS = [
         ["\u{1F686}", "Overground (Windrush line) vanaf Surrey Quays of Canada Water richting West Croydon, uitstappen op Norwood Junction, dan ±15 min lopen"],
       ],
       info:"https://www.santosfootballplanet.nl/europa/engeland/londen/selhurst-park/"}},
+    {time:"Later", start:"16:30", end:"18:00", icon:"\u{1F37B}", title:"Liverpool v Man City kijken", sub:"Leadbelly Sportbar · we kijken de wedstrijd hier", maps:gmaps("Leadbelly Sportbar, London")},
     {time:"Diner", start:"18:00", end:"20:30", icon:"\u{1F37D}️", title:"Nog te kiezen", sub:"Opties staan hieronder bij Eten & drinken", tbd:true, link:"#eten"},
   ]},
   {id:"ma", date:"2026-10-12", dow:"Maandag", num:"12", title:"Naar huis", events:[
@@ -926,7 +927,7 @@ const CHECKLIST = [
   {id:"eta", html:"<a href=\"https://www.gov.uk/eta\" target=\"_blank\" rel=\"noopener noreferrer\">ETA</a> aangevraagd (£20)"},
   {id:"checkin-heen", html:"Ingecheckt voor de heenvlucht<small>Ryanair-app · zonder gekozen stoel kan het vanaf wo 7 okt 21:10</small>"},
   {id:"checkin-terug", html:"Ingecheckt voor de terugvlucht<small>Zonder gekozen stoel kan het vanaf zo 11 okt 12:00 (Londense tijd)</small>"},
-  {id:"tas", html:"Tas past binnen 40 × 30 × 20 cm"},
+  {id:"tas", html:"Koffer max. 10 kg<small>Ruimbagage · inchecken sluit 40 min voor vertrek</small>"},
   {id:"tickets", html:"Wedstrijdtickets op je telefoon<small>West Ham, Watford en Crystal Palace</small>"},
 ];
 
@@ -1017,6 +1018,7 @@ function renderMatchStrip(){
 function eventLinks(e){
   const links = [];
   const p = e.place && PLACES[e.place];
+  if(!p && e.maps) links.push(`<a class="text-link" href="${e.maps}" target="_blank" rel="noopener noreferrer">\u{1F4CD} Google Maps ↗</a>`);
   if(p) links.push(`<a class="text-link" href="${p.maps}" target="_blank" rel="noopener noreferrer">\u{1F4CD} Google Maps ↗</a>`);
   if(e.match && e.match.info) links.push(`<a class="text-link" href="${e.match.info}" target="_blank" rel="noopener noreferrer">Club &amp; stadion info ↗</a>`);
   if(e.link) links.push(`<a class="text-link" href="${e.link}">Bekijk de opties ↓</a>`);
